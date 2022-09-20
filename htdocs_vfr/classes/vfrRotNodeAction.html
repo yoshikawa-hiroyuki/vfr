@@ -1,0 +1,88 @@
+<title>class vfrRotNodeAction</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrRotNodeAction</h2>
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li><a href="vfrAction.html">vfrAction</a>
+ <ul>
+ <li>vfrRotNodeAction
+ </ul>
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrDefaultActions.h"
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+<p>
+
+<hr>
+
+<h3>Public Methods / Variables</h3>
+
+<dl>
+<dt>void <a name="execute">execute</a>(<a href="vfrEvent.html">vfrEvent</a>& ev)
+<dd>仮想イベントに対してアクション(イベントハンドラ)を実行する
+<dd> ev		仮想イベント
+<p>
+<dt>static <a href="vfrRotNodeAction.html">vfrRotNodeAction</a>& <a name="instance">instance</a>()
+<dd>vfrRotNodeActionクラスの(唯一の)インスタンスを取得する
+<br>(スタティックメソッド)
+</dl>
+
+<hr>
+<h3>Description</h3>
+
+vfrRotNodeActionクラスは、
+マウスドラッギングに対応して、選択されたノードの回転を行う
+<a href="vfrDefaultActions.html#Default_Actions">デフォルトアクション</a>のクラスである。
+<p>
+vfrRotNodeActionクラスのインスタンスはプログラム内で1つだけ存在し、
+その取得には<a href="#instance">instance()</a>メソッドを用いる。
+
+<hr>
+
+<h4>Behavior</h4>
+
+vfrRotNodeActionクラスは、<a href="#execute">execute()</a>メソッドがコールされると、
+以下の動作を行う。
+<ul>
+<li>パスされた仮想イベントから、マウス位置およびマウス移動量を取得する
+<li>選択されたノードがある場合、マウス移動量に応じて、選択ノードを回転させる
+</ul>
+
+これらの動作は、以下のコードで実装されている。
+<pre>
+void
+vfrRotNodeAction::execute(vfrEvent& e) {
+  vfrScreen* screen = (vfrScreen*)e.getScreen();
+  if ( ! screen ) return;
+  vfrNode* selectedNode = vfrDefaultActions::GetSelectedNode();
+  if ( ! selectedNode ) return;
+  screen->rotateNode(selectedNode->getID(), e.getMPoint(), e.getMMove());
+}
+</pre>
+
+<hr width="100%" noshade>
+<table width="100%">
+<tr>
+<td align="right">
+<font size="1">Copyright(c) 2005 RIKEN</font></td>
+</tr>
+</table>
+</body>

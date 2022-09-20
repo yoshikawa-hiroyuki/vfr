@@ -1,0 +1,45 @@
+#
+
+G = -O2
+
+include ../sg/make.osx
+
+VFRLIBDIR=../sg
+
+INC = -I. -I../sg -I../util
+CFLAGS = $(INC) $(G) $(PICFLAG) $(CFOPT) -DNDEBUG
+CXXFLAGS = $(CFLAGS) `wx-config --cxxflags`
+LDLIBS = `wx-config --libs core,base,gl`
+LDFLAGS = $(CFLAGS)
+
+OBJS = vfrDrawAreaWx.o vfrImageReaderWx.o
+
+XOPTNAME = Wx
+LIB_DYNAMIC = libvfr$(XOPTNAME)$(STYLE).dylib
+LIB_STATIC = libvfr$(XOPTNAME)$(STYLE).a
+
+
+all : lib
+
+lib : $(LIB_DYNAMIC) $(LIB_STATIC)
+
+$(LIB_DYNAMIC) : $(OBJS)
+	$(CXX) $(LDFOPT) $(LDFLAGS) -o $@ $(OBJS) -L../sg $(VFR_DLIB) $(LDLIBS)
+
+$(LIB_STATIC) : $(OBJS)
+	ar -curv $@ $(OBJS)
+	$(RANLIB) $@
+
+
+clean :
+	$(RM) *.o *~ a.out core
+
+depend:
+	$(DEPEND) vfr*.[hC]
+
+install: $(LIB_STATIC)
+	install -d ../dist/lib
+	install $(LIB_STATIC) ../dist/lib
+
+# DO NOT DELETE
+

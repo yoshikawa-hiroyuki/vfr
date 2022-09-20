@@ -1,0 +1,39 @@
+#
+# make.include for MacOSX / GNU C++ Compiler
+
+# GL section
+GLINC = -framework OpenGL
+GLLIB = -framework OpenGL
+
+# LIBS for ImageReader
+IMGINC = 
+IMGLIB = 
+
+# CL/LD section
+RUNPATH = 
+PICFLAG = -fPIC
+LDFOPT = $(G) -dynamiclib
+CXX = `wx-config --cxx`
+RM = rm -f
+DEPEND = makedepend -Y
+RANLIB = ranlib
+
+# misc
+STYLE = 
+CFOPT = 
+
+# rules
+.SUFFIXES: .o .C
+
+.C.o :
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+# libvfr
+OPTNAME = 
+DYNAMIC_LIBVFR = libvfr$(OPTNAME)$(STYLE).dylib
+STATIC_LIBVFR = libvfr$(OPTNAME)$(STYLE).a
+
+VFR_DLIB = $(RUNPATH) -L$(VFRLIBDIR) -lvfr$(OPTNAME)$(STYLE)
+VFR_SLIB = $(VFRLIBDIR)/$(STATIC_LIBVFR)
+
+#EOF

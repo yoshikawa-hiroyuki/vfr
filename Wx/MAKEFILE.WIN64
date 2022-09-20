@@ -1,0 +1,40 @@
+#
+# MAKEFILE for vfrWx library
+#
+
+WXDIR = c:/wxWidgets-3.0.4
+
+CFLAGS = /D_WINDOWS /DWINDOWS /W3 /GR /MD \
+ /O1 /DNDEBUG /FD /EHsc \
+ /I../sg /I../util /I$(WXDIR)/include /I$(WXDIR)/lib/vc_x64_lib/mswu
+
+
+OBJS = vfrDrawAreaWx.obj vfrImageReaderWx.obj
+RES = vfr.res
+TARGET = vfrWx.lib vfr.res
+
+CXX = cl -nologo -c
+AR = lib /NOLOGO
+LINK = link
+LDFLAGS = /OPT:REF /NOLOGO /INCREMENTAL:NO \
+ /SUBSYSTEM:WINDOWS /MACHINE:X64 \
+ /NODEFAULTLIB:LIBC.lib /FORCE:MULTIPLE
+
+.SUFFIXES: .cpp .obj .rc .res
+
+.cpp.obj:
+	$(CXX) $(CFLAGS) $<
+
+.rc.res:
+	RC $<
+
+all : $(TARGET)
+
+vfrWx.lib : $(OBJS)
+	$(AR) -out:$@ $** 
+
+clean : 
+	-@erase *.obj
+
+distclean : clean
+	-@erase $(TARGET) Test.exe vc*.*

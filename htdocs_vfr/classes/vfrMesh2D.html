@@ -1,0 +1,141 @@
+<title>class vfrMesh2D</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrMesh2D</h2>
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li><a href="vfrBase.html">vfrBase</a>
+<ul>
+<li><a href="vfrNode.html">vfrNode</a>
+<ul>
+<li>vfrMesh2D
+</ul>
+</ul>
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrMesh2D.h"
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+
+<dl>
+<dt>vfrMesh2D(const std::string& name <i><a href="vfrNode.html#VFR_NONAME">VFR_NONAME</a></i>, const <a href="vfrDefs.html#Bool">Bool</a> mode<i>= FALSE</i>)
+<dd>サイズが 0×0 のvfrMesh2Dオブジェクトをインスタンスする。
+<dd> name  オブジェクト名
+<dd> mode  自己破壊モード
+<p>
+<dt>vfrMesh2D(const int m, const int n, const std::string& name <i><a href="vfrNode.html#VFR_NONAME">VFR_NONAME</a></i>, const <a href="vfrDefs.html#Bool">Bool</a> mode<i>= FALSE</i>)
+<dd>サイズが(m)×(n)のvfrMesh2Dオブジェクトをインスタンスする。
+<br>サイズが 2×2 よりも小さい場合、0×0 に設定される。
+<dd> m  メッシュサイズ
+<dd> n  メッシュサイズ
+<dd> name  オブジェクト名
+<dd> mode  自己破壊モード
+<p>
+<dt>vfrMesh2D(const <a href="vfrDefs.html#Point2">Point2</a> s, const std::string& name <i><a href="vfrNode.html#VFR_NONAME">VFR_NONAME</a></i>, const <a href="vfrDefs.html#Bool">Bool</a> mode<i>= FALSE</i>)
+<dd>サイズが(s.x)×(s.y)のvfrMesh2Dオブジェクトをインスタンスする。
+<br>サイズが 2×2 よりも小さい場合、0×0 に設定される。
+<dd> s  メッシュサイズ
+<dd> name  オブジェクト名
+<dd> mode  自己破壊モード
+<p>
+<dt>virtual ~vfrMesh2D()
+<dd>vfrMesh2Dオブジェクトを破壊する。
+</dl>
+
+<hr>
+
+<h3>public methods / variables</h3>
+
+<dl>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	<a name="generateNormals">generateNormals</a>()
+<dd><a href="vfrDefs.html#AppearType">法線ベクトルタイプ</a>
+に応じ、<a href="vfrNode.html#alcNormals">法線ベクトルが確保</a>され自動計算される。成功すると<i>TRUE</i>を返す。
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	<a name="setMeshSize">setMeshSize</a>(const <a href="vfrDefs.html#Point2">Point2</a> s)
+<dd>メッシュサイズを設定する。
+<br>指定されたサイズの<a href="vfrNode.html#alcVerts">頂点が確保</a>される。成功すると<i>TRUE</i>を返す。
+<br>サイズが 2×2 よりも小さい場合、0×0 に設定される。
+<dd> s		メッシュサイズ(s.x)×(s.y)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	setMeshSize(const int m, const int n)
+<dd>メッシュサイズを設定する。
+<br>指定されたサイズの<a href="vfrNode.html#alcVerts">頂点が確保</a>される。成功すると<i>TRUE</i>を返す。
+<br>サイズが 2×2 よりも小さい場合、0×0 に設定される。
+<dd> m		メッシュサイズ(i方向)
+<dd> n		メッシュサイズ(j方向)
+<p>
+<dt><a href="vfrDefs.html#Point2">Point2</a>	<a name="getMeshSize">getMeshSize</a>() const
+<dd>メッシュサイズを返す
+<p>
+<dt>void	<a name="renderFeedBack">renderFeedBack</a>(const unsigned int tid)
+<dd>フィードバックテストレンダリングを行う
+<dd> tid	ターゲットID
+<p>
+<dt>GLsizei	<a name="getFeedbackSize">getFeedbackSize</a>() const
+<dd>フィードバックバッファのサイズを返す
+</dl>
+
+<hr>
+
+<h3>Description</h3>
+
+vfrMesh2Dクラスは、2次元のメッシュを表現するオブジェクトクラスである。<br>
+指定された<a href="#setMeshSize">サイズ</a>がM×Nの場合、
+与えられた<a href="vfrNode.html#alcVerts">頂点集合</a>を(M×N)の格子配列とみなし、
+4格子点で構成される四角形を(M-1)×(N-1)個描画する。
+<p>
+vfrMesh2Dクラスは非直交不等間隔格子(<i>Irregular Mesh</i>)であり、
+各頂点には3次元の座標が指定できる。
+<p>
+vfrMesh2Dオブジェクトは、サイズを指定する形態でしか
+インスタンスを<a href="#constructor">作成</a>する事はできない。
+
+<hr>
+
+<h4>Feedback</h4>
+
+フィードバックテストにおいて、vfrMesh2Dオブジェクトは
+<a href="vfrDefs.html#FeedbackType">フィードバックモード</a>属性に応じ、
+以下のような結果を返す。
+
+<dl>
+<dt><i>FB_VERTEX</i>
+<dd>登録されている頂点順に0から付番された番号でフィードバックテストの結果を返す。
+<p>
+<dt><i>FB_FACE</i>
+<dd><i>Fig.1</i>に示す順序で面に0から(M-1)×(N-1)-1まで付番された番号で
+フィードバックテストの結果を返す。
+<center><img src="mesh2D_face_fig.gif" width="498" height="294"></center>
+<p>
+<dt><i>FB_EDGE</i>
+<dd><i>Fig.2</i>に示す順序でエッジ(辺)に0から付番された番号でフィードバックテストの結果を返す。
+<center><img src="mesh2D_edge_fig.gif" width="509" height="300"></center>
+横線の辺番号は 0 〜 (M-1)×N -1 、
+縦線の辺番号は (M-1)×N 〜 (M-1)×N + M×(N-1) -1 である。
+</dl>
+
+<hr width="100%" noshade>
+<table width="100%">
+<tr>
+<td align="right">
+<font size="1">Copyright(c) 2005 RIKEN
+</font></td>
+</tr>
+</table>
+</body>

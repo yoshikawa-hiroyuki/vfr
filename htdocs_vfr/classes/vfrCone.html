@@ -1,0 +1,137 @@
+<title>class vfrCone</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrCone</h2>
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li><a href="vfrBase.html">vfrBase</a>
+<ul>
+<li><a href="vfrNode.html">vfrNode</a>
+<ul>
+<li>vfrCone
+</ul>
+</ul>
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrCone.h"
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+
+<dl>
+<dt>vfrCone(const std::string& name <i><a href="vfrNode.html#VFR_NONAME">VFR_NONAME</a></i>, const <a href="vfrDefs.html#Bool">Bool</a> mode <i>= FALSE</i>)
+<dd>デフォルトサイズ(底面半径0.5, 高さ1.0)、デフォルトの再分割数(2回)のvfrConeオブジェクトを
+インスタンスする。
+<dd> name  オブジェクト名
+<dd> mode  自己破壊モード
+<p>
+<dt>vfrCone(const float r, const float h, const std::string& name <i><a href="vfrNode.html#VFR_NONAME">VFR_NONAME</a></i>, const <a href="vfrDefs.html#Bool">Bool</a> mode <i>= FALSE</i>)
+<dd>指定された底面半径(r)、高さ(h)のvfrConeオブジェクトをインスタンスする。
+<dd> r   底面半径
+<dd> h   高さ
+<dd> name  オブジェクト名
+<dd> mode  自己破壊モード
+<p>
+<dt>virtual ~vfrCone()
+<dd>vfrConeオブジェクトを破壊する。
+</dl>
+
+<hr>
+
+<h3>public methods / variables</h3>
+
+<dl>
+<dt>void <a name="setRadius">setRadius</a>(const float r)
+<dd>底面半径を設定する。
+<dd> r		底面半径(デフォルト: 0.5)
+<p>
+<dt>void <a name="setHeight">setHeight</a>(const float h)
+<dd>高さを設定する。
+<dd> h		高さ(デフォルト: 1.0)
+<p>
+<dt>void <a name="setSubdiv">setSubdiv</a>(const int div)
+<dd>再分割数を設定する。
+<dd> div	再分割数(デフォルト: 2)
+<p>
+<dt>float <a name="getRadius">getRadius</a>() const
+<dd>底面半径を返す。
+<p>
+<dt>float <a name="getHeight">getHeight</a>() const
+<dd>高さを返す。
+<p>
+<dt>void <a name="setShowBottom">setShowBottom</a>(<a href="vfrDefs.html#Bool">Bool</a> sb)
+<dd>底面表示モードを設定する
+<dd> sb  底面表示モード
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="showBottom">showBottom</a>() const
+<dd>底面表示モードを返す
+</dl>
+
+<hr>
+
+<h3>Description</h3>
+
+vfrConeクラスは、円錐を表すオブジェクトクラスである。<br>
+半径(radius)と高さ(height)が指定されたとき、
+以下のような円錐をレンダリングする。
+
+<center>
+<img src="cone_fig.gif" width="277" height="263" alt="CONE">
+</center>
+
+<p>
+vfrConeオブジェクトは、<a href="vfrDefs.html#RenderType">レンダリングモード</a>が
+<i>RT_POINT</i>の場合、ローカル座標系の原点位置に一点のみ
+ポイントレンダリングを行う。
+
+<hr>
+
+<h4>Subdivision</h4>
+
+vfrConeオブジェクトは四角錐を基本形状とし、底面の一辺を2つに分割する操作を
+再帰的に繰り返すことによって円錐を表現する。<br>
+再分割操作を何回繰り返すかは<a href="#setSubdiv">setSubdiv()</a>メソッドで
+指定する。
+
+<hr>
+
+<h4>Feedback</h4>
+
+vfrConeオブジェクトはローカル座標系の原点の頂点情報しか持たない。
+そのため、フィードバックテストにおいては、
+<a href="vfrDefs.html#FeedbackType">フィードバックモード</a>属性に応じ、
+以下のような結果を返す。
+
+<dl>
+<dt><i>FB_VERTEX</i>
+<dd>ローカル座標系の原点がフィードバックテストに合格したとき、
+頂点数 1、頂点番号 0 を返す。
+<p>
+<dt><i>FB_FACE, FB_EDGE</i>
+<dd>フィードバックテストは常に合格数 0 を返す。
+</dl>
+
+<hr noshade>
+<table width="100%">
+<tr>
+<td align="right">
+<font size="1">Copyright(c) 2005 RIKEN
+</font></td>
+</tr>
+</table>
+</body>

@@ -1,0 +1,176 @@
+<title>class vfrGroup</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrGroup</h2>
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li><a href="vfrBase.html">vfrBase</a>
+<ul>
+<li><a href="vfrNode.html">vfrNode</a>
+<ul>
+<li>vfrGroup
+</ul>
+</ul>
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrGroup.h"
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+
+<dl>
+<dt>vfrGroup(const std::string& name <i><a href="vfrNode.html#VFR_NONAME">VFR_NONAME</a></i>, const <a href="vfrDefs.html#Bool">Bool</a> mode <I>= FALSE</I>)
+<dd>空のvfrGroupオブジェクトをインスタンスする。
+<dd> name  オブジェクト名
+<dd> mode  自己破壊モード
+<p>
+<dt>virtual ~vfrGroup()
+<dd>vfrGroupオブジェクトを破壊する。
+</dl>
+
+<hr>
+
+<h3>public methods / variables</h3>
+
+<dl>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="addChild">addChild</a>(<a href="vfrNode.html">vfrNode</a>* c)
+<dd>子供のオブジェクトを追加し、結果を返す(有効: <i>TRUE</i>)。
+<dd> c		追加する子供オブジェクト
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="remChild">remChild</a>(<a href="vfrNode.html">vfrNode</a >*c)
+<dd>指定されたオブジェクトを子供のオブジェクトリストから削除する。
+<br>子供のオブジェクトリストに削除指定オブジェクトが見つかればリストから削除し、<i>TRUE</i>を返す。
+<dd> c		削除指定オブジェクト
+<p>
+<dt><a href="vfrNode.html">vfrNode</a>* <a name="getChild">getChild</a>(const int order)
+<dd>指定されたリスト番号の子供オブジェクトへのポインタを返す。
+<br>リスト番号は、子供オブジェクトリストの登録番号であり、オブジェクトIDとは異る。
+<br>指定されたリスト番号が無効の場合、<i>NULL</i>を返す。
+<dd>order	リスト番号
+<p>
+<dt>int		<a name="getNumChildren">getNumChildren</a>() const
+<dd>子供オブジェクトの数を返す。
+<p>
+<dt><a href="vfrNode.html">vfrNode</a>* <a name="getObj">getObj</a>(const unsigned int id)
+<dd>オブジェクトIDで自分自身を含む配下のオブジェクトを検索する。
+<dd>id	検索対象のオブジェクト名
+<p>
+<dt><a href="vfrNode.html">vfrNode</a>* getObj(const char* name)
+<dd>オブジェクト名で、自分自身を含む配下のオブジェクトを検索する。
+<dd>name	検索対象のオブジェクト名
+<dt><a href="vfrDefs.html#Bool">Bool</a>    <a name="accumMatrix">accumMatrix</a>(const unsigned int id, <a href="vfrMatrix.html">vfrMatrix</a> &m) const
+<dd>自分自身を含む配下のオブジェクトの累積幾何変換行列を計算する
+<dd> id     対象オブジェクトのオブジェクトID番号
+<dd> m      累積幾何変換行列
+<p>
+</dl>
+
+<hr>
+
+<h3>Description</h3>
+
+vfrGroupクラスは、複数の<a href="#addChild">子供のオブジェクト</a>を持つ事ができる
+グルーピングオブジェクトのクラスである。
+
+<hr>
+
+<a name="Scene_Tree"><h4>Scene Tree</h4></a>
+
+vfrGroupクラスは複数の<a href="#addChild">子供のオブジェクト</a>を持つ事ができる。<br>
+子供のオブジェクトには更にvfrGroupオブジェクトを設定する事ができ、
+シーンツリー(<i>Fig.1</i>)を構成する。
+
+<center>
+<img src="branch_scene_tree.gif" width="367" height="237" alt="Fig.1 Scene Tree">
+<br><i>Fig.1 Scene Tree</i>
+</center>
+
+<p>
+vfrGroupオブジェクトは、<a href="vfrNode.html">vfrNode</a>と同様にローカル座標系の定義を行うが、
+vfrGroupオブジェクトに幾何変換が施されると、全ての子供のオブジェクトがその影響を受ける。
+<p>
+以下のような親子関係のシーンツリーを例にとる。
+<b>
+<dl>
+ <dd>Scene0
+ <dl>
+  <dd>→Branch1
+  <dl>
+   <dd>→Branch2
+   <dl>
+    <dd>→Object3
+   </dl>
+  </dl>
+ </dl>
+</dl>
+</b>
+<b>Scene0, Branch1, Branch2, Object3</b>の
+<a href="vfrMatrix.html#matrix4">幾何変換行列</a>をそれぞれ[<b>M0</b>],[<b>M1</b>],[<b>M2</b>],[<b>M3</b>]と
+する場合、レンダリング時にはObject3の頂点座標(<b>v0</b>)に対して以下のような幾何変換が施される。
+<pre>
+  <b>v</b> = [<b>M0</b>][<b>M1</b>][<b>M2</b>][<b>M3</b>]<b>v0</b>
+</pre>
+
+<p>
+シーンツリーは、<a href="vfrMaterial.html">マテリアル</a>の参照にも
+影響を与える(<a href="vfrMaterial.html#MaterialStack">マテリアルスタック参照</a>)。
+
+<hr>
+
+<h4>Bounding Box</h4>
+
+vfrGroupオブジェクトのバウンディングボックスは、子供のオブジェクトの
+バウンディングボックスをもとに計算される。<br>
+バウンディングボックスは、vfrGroupオブジェクトのローカル座標系における各軸方向に
+子供のオブジェクトのバウンディングボックスの存在範囲を計算し、
+バウンディングボックスのサイズを決定する(<i>Fig.2</i>)。
+
+<center>
+<img src="branch_Bbox.gif" width="384" height="278" alt="Fig.2 Bounding Box of vfrGroup">
+<br><i>Fig.2 Bounding Box of vfrGroup</i>
+</center>
+
+<hr>
+
+<h4>Selection</h4>
+
+vfrGroupオブジェクトを含むシーンツリーに対してセレクションテストが行われた時、
+vfrGroupオブジェクトがセレクションテストに合格するかどうかは子供のオブジェクトの
+<a href="vfrNode.html#setPickMode">ピッキングモード</a>によって異る。
+<p>
+ピックされた子供のオブジェクトのピッキングモードが<i>TRUE</i>である場合、
+vfrGroupオブジェクトはセレクションテストには合格しない。
+<p>
+ピックされた子供のオブジェクトのピッキングモードが<i>FALSE</i>である場合、
+vfrGroupオブジェクトはセレクションテストに合格し、セレクションバッファには
+vfrGroupオブジェクトのIDが格納される。
+
+<hr>
+
+<h4>Feedback</h4>
+
+vfrGroupオブジェクトはフィードバックテストに対し、常に不合格となる。
+
+<hr noshade>
+<table width="100%">
+<tr>
+<td align="right"><font size="1">Copyright(c) 2005 RIKEN
+</font></td>
+</tr>
+</table>
+</body>

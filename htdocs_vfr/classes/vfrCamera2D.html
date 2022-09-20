@@ -1,0 +1,104 @@
+<title>class vfrCamera2D</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrCamera2D</h2>
+
+<ul>
+<li><a href="vfrBase.html">vfrBase</a>
+<ul>
+<li><a href="vfrCamera.html">vfrCamera</a>
+<ul>
+<li>vfrCamera2D
+</ul>
+</ul>
+</ul>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrCamera2D.h"
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+
+<dl>
+<dt>vfrCamera2D(const <a href="vfrDefs.html#Bool">Bool</a> mode <i>= FALSE</i>)
+<dd>デフォルト設定のvfrCamera2Dオブジェクトをインスタンスする。
+<dd> mode	<a href="vfrBase.html#setSuicide">自己破壊モード</a>
+<p>
+<dt>virtual ~vfrCamera2D()
+<dd>vfrCamera2Dオブジェクトを破壊する。
+</dl>
+
+<hr>
+
+<h3>public methods / variables</h3>
+
+<dl>
+<dt>void <a name="dragRot">dragRot</a>(const int dx, const int dy)
+<dd>マウスドラッグに対する視界回転操作を行うインターフェース
+<br>実際には、何も行わない
+<dd> dx         マウス移動量(X成分)
+<dd> dy         マウス移動量(Y成分)
+<p>
+<dt>void <a name="dragTrans">dragTrans</a>(const float dx, const float dy)
+<dd>マウスドラッグに対する上下左右の視界平行移動操作を行う
+<dd> dx         マウス移動量(X成分)
+<dd> dy         マウス移動量(Y成分)
+<p>
+<dt>void <a name="dragTransZ">dragTransZ</a>(const float dx, const float dy)
+<dd>マウスドラッグに対する前後の視界平行移動操作を行う
+<dd> dx         マウス移動量(X成分)
+<dd> dy         マウス移動量(Y成分)
+<p>
+<dt>virtual <a href="vfrDefs.html#Bool">Bool</a> <a name="sweepZoom">sweepZoom</a>(const <a href="vfrDefs.html#Point2">Point2</a> p0, const <a href="vfrDefs.html#Point2">Point2</a> p1)
+<dd>指定された2点を対角線とする矩形領域が視界全体になるようにズームする
+<dd> p0         矩形領域の頂点
+<dd> p1         矩形領域の頂点
+<p>
+<dt>void <a name="rotx">rotx</a>(const float dr)
+<dd>視界のX軸周りの回転のインターフェース
+<br>実際には、何も行わない
+<dd> dr         回転角度
+<p>
+<dt>void <a name="roty">roty</a>(const float dr)
+<dd>視界のY軸周りの回転のインターフェース
+<br>実際には、何も行わない
+<dd> dr         回転角度
+<p>
+<dt>void <a name="rotz">rotz</a>(const float dr)
+<dd>視界のZ軸周りの回転のインターフェース
+<br>実際には、何も行わない
+<dd> dr         回転角度
+<p>
+<dt>void <a name="rotation">rotation</a>(const float dr, <a href="vfrDefs.html#vector3">vector3</a> ax)
+<dd>視界の任意軸周りの回転のインターフェース
+<br>実際には、何も行わない
+<dd> dr         回転角度
+<dd> ax         回転軸
+<p>
+</dl>
+
+<hr>
+
+<h3>Description</h3>
+
+vfrCamera2Dクラスは、2次元の幾何変換機能(平行移動、拡大縮小)のみを実装した
+<a href="vfrCamera.html">カメラ</a>のサブクラスである。<br>
+回転操作は無効化されるように、インターフェースがオーバーライドされている。
+
+<hr width="100%" noshade>
+<table width="100%">
+<tr>
+<td align="right"><font size="1">Copyright(c) 2005 RIKEN</font></td>
+</tr>
+</table>
+</body>

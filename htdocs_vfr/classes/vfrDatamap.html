@@ -1,0 +1,162 @@
+<title>class vfrDatamap</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrDatamap</h2>
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li>vfrDatamap
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrDatamap.h"
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+<dl>
+<dt>vfrDatamap()
+<dd>デフォルト設定のvfrDatamapオブジェクトを生成する
+<blockquote><a name="default">属性の初期値(デフォルト値)</a>:
+<br>色エントリ数 = 2
+<br><table border="1">
+<tr><td><i> <i></td><td>最小値</td><td>最大値</td></tr>
+<tr><td><i>データ値<i></td><td>0.0</td><td>1.0</td></tr>
+<tr><td><i>Hue<i></td><td>0.666667</td><td>0.0</td></tr>
+<tr><td><i>Saturation<i></td><td>1.0</td><td>1.0</td></tr>
+<tr><td><i>Value<i></td><td>1.0</td><td>1.0</td></tr>
+<tr><td><i>Alpha<i></td><td>1.0</td><td>1.0</td></tr>
+</table></blockquote>
+<p>
+<dt>vfrDatamap(const float min, const float max)
+<dd>最小値=min、最大値=max, 色エントリ数=2 のvfrDatamapオブジェクトを生成する
+<p>
+<dt>vfrDatamap(const int nc, const float* h, const float* s, const float* v, const float* a)
+<dd>色エントリを指定してvfrDatamapオブジェクトを生成する
+<dd> nc  色エントリ数
+<dd> h   hue成分(nc個)
+<dd> s   sat成分(nc個)
+<dd> v   val成分(nc個)
+<dd> a   alp成分(nc個)
+<p>
+<dt>vfrDatamap(const <a href="vfrDatamap.html">vfrDatamap</a>& org)
+<dd>コピーコンストラクタ
+<dd> org  コピー元のvfrDatamapオブジェクト
+<p>
+<dt>virtual ~vfrDatamap()
+<dd>vfrDatamapオブジェクトを破壊する
+</dl>
+
+<hr>
+
+<h3>Public Methods / Variables</h3>
+
+<dl>
+<dt>void    <a name="equal">operator=</a>(const vfrDatamap& org)
+<dd>代入オペレータ
+<dd> org 代入元のvfrDatamapオブジェクト
+<p>
+<dt>void    <a name="setMinMax">setMinMax</a>(const float min, const float max)
+<dd>最小値、最大値を設定する
+<dd> min	最小値
+<dd> max	最大値
+<p>
+<dt>float <a name="getMin">getMin</a>() const
+<dd>最小値を返す
+<p>
+<dt>float <a name="getMax">getMax</a>() const
+<dd>最大値を返す
+<p>
+<dt>int <a name="getNumCol">getNumCol</a>() const
+<dd>色エントリ数を返す
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="setHue">setHue</a>(const int ne, const float h)
+<dd>指定した色エントリのHue(色相)を設定する。成功すれば<i>TRUE</i>を返す。
+<dd> ne	 色エントリ番号
+<dd> h 	 対応する色相(0.0 〜 1.0)
+<p>
+<dt>const float* <a name="getHue">getHue</a>() const
+<dd>Hue(色相)リストを返す
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="setSat">setSat</a>(const int ne, const float s)
+<dd>指定した色エントリのSaturation(彩度)を設定する。成功すれば<i>TRUE</i>を返す。
+<dd> ne  色エントリ番号
+<dd> s   対応する彩度(0.0 〜 1.0)
+<p>
+<dt>const float* <a name="getSat">getSat</a>() const
+<dd>Saturation(彩度)リストを返す
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="setVal">setVal</a>(const int ne, const float v)
+<dd>指定した色エントリのValue(明度)を設定する。成功すれば<i>TRUE</i>を返す。
+<dd> ne  色エントリ番号
+<dd> v   対応する明度(0.0 〜 1.0)
+<p>
+<dt>const float* <a name="getVal">getVal</a>() const
+<dd>Value(明度)リストを返す
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="setAlp">setAlp</a>(const int ne, const float a)
+<dd>指定した色エントリのAlpha(透明度)を設定する。成功すれば<i>TRUE</i>を返す。
+<dd> ne  色エントリ番号
+<dd> a   対応する透明度(0.0 〜 1.0)
+<p>
+<dt>const float* <a name="getAlp">getAlp</a>() const
+<dd>Alpha(透明度)リストを返す
+<p>
+<dt>void <a name="datamap">datamap</a>(const float data, <a href="vfrDefs.html#vector4">vector4</a> &rgba) const
+<dd>与えられた値に対する色を取得する
+<dd> data	データ値
+<dd> rgba	データ値に対応する色(<i>RGBA</i>)
+</dl>
+
+<hr>
+<h3>Description</h3>
+
+vfrDatamapクラスは、設定されている最小値と最大値の色から、
+与えられたデータ値に対応する色を計算する機能を実装したクラスである。
+<p>
+vfrDatamapクラスはデータ値の<a href="#setMinMax">最小値、最大値</a>と
+それに対応する<b>HSVA</b>の色値を保持する。<br>
+<a href="#datamap">datamap()</a>メソッドにあるデータ値が与えられると、
+そのデータ値に対応した色値を線形補間で求め、<b>RGBA</b>形式に変換して出力する。
+<p>
+vfrDatamapクラスは、ある物理量を色で表現する場合に、
+同じ値に対して同じ色を割り当てるために使用する。
+
+<hr>
+
+<h4>HSVA Color</h4>
+
+<b>HSVA</b>系の色は、<a href="#setHue">Hue</a>(色相)、
+<a href="#setSat">Saturation</a>(彩度)、<a href="#setVal">Value</a>(明度)および
+<a href="#setAlp">Alpha</a>(透明度)で表現される。<br>
+vfrDatamapクラスが色値を<b>HSVA</b>で保持するのは、データの値域を
+色の単一のパラメータ(特にHue)に全単射できるからである。
+<p>
+<a href="#default">デフォルト設定</a>のvfrDatamapオブジェクトは、
+<i>Fig.1</i>に示すようなカラーマップに対応する。
+
+<center>
+<img src="datamap_colorbar.gif" width="361" height="52"><br>
+<i>Fig.1 Default Colormap</i>
+</center>
+
+<hr noshade>
+<table width="100%">
+<tr>
+<td align="right"><font size="1">Copyright(c) 2005 RIKEN
+</font></td>
+</tr>
+</table>
+</body>

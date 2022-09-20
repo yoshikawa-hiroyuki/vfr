@@ -1,0 +1,46 @@
+#
+# VECOE - 3D Graphics Toolkit -
+#
+#  Copyright(c) FUJITSU NAGANO SYSTEMS ENGINEERING LIMITED
+#               CES Project, 1998-2003,
+#               All Right Reserved.
+#
+
+# make.include for IRIX / MIPSpro Compiler
+
+# GL section
+GLINC = -I/usr/include/GL
+GLLIB = -lGL -lGLU
+
+# LIBS for ImageReader
+IMGINC = 
+IMGLIB = -ltiff -lifl
+
+# CL/LD section
+RUNPATH = -rpath $(VECOELIBDIR)
+PICFLAG = 
+LDFOPT = -shared -all $(G)
+CXX = CC
+RM = rm -f
+DEPEND = makedepend -Y
+RANLIB = echo
+
+# misc
+STYLE = .N32
+CFOPT = -n32 -woff 1682
+
+# rules
+.SUFFIXES: .o .C
+
+.C.o :
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+# libVecoe
+OPTNAME = Core
+DYNAMIC_LIBVECOE = libVecoe$(OPTNAME)$(STYLE).so
+STATIC_LIBVECOE = libVecoe$(OPTNAME)$(STYLE).a
+
+VECOE_DLIB = $(RUNPATH) -L$(VECOELIBDIR) -lVecoe$(OPTNAME)$(STYLE)
+VECOE_SLIB = $(VECOELIBDIR)/$(STATIC_LIBVECOE)
+
+#EOF

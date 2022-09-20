@@ -1,0 +1,51 @@
+#
+
+G = -O2
+
+include ../sg/make.linux
+
+VFRLIBDIR=../sg
+
+INC = -I. -I../sg -I../util
+CFLAGS = $(INC) $(G) $(PICFLAG) $(CFOPT) -DNDEBUG
+CXXFLAGS = $(CFLAGS) `wx-config --cxxflags core,base,gl`
+LDLIBS = `wx-config --libs core,base,gl` -lGL -lGLU -lGLEW
+LDFLAGS = $(CFLAGS)
+
+OBJS = vfrDrawAreaWx.o vfrImageReaderWx.o
+
+XOPTNAME = Wx
+LIB_DYNAMIC = libvfr$(XOPTNAME)$(STYLE).so
+LIB_STATIC = libvfr$(XOPTNAME)$(STYLE).a
+
+
+all : lib
+
+#lib : $(LIB_DYNAMIC) $(LIB_STATIC)
+lib : $(LIB_STATIC)
+
+$(LIB_DYNAMIC) : $(OBJS)
+	$(CXX) $(LDFOPT) $(LDFLAGS) -o $@ $(OBJS) -L../sg $(VFR_DLIB) $(LDLIBS)
+
+$(LIB_STATIC) : $(OBJS)
+	ar -curv $@ $(OBJS)
+	$(RANLIB) $@
+
+install: $(LIB_STATIC)
+	install -d ../dist/lib
+	install $(LIB_STATIC) ../dist/lib
+
+SAMPLE : Test
+
+Test : TestApp.o 
+	$(CXX) $(G) -o $@ TestApp.o -L. -Xlinker -rpath . -lvfr$(XOPTNAME)$(STYLE) \
+		-L../sg $(VFR_DLIB) $(LDLIBS)
+
+clean :
+	$(RM) *.o *~ a.out core
+
+depend:
+	$(DEPEND) vfr*.[hC]
+
+# DO NOT DELETE
+

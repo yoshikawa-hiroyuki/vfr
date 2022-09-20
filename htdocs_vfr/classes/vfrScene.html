@@ -1,0 +1,189 @@
+<title>class vfrScene</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrScene</h2>
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li><a href="vfrBase.html">vfrBase</a>
+<ul>
+<li><a href="vfrNode.html">vfrNode</a>
+<ul>
+<li>vfrScene
+</ul>
+</ul>
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrScene.h"
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+
+<dl>
+<dt>vfrScene(const std::string& name <i><a href="vfrNode.html#VFR_NONAME">VFR_NONAME</a></i>, const <a href="vfrDefs.html#Bool">Bool</a> mode <i>= FALSE</i>)
+<dd>空のvfrSceneオブジェクトをインスタンスする。
+<dd> name  オブジェクト名
+<dd> mode  自己破壊モード
+<p>
+<dt>virtual ~vfrScene()
+<dd>vfrSceneオブジェクトを破壊する。
+</dl>
+
+<hr>
+
+<h3>public methods / variables</h3>
+
+<dl>
+<dt>void render(unsigned int* id <i>= NULL</i>,
+<a href="vfrNode.html#vfrMaterialStack">vfrMaterialStack</a>* mstk <i>= NULL</i>)
+<dt>void render(const <a href="vfrDefs.html#Bool">Bool</a> tm, unsigned int* id <i>= NULL</i>,
+<a href="vfrNode.html#vfrMaterialStack">vfrMaterialStack</a>* mstk <i>= NULL</i>)
+<dd>シーンのレンダリングを行う
+<dd> tm  半透明モード(<i>TRUE</i>=半透明、<i>FALSE</i>=不透明)
+<dd> id  レンダリング対象オブジェクトIDリスト
+<dd> mstk  マテリアルスタック
+<p>
+<dt>void <a name="renderBbox">renderBbox</a>()
+<dd>バウンディングボックスレンダリング
+<br>(ビューフラスタムカリングインターフェース)
+<p>
+<dt>void <a name="renderFeedback">renderFeedback</a>(unsigned int id)
+<dd>フィードバックを実行する
+<dd> id	ターゲットオブジェクトID番号
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="addChild">addChild</a>(<a href="vfrNode.html">vfrNode</a>* c)
+<dd>子供のオブジェクトを追加し、結果を返す(有効: <i>TRUE</i>)。
+<dd> c		追加する子供オブジェクト
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="remChild">remChild</a>(<a href="vfrNode.html">vfrNode</a>* c)
+<dd>指定されたオブジェクトを子供のオブジェクトリストから削除する。
+<br>子供のオブジェクトリストに削除指定オブジェクトが見つかればリストから削除し、<i>TRUE</i>を返す。
+<dd> c		削除指定オブジェクト
+<p>
+<dt><a href="vfrNode.html">vfrNode</a>* <a name="getChild">getChild</a>(const int order)
+<dd>指定されたリスト番号の子供オブジェクトへのポインタを返す。
+<br>リスト番号は、子供オブジェクトリストの登録番号であり、オブジェクトIDとは異る。
+<br>指定されたリスト番号が無効の場合、<i>NULL</i>を返す。
+<dd>order	リスト番号
+<p>
+<dt>int		<a name="getNumChildren">getNumChildren</a>() const
+<dd>子供のオブジェクトの数を返す。
+<p>
+<dt>int		<a name="getNumLights">getNumLights</a>() const
+<dd><a href="vfrLight.html">ライト</a>の数( = <a href="vfrLight.html#VFR_LIGHT_MAX">VFR_LIGHT_MAX</a>)を返す。
+<p>
+<dt><a href="vfrNode.html">vfrNode</a>* <a name="getObj">getObj</a>(const unsigned int id)
+<dd>オブジェクトIDで自分自身を含む配下のオブジェクトおよびライトを検索する。
+<dd>id	検索対象のオブジェクトID番号
+<p>
+<dt><a href="vfrNode.html">vfrNode</a>* getObj(const char* name)
+<dd>オブジェクト名で、自分自身を含む配下のオブジェクトおよびライトを検索する。
+<dd>name	検索対象のオブジェクト名
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	<a name="accumMatrix">accumMatrix</a>(const unsigned int id, <a href="vfrMatrix.html">vfrMatrix</a>& m) const
+<dd>自分自身を含む配下のオブジェクトの累積幾何変換行列を計算する
+<dd> id		対象オブジェクトのオブジェクトID番号
+<dd> m		累積幾何変換行列
+<p>
+<dt><a href="vfrLight.html">vfrLight</a>* <a name="getLight">getLight</a>(const char* lname)
+<dd>名前でライトのアドレスを得る。
+<br>ライト名は"<i>light0</i>", "<i>light1</i>",...と付けられる。
+<dd> lname	ライトの名前
+<p>
+<dt><a href="vfrLight.html">vfrLight</a>* getLight(const int ln)
+<dd>ライト番号でライトのアドレスを得る。
+<br>ライト番号は、0 から順に付番される。
+<dd> ln	ライト番号
+<p>
+<dt>void	<a name="rumor">rumor</a>(<a href="vfrBase.html">vfrBase</a>* ref)
+<dd>インスタンスの破壊通知を受け付ける
+<dd> ref	破壊されるインスタンス
+</dl>
+
+<hr>
+
+<h3>Description</h3>
+
+vfrSceneクラスは、複数の<a href="#addChild">子供のオブジェクト</a>と
+<a href="vfrLight.html">ライティングオブジェクト</a>を持つ事ができる
+グルーピングオブジェクトのクラスである。<br>
+vfrSceneオブジェクトは
+<a href="../features/index.html#OBJECT">シーンツリー</a>(<i>Fig.1</i>)
+のルートとなるオブジェクトである。
+
+<center>
+<img src="branch_scene_tree.gif" width="367" height="237" alt="Fig.1 Scene Tree">
+<br><i>Fig.1 Scene Tree</i>
+</center>
+<p>
+vfrSceneオブジェクトをシーンツリーの途中に連結してはいけない。
+
+<p>
+vfrSceneオブジェクトは、シーンのワールド座標系の定義を行う。<br>
+vfrSceneオブジェクトに幾何変換が施されると、シーンツリー全てが
+その影響を受ける。
+
+<hr>
+
+<h4><a name="Lights">Lights</a></h4>
+
+vfrSceneオブジェクトは、唯一ライト(<a href="vfrLight.html">vfrLightクラス</a>のインスタンス)を
+持つ事ができるオブジェクトである。
+<p>
+vfrSceneオブジェクトはインスタンス時にライトを<a href="vfrLight.html#VFR_LIGHT_MAX">VFR_LIGHT_MAX</a>個作成し、0から順に付番し、"<i>light0</i>"のような名前をつける。
+<br>
+初期状態では 0番目のライトだけ点灯させ、その他のライトは消灯する。
+<p>
+<a href="vfrLight.html">ライト</a>の取得は、vfrSceneクラスの
+<a href="#getLight">getLight()</a>メソッドを用いてのみ行う事ができる。<br>
+実際のライトの操作の手順は、以下のようになる。
+<pre>
+  vfrScene* scene = new vfrScene();	// vfrSceneのインスタンス
+  vfrLight* light0 = scene->getLight(0);	// 0番目のライトの取得
+  light0->setLightType(LT_POINT);	// ライトの操作
+  ....
+</pre>
+
+<hr>
+
+<h4>Bounding Box</h4>
+
+vfrSceneオブジェクトのバウンディングボックスは、
+<a href="vfrNode.html#setBboxShowMode">バウンディングボックスの表示モード</a>の
+設定に関わらず表示されない。
+
+<hr>
+
+<h4>Selection</h4>
+
+vfrSceneオブジェクトは、セレクションテストに対し常に不合格となる。
+
+<hr>
+
+<h4>Feedback</h4>
+
+vfrSceneオブジェクトは、フィードバックテストに対し常に不合格となる。
+
+<hr noshade>
+<table width="100%">
+<tr>
+<td align="right">
+<font size="1">Copyright(c) 2005 RIKEN
+</font></td>
+</tr>
+</table>
+</body>

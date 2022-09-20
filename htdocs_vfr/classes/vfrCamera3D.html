@@ -1,0 +1,150 @@
+<title>class vfrCamera3D</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrCamera3D</h2>
+
+<ul>
+<li><a href="vfrBase.html">vfrBase</a>
+<ul>
+<li><a href="vfrCamera.html">vfrCamera</a>
+<ul>
+<li>vfrCamera3D
+</ul>
+</ul>
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrCamera3D.h"
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+
+<dl>
+<dt>vfrCamera3D(const <a href="vfrDefs.html#Bool">Bool</a> mode <i>= FALSE</i>)
+<dd>デフォルト設定のvfrCamera3Dオブジェクトをインスタンスする。
+<dd> mode  <a href="vfrBase.html#setSuicide">自己破壊モード</a>
+<p>
+<dt>virtual ~vfrCamera3D()
+<dd>vfrCamera3Dオブジェクトを破壊する。
+</dl>
+
+<hr>
+
+<h3>public methods / variables</h3>
+
+<dl>
+<dt>void <a name="setProjection">setProjection</a>(const <a href="vfrDefs.html#ProjectType">ProjectType</a> pm)
+<dd>プロジェクションモードを設定する
+<dd> pm		プロジェクションモード(初期値: <i>PR_PERSPECTIVE</i>)
+<p>
+<dt><a href="vfrDefs.html#ProjectType">ProjectType</a>	<a name="getProjection">getProjection</a>() const
+<dd>プロジェクションモードを返す
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="sweepZoom">sweepZoom</a>(const <a href="vfrDefs.html#Point2">Point2</a> p0, const <a href="vfrDefs.html#Point2">Point2</a> p1)
+<dd>指定された2点を対角線とする矩形領域が視界全体になるようにズームする
+<br><a href="#setProjection">プロジェクションモード</a>が
+<i>PR_PERSPECTIVE</i>の場合は、矩形領域が視界中央に位置するように平行移動する
+<dd> p0         矩形領域の頂点
+<dd> p1         矩形領域の頂点
+<p>
+<dt>void <a name="setHpr">setHpr</a>(const float h, const float p, const float r)
+<dd>HPR(<i>Head, Pitch, Roll</i>)によるカメラの方向指定を行う
+<dd> h         Head(<i>radian</i>)
+<dd> p         Pitch(<i>radian</i>)
+<dd> r         Roll(<i>radian</i>)
+<p>
+<dt>void <a name="setHprDeg">setHprDeg</a>(const float dh, const float dp, const float dr)
+<dd>HPR(<i>Head, Pitch, Roll</i>)によるカメラの方向指定を行う(Degree指定)
+<dd> dh         Head(<i>degree</i>)
+<dd> dp         Pitch(<i>degree</i>)
+<dd> dr         Roll(<i>degree</i>)
+<p>
+</dl>
+
+<hr>
+
+<h3>Description</h3>
+
+vfrCamera3Dクラスは、3次元の幾何変換機能を実装したカメラのクラスである。
+<br>実質的な機能は、<a href="vfrCamera.html">vfrCamera</a>クラスで実装されている。
+<p>
+vfrCamera3Dクラスは、透視投影と直交投影の両方をサポートしている。
+
+<hr>
+
+<h4>Perspective Projection</h4>
+
+<a href="#setProjection">プロジェクションモード</a>に<i>PR_PERSPECTIVE</i>が指定されると、
+vfrCamera3Dクラスは透視投影を行う。
+<p>
+透視投影では、<a href="vfrFrustum.html">視界パラメータ</a>に応じて、
+以下のような視体積を生成する。
+
+<center>
+<img src="camera3D_perspect.gif" width="405" height="164" alt="Perspective Projection">
+<br><i>Fig.1 Perspective Projection</i>
+</center>
+<p>
+<i>Fig.1</i>において、視点からの距離が near および far のクリップ面で切り取られた
+錐台の内部が視体積になり、この内部に含まれる物体だけがレンダリングされる。
+<p>
+天地(上下)の視野角は fovy で指定し、
+左右の視野角は表示領域のアスペクト比により自動的に決定される。
+
+<hr>
+
+<h4>Orthogonal Projection</h4>
+
+<a href="#setProjection">プロジェクションモード</a>に<i>PR_ORTHOGONAL</i>が指定されると、
+vfrCamera3Dクラスは直交投影を行う。
+<p>
+直交投影では、<a href="vfrFrustum.html">視界パラメータ</a>に応じて、
+以下のような視体積を生成する。
+
+<center>
+<img src="camera3D_orthogonal.gif" width="405" height="155" alt="Orthogonal Projection">
+<br><i>Fig.2 Orthogonal Projection</i>
+</center>
+<p>
+<i>Fig.2</i>において、視点からの距離が near および far のクリップ面で切り取られた
+直方体の内部が視体積になり、この内部に含まれる物体だけがレンダリングされる。
+<p>
+
+<hr>
+
+<h4>HPR Posture</h4>
+
+<a href="#setHpr">HPR指定</a>では、
+与えられた h(<i>head</i>), p(<i>pitch</i>), r(<i>roll</i>) から以下の行列を生成し、
+回転の幾何変換行列に設定する。
+<pre>
+  M = ROT(-r,Z) × ROT(-p,X) × ROT(-h,Y)
+</pre>
+ここで、ROT(a,Z)はZ軸回りにaだけ回転させる行列を意味する。
+
+<center>
+<img src="camera3D_HPR.gif" width="210" height="190" alt="HPR Posture">
+<br><i>Fig.3 HPR Posture</i>
+</center>
+<p>
+尚、HPR指定を行っても、カメラの位置は変更されない。
+
+<hr width="100%" noshade>
+<table width="100%">
+<tr>
+<td align="right"><font size="1">Copyright(c) 2005 RIKEN</font></td>
+</tr>
+</table>
+</body>

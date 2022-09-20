@@ -1,0 +1,297 @@
+<title>class vfrScreen</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrScreen</h2>
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li>vfrScreen
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrScreen.h"
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+
+<dl>
+<dt>vfrScreen()
+<dd>デフォルトのビューポートのvfrScreenオブジェクトを生成する
+<p>
+<dt>vfrScreen(const int x, const int y, const int w, const int h)
+<dd>ビューポートを指定してvfrScreenオブジェクトを生成する
+<p>
+<dt>virtual ~vfrScreen()
+<dd>vfrScreenオブジェクトを破壊する
+</dl>
+
+<hr>
+
+<h3>Public Methods / Variables</h3>
+
+<dl>
+<dt>void	<a name="redraw">redraw</a>()
+<dd>スクリーンの再描画を行う
+<p>
+<dt>void	<a name="rumor">rumor</a>(<a href="vfrBase.html">vfrBase</a> *ref)
+<dd>配下のオブジェクトの破壊通知を受け付ける
+<dd> ref	破壊されるオブジェクト
+<p>
+<dt>void	<a name="notice">notice</a>()
+<dd>描画内容変更通知を行う
+<p>
+<dt>void	<a name="chkNotice">chkNotice</a>()
+<dd>描画内容変更検査を要求する
+<p>
+<dt>void  <a name="setCamera">setCamera</a>(<a href="vfrCamera.html">vfrCamera</a> *c)
+<dd>カメラを登録する。
+<dd> c	カメラのポインタ(<i>NULL</i>の場合、カメラが登録されていない状態になる)
+<p>
+<dt><a href="vfrCamera.html">vfrCamera</a> *<a name="getCamera">getCamera</a>()
+<dd>登録されているカメラを返す
+<p>
+<dt>void	<a name="setParent">setParent</a>(<a href="vfrDrawArea.html">vfrDrawArea</a> da)
+<dd>自分自身が登録されている<a href="vfrDrawArea.html">vfrDrawArea</a>インスタンスを設定する。
+<dd><i>NULL</i>を設定すると、どのvfrDrawAreaにも登録されていない状態として認識される。
+<dd> da	vfrDrawAreaインスタンスのポインタ
+<p>
+<dt><a href="vfrDrawArea.html">vfrDrawArea</a> *<a name="getParent">getParent</a>()
+<dd>自分自身が登録されている<a href="vfrDrawArea.html">vfrDrawArea</a>インスタンスを返す
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>  <a name="isOnScreen">isOnScreen</a>(const <a href="vfrDefs.html#Point2">Point2</a> p)
+<dd><a href="vfrDrawArea.html">描画領域</a>上の一点がスクリーンの領域に含まれるかどうかを判定する。
+<br>含まれる場合は<i>TRUE</i>を返す。
+<dd> p	判定対象の点の座標(ウインドウ座標系)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>  isOnScreen(const int x, const int y)
+<dd><a href="vfrDrawArea.html">描画領域</a>上の一点がスクリーンの領域に含まれるかどうかを判定する。
+<br>含まれる場合は<i>TRUE</i>を返す。
+<dd> x	判定対象の点のX座標(ウインドウ座標系)
+<dd> y	判定対象の点のY座標(ウインドウ座標系)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="setPort">setPort</a>(const int x, const int y, const int w, const int h)
+<dd>ビューポートを設定する。成功すると<i>TRUE</i>を返す。
+<dd> x	ビューポートの基準点のX座標
+<dd> y	ビューポートの基準点のY座標
+<dd> w	ビューポートの幅
+<dd> h	ビューポートの高さ
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> setPort(const <a href="vfrDefs.html#Point2">Point2</a> p0, const <a href="vfrDefs.html#Point2">Point2</a> size)
+<dd>ビューポートを設定する。成功すると<i>TRUE</i>を返す。
+<dd> p0	ビューポートの基準点の座標
+<dd> size	ビューポートのサイズ
+<p>
+<dt>void	<a name="getPort">getPort</a>(GLint *vp)
+<dd>ビューポートを取得する
+<dd> vp	ビューポート格納領域(GLint[4])
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="setPosition">setPosition</a>(const int x, const int y)
+<dd>ビューポートの基準点を設定する
+<dd> x	ビューポートの基準点のX座標
+<dd> y	ビューポートの基準点のY座標
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> setPosition(const <a href="vfrDefs.html#Point2">Point2</a> p0)
+<dd>ビューポートの基準点を設定する
+<dd> p0	ビューポートの基準点の座標
+<p>
+<dt><a href="vfrDefs.html#Point2">Point2</a>	<a name="getPosition">getPosition</a>()
+<dd>ビューポートの基準点の座標を返す
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="setSize">setSize</a>(const int w, const int h)
+<dd>ビューポートのサイズを設定する
+<dd> w	ビューポートの幅
+<dd> h	ビューポートの高さ
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> setSize(const <a href="vfrDefs.html#Point2">Point2</a> size)
+<dd>ビューポートのサイズを設定する
+<dd> size	ビューポートのサイズ
+<p>
+<dt><a href="vfrDefs.html#Point2">Point2</a> <a name="getSize">getSize</a>()
+<dd>ビューポートのサイズを返す
+<p>
+<dt><a href="vfrDefs.html#Point2">Point2</a> <a name="getRelativePoint">getRelativePoint</a>(const <a href="vfrDefs.html#Point2">Point2</a> p)
+<dd><a href="vfrDrawArea.html">描画領域</a>におけるウインドウ座標をスクリーン座標に変換する
+<dd> p	ウインドウ座標
+<p>
+<dt>unsigned int	*<a name="clickSelect">clickSelect</a>(const int cx, const int cy)
+<dd>クリック<a href="vfrCamera.html#Selection_Test">セレクションテスト</a>を行う
+(<a href="vfrCamera.html">カメラ</a>へのインターフェース)
+<dd> cx		クリックポイント(X座標)
+<dd> cy		クリックポイント(Y座標)
+<p>
+<dt>unsigned int	*<a name="sweepSelect">sweepSelect</a>(const int cx, const int cy, const int w, const int h)
+<dd>スウィープ<a href="vfrCamera.html#Selection_Test">セレクションテスト</a>を行う
+(<a href="vfrCamera.html">カメラ</a>へのインターフェース)
+<dd> cx		スウィープセンター(X座標)
+<dd> cy		スウィープセンター(Y座標)
+<dd> w		スウィープサイズ(幅)
+<dd> h		スウィープサイズ(高さ)
+<p>
+<dt>int	*<a name="clickFeedback">clickFeedback</a>(const int cx, const int cy, const unsigned int id)
+<dd>クリック<a href="vfrCamera.html#Feedback_Test">フィードバックテスト</a>を行う
+(<a href="vfrCamera.html">カメラ</a>へのインターフェース)
+<dd> cx		クリックポイント(X座標)
+<dd> cy		クリックポイント(Y座標)
+<dd> id		フィードバックテスト対象のオブジェクトのID
+<p>
+<dt>int	*<a name="sweepFeedback">sweepFeedback</a>(const int cx, const int cy, const int w, const int h, const unsigned int id)
+<dd>スウィープ<a href="vfrCamera.html#Feedback_Test">フィードバックテスト</a>を行う
+(<a href="vfrCamera.html">カメラ</a>へのインターフェース)
+<dd> cx		スウィープセンター(X座標)
+<dd> cy		スウィープセンター(Y座標)
+<dd> w		スウィープサイズ(幅)
+<dd> h		スウィープサイズ(高さ)
+<dd> id		フィードバックテスト対象のオブジェクトのID
+<p>
+<dt><a href="vfrNode.html">vfrNode</a>	*<a name="getNode">getNode</a>(const unsigned int id)
+<dd>オブジェクトIDで<a href="vfrScene.html">シーン</a>配下のオブジェクトを検索する
+(<a href="vfrCamera.html">カメラ</a>へのインターフェース)
+<dd> id		検索対象のオブジェクトID
+<p>
+<dt><a href="vfrNode.html">vfrNode</a>	*getNode(const char *name)
+<dd>オブジェクト名で<a href="vfrScene.html">シーン</a>配下のオブジェクトを検索する
+(<a href="vfrCamera.html">カメラ</a>へのインターフェース)
+<dd> name	検索対象のオブジェクト名
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="getObjCoord">getObjCoord</a>(const unsigned int tid, const <a href="vfrDefs.html#Point2">Point2</a> tpos, <a href="vfrDefs.html#vector3">vector3</a> &oc) const
+<dd><a href="vfrDrawArea.html">描画領域</a>でのウインドウ座標を、
+指定したオブジェクトのローカル座標系の座標値に変換する。
+<dd>成功すれば、<i>TRUE</i>を返す。
+<dd> tid	オブジェクトID
+<dd> tpos	ウインドウ座標
+<dd> oc		オブジェクトのローカル座標系での座標値の格納領域
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="getWinCoord">getWinCoord</a>(const unsigned int tid, const <a href="vfrDefs.html#vector3">vector3</a> tpos, <a href="vfrDefs.html#Point2">Point2</a> wc) const
+<dd>指定したオブジェクトのローカル座標系での座標値を、
+<a href="vfrDrawArea.html">描画領域</a>のウインドウ座標系の座標値に変換する。
+<dd>成功すれば、<i>TRUE</i>を返す。
+<dd> tid	オブジェクトID
+<dd> tpos	オブジェクトのローカル座標系での座標値
+<dd> wc		変換後のウインドウ座標の格納領域
+<p>
+<dt>void <a name="startRubberBox">startRubberBox</a>(const <a href="vfrDefs.html#Point2">Point2</a> p0)
+<dd>ラバーボックスの始点を設定する
+<dd> p0	ラバーボックスの始点(ウインドウ座標系)
+<p>
+<dt>void <a name="drawRubberBox">drawRubberBox</a>(const <a href="vfrDefs.html#Point2">Point2</a> p1)
+<dd>ラバーボックスを描画する
+<dd> p1	ラバーボックスの終点
+<p>
+<dt>void <a name="clearRubberBox">clearRubberBox</a>()
+<dd>ラバーボックスを消去する
+<p>
+<dt>void clearRubberBox(<a href="vfrDefs.html#Point2">Point2</a> *p0, <a href="vfrDefs.html#Point2">Point2</a> *p1)
+<dd>ラバーボックスを消去し、最後に描画したラバーボックスのスクリーン座標系における
+始点と終点を取得する
+<dd> p0	最後に描画したラバーボックスの始点(スクリーン座標系)の格納領域
+<dd> p1	最後に描画したラバーボックスの終点(スクリーン座標系)の格納領域
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="rotateObj">rotateObj</a>(const unsigned int tid, <a href="vfrDefs.html#Point2">Point2</a> mp, <a href="vfrDefs.html#Point2">Point2</a> md)
+<dd>マウスの位置および移動量に応じて、指定されたオブジェクトを回転させる
+<dd> tid オブジェクトID
+<dd> mp  <a href="vfrEvent.html#getMPoint">マウスポインタの位置</a>
+<dd> md  <a href="vfrEvent.html#getMMove">マウスポインタの移動量</a>
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="translateObj">translateObj</a>(const unsigned int tid, <a href="vfrDefs.html#Point2">Point2</a> mp, <a href="vfrDefs.html#Point2">Point2</a> md)
+<dd>マウスの位置および移動量に応じて、指定されたオブジェクトを平行移動させる
+<dd> tid オブジェクトID
+<dd> mp  <a href="vfrEvent.html#getMPoint">マウスポインタの位置</a>
+<dd> md  <a href="vfrEvent.html#getMMove">マウスポインタの移動量</a>
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="scaleObj">scaleObj</a>(const unsigned int tid, <a href="vfrDefs.html#Point2">Point2</a> mp, <a href="vfrDefs.html#Point2">Point2</a> md)
+<dd>マウスの位置および移動量に応じて、指定されたオブジェクトを拡大/縮小させる
+<dd> tid オブジェクトID
+<dd> mp  <a href="vfrEvent.html#getMPoint">マウスポインタの位置</a>
+<dd> md  <a href="vfrEvent.html#getMMove">マウスポインタの移動量</a>
+<p>
+<dt>void <a name="clearDispList">clearDispList</a>()
+<dd>内部のOpenGLディスプレイリストを全てクリアする
+<p>
+<dt>void <a name="setBorderMode">setBorderMode</a>(const <a href="vfrDefs.html#Bool">Bool</a> bm)
+<dd>スクリーンボーダー(ビューポートの枠)の表示モードを設定する
+<dd> bm		ボーダー表示モード(表示: <i>TRUE</i>, デフォルト: <i>TRUE</i>)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="getBorderMode">getBorderMode</a>() const
+<dd>スクリーンボーダー表示モードを返す
+<p>
+<dt>void <a name="setBorderColor">setBorderColor</a>(const <a href="vfrDefs.html#vector4">vector4</a> bc)
+<dd>スクリーンボーダーの色を設定する
+<dd> bc		スクリーンボーダーの色(RGBA, デフォルト: <i>1.0, 1.0, 1.0, 1.0</i>)
+<p>
+<dt>void setBorderColor(const float r, const float g, const float b)
+<dd>スクリーンボーダーの色を設定する
+<dd> r	スクリーンボーダーの色(R成分)
+<dd> g	スクリーンボーダーの色(G成分)
+<dd> b	スクリーンボーダーの色(B成分)
+<p>
+<dt>void setBorderColor(const float r, const float g, const float b, const float a)
+<dd>スクリーンボーダーの色を設定する
+<dd> r	スクリーンボーダーの色(R成分)
+<dd> g	スクリーンボーダーの色(G成分)
+<dd> b	スクリーンボーダーの色(B成分)
+<dd> a	スクリーンボーダーの色(A成分)
+<p>
+<dt>void <a name="getBorderColor">getBorderColor</a>(<a href="vfrDefs.html#vector4">vector4</a> &bc) const
+<dd>スクリーンボーダーの色を取得する
+<dd> bc		スクリーンボーダー色格納領域
+<p>
+<dt>void <a name="setBorderWidth">setBorderWidth</a>(const float bw)
+<dd>スクリーンボーダーの幅(<i>Pixels</i>)を設定する
+<dd> bw		スクリーンボーダーの幅(デフォルト: <i>2.0</i>)
+<p>
+<dt>GLfloat <a name="getBorderWidth">getBorderWidth</a>() const
+<dd>スクリーンボーダーの幅(<i>Pixels</i>)を返す
+</dl>
+
+<hr>
+
+<h3>Description</h3>
+
+vfrScreenクラスは、グラフィックスシーンの描画領域に対するビューポート(スクリーン)を
+定義するクラスである。
+
+<hr>
+
+<a name="Viewport"><h4>Viewport</h4></a>
+
+vfrScreenクラスは、<a href="vfrDrawArea.html">描画領域</a>に対するビューポートを保持する。
+<p>
+ビューポートは、描画領域の一部(または全部)の領域に設定される。
+レンダリングイメージはビューポートとして設定されている領域に表示される。
+<br>また、描画領域の<a href="vfrEvent.html">仮想イベント</a>も
+ビューポートの内部だけで有効である。
+<p>
+ビューポートは基準点とサイズで指定される。<br>
+基準点はビューポートの左下隅の、描画領域中の位置であり、
+描画領域の左下隅を原点とし、右および上方向をそれぞれX,Y軸方向とする
+座標系での座標値(ピクセル単位)で表される。
+<br>サイズはビューポートの幅と高さをピクセル単位で表したものである。
+<p>
+ウインドウ座標、スクリーン座標がいずれも領域の左上隅を原点にとり、
+下方向をY軸方向としているのと異る点に、注意が必要である。
+<p>
+通常、vfrScreenクラスのビューポートは、そのスクリーンが登録されている
+<a href="vfrDrawArea.html">描画領域(vfrDrawArea)</a>クラスによって
+管理されるため、プログラマが設定を行う必要はない。
+
+<hr noshade>
+<table width="100%">
+<tr>
+<td align="right"><font size="1">Copyright(c) 2005 RIKEN
+</font></td>
+</tr>
+</table>
+</body>

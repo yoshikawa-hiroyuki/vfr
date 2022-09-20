@@ -1,0 +1,84 @@
+<title>class vfrTimesRomanText</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrTimesRomanText</h2>
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li><a href="vfrBase.html">vfrBase</a>
+<ul>
+<li><a href="vfrNode.html">vfrNode</a>
+<ul>
+<li><a href="vfrLetters.html">vfrLetters</a>
+<ul>
+<li>vfrTimesRomanText
+</ul>
+</ul>
+</ul>
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrTimesRomanText.h"
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+
+<dl>
+<dt>vfrTimesRomanText(const std::string& name <i><a href="vfrNode.html#VFR_NONAME">VFR_NONAME</a></i>, const <a href="vfrDefs.html#Bool">Bool</a> mode <i>= FALSE</i>)
+<dd>vfrTimesRomanTextオブジェクトをインスタンスする。
+<dd> name  オブジェクト名
+<dd> mode  自己破壊モード
+<p>
+<dt>virtual ~vfrTimesRomanText()
+<dd>vfrTimesRomanTextオブジェクトを破壊する。
+</dl>
+
+<hr>
+
+<h3>public methods / variables</h3>
+
+<dl>
+<dt>なし(<a href="vfrLetters.html">vfrLetters</a>クラスのメソッドを参照)
+</dl>
+
+<hr>
+
+<h3>Description</h3>
+
+vfrTimesRomanTextクラスは、<i>Times-Roman</i>フェースの英数字のストロークフォントを表現する
+オブジェクトクラスである。
+<p>
+
+vfrTimesRomanTextオブジェクトは、<a href="vfrDefs.html#RenderType">レンダリングモード</a>が
+<i>RT_POINT</i>の場合、ローカル座標系の原点位置に一点のみ
+ポイントレンダリングを行う。
+
+<hr>
+
+<h4>Feedback</h4>
+
+vfrTimesRomanTextオブジェクトはフィードバックテストにおいて、常に不合格となる。
+
+
+<hr width="100%" noshade>
+<table width="100%">
+<tr>
+<td align="right">
+<font size="1">Copyright(c) 2005 RIKEN
+</font></td>
+</tr>
+</table>
+</body>

@@ -1,0 +1,168 @@
+<title>class vfrVectors</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrVectors</h2>
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li><a href="vfrBase.html">vfrBase</a>
+<ul>
+<li><a href="vfrNode.html">vfrNode</a>
+<ul>
+<li>vfrVectors
+</ul>
+</ul>
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrVectors.h"
+</dl>
+<p>
+<h4>Definitions</h4>
+<ul>
+<li><a name="VecPosType">vfrVectors::VecPosType</a> 表示位置タイプ
+<table>
+<tr><td><i>NORMAL</i>  <td>矢印の根本が座標定義位置
+<tr><td><i>CENTER</i>  <td>矢印の中央が座標定義位置
+<tr><td><i>TIP</i>     <td>矢印の先端が座標定義位置
+</table>
+</ul>
+<p>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+
+<dl>
+<dt>vfrVectors(const std::string& name <i><a href="vfrNode.html#VFR_NONAME">VFR_NONAME</a></i>, const <a href="vfrDefs.html#Bool">Bool</a> mode <i>= FALSE</i>)
+<dd>空のvfrVectorsオブジェクト(頂点0個)をインスタンスする。
+<dd> name  オブジェクト名
+<dd> mode  自己破壊モード
+<p>
+<dt>virtual ~vfrVectors()
+<dd>vfrVectorsオブジェクトを破壊する。
+</dl>
+
+<hr>
+
+<h3>public methods / variables</h3>
+
+<dl>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="getHeadMode">getHeadMode</a>() const
+<dd>アローヘッド表示モードを取得する
+<p>
+<dt>void <a name="setHeadMode">setHeadMode</a>(const <a href="vfrDefs.html#Bool">Bool</a> h)
+<dd>アローヘッド表示モードを設定する
+<dd> h  アローヘッド表示モード(デフォルト: <i>TRUE</i>)
+<p>
+<dt>float <a name="getHeadScale">getHeadScale</a>() const
+<dd>アローヘッドの長さを取得する
+<p>
+<dt>void <a name="setHeadScale">setHeadScale</a>(const float hs)
+<dd>アローヘッドの長さを、全体の長さに対する割合で指定する(デフォルト: 0.2)
+<dd> hs アローヘッドの長さ(0.0〜1.0)
+<p>
+<dt>float <a name="getHeadWidth">getHeadWidth</a>() const
+<dd>アローヘッドの幅を取得する
+<p>
+<dt>void <a name="setHeadWidth">setHeadWidth</a>(const float hw)
+<dd>アローヘッドの幅を、全体の長さに対する割合で指定する(デフォルト: 0.05)
+<dd> hw アローヘッドの幅(0.0〜1.0)
+<p>
+<dt>void <a name="setScaleFac">setScaleFac</a>(const float sf)
+<dd>矢印の長さの、実際の長さに対するスケーリングファクター指定する(デフォルト: 1.0)
+<dd> sf スケーリングファクター
+<p>
+<dt>float <a name="getScaleFac">getScaleFac</a>() const
+<dd>矢印の長さのスケーリングファクターを取得する
+<p>
+<dt><a href="#VecPosType">VecPosType</a> <a name="getPosType">getPosType</a>() const
+<dd>矢印の表示位置タイプを取得する
+<p>
+<dt>void <a name="setPosType">setPosType</a>(const <a href="#VecPosType">VecPosType</a> pt)
+<dd>矢印の表示位置タイプを指定する(デフォルト: <i>NORMAL</i>)
+<dd> pt 表示位置タイプ
+<p>
+<dt><a href="vfrDefs.html#RenderType">RenderType</a> <a name="getRenderMode">getRenderMode</a>() const
+<dd>レンダリングモードを返す
+<p>
+</dl>
+
+<hr>
+
+<h3>Description</h3>
+
+vfrVectorsクラスは、ベクトル集合を描画するオブジェクトクラスである。<br>
+与えられた<a href="vfrNode.html#alcVerts">頂点</a>位置に
+<a href="vfrNode.html#alcNormals">法線ベクトル</a>として与えられたベクトルデータを
+矢印として描画する。
+<br>矢印の大きさは、法線ベクトルの長さに<a href="#setScaleFac">スケーリングファクター</a>を
+掛けたものになる。
+<p>
+vfrVectorsオブジェクトは、<a href="#getHeadMode">アローヘッド表示モード</a>が<i>TRUE</i>の場合、
+全ての矢印にアローヘッド(矢印の頭のキャップ)を表示する。<br>
+アローヘッド表示モードは、<a href="#setHeadMode">setHeadMode()</a>で設定する。
+<p>
+<a href="#getHeadScale">アローヘッドの大きさ</a>は、全体の長さに対する割合で指定する。
+
+<p>
+頂点数とベクトルデータ(法線ベクトル)数が異なる場合、余分のデータは無視される。
+
+<hr>
+
+<h4>Position Type</h4>
+
+vfrVectorsオブジェクトは、<a href="#VecPosType">表示位置タイプ</a>に応じ、
+頂点位置に対して以下のような位置に矢印を表示する。
+<center>
+<img src="vectorsPos.gif" width="351" height="136" alt="Vector Position">
+</center>
+
+<hr>
+
+<h4>RenderMode</h4>
+
+vfrVectorsオブジェクトは、<a href="vfrDefs.html#RenderType">レンダリングモード</a>が<i>NONE</i>か<i>RT_POINT</i>
+の場合を除き、<a href="#getRenderMode">getRenderMode()</a>で返される
+レンダリングモードに<i>RT_WIRE</a>を加える。
+
+<hr>
+
+<h4>Feedback</h4>
+
+フィードバックテストにおいて、vfrVectorsオブジェクトは
+<a href="vfrDefs.html#FeedbackType">フィードバックモード</a>属性に応じ、
+以下のような結果を返す。
+
+<dl>
+<dt><i>FB_VERTEX</i>
+<dd>登録されている頂点順に0から付番された番号でフィードバックテストの結果を返す。
+<br>頂点数が奇数個の場合の最後の頂点も、フィードバックテストの対象となる。
+<p>
+<dt><i>FB_EDGE</i>
+<dd>描画される順序で線分に0から付番された番号でフィードバックテストの結果を返す。
+<p>
+<dt><i>FB_FACE</i>
+<dd>フィードバックテストは常に合格数 0 を返す。
+</dl>
+
+<hr width="100%" noshade>
+<table width="100%">
+<tr>
+<td align="right">
+<font size="1">Copyright(c) 2005 RIKEN
+</font></td>
+</tr>
+</table>
+</body>

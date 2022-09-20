@@ -1,0 +1,133 @@
+<title>class vfrAction</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h1>class vfrAction</h1>
+
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li>vfrAction
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrAction.h"
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+<dl>
+<dt>virtual ~vfrAction()
+<dd>vfrActionインスタンスを破壊する
+</dl>
+
+<hr>
+
+<h3>Public Methods / Variables</h3>
+
+<dl>
+<dt>virtual void    <a name="execute">execute</a>(<a href="vfrEvent.html">vfrEvent</a>& ev)
+<dd>仮想イベントに対してアクション(イベントハンドラ)を実行する。
+<dd> ev	仮想イベント
+</dl>
+
+<hr>
+<h3>Description</h3>
+
+vfrActionクラスは、<a href="vfrDrawArea.html">描画領域</a>に対する
+<a href="vfrEvent.html">仮想イベント</a>の
+アクション(イベントハンドラ)の基底クラスである。
+<p>
+vfrActionクラスはインスタンスを作成する事はできない。<br>
+実際のアクションには、
+vfrActionの派生クラス(<a href="vfrDefaultActions.html#Default_Actions">デフォルトアクション</a>群
+またはプログラマが独自に作成する)を用いる。
+
+<hr>
+
+<a name="Define_Original_Actions"><h4>Define Original Actions</h4></a>
+
+プログラマが独自にアクションを作成する事ができる。
+<br>
+アクションが満たしていなければならない条件は、以下のものである。
+<ul>
+<li>vfrActionクラスの派生クラスであること
+<p>
+<li>以下のパブリックメソッドを実装していること
+  <pre>
+    void execute(class vfrEvent&)
+  </pre>
+</ul>
+<p>
+アクションで記述しなければならないメソッドは <b>execute()</b> だけである。
+ここでは、引数としてパスされた<a href="vfrEvent.html">仮想イベント</a>から
+イベント発生時の情報を取得し、これに対する動作を行うようコーディングする。
+<p>
+仮想イベントから取得できるイベント情報は、以下の通りである。
+<ul>
+<li><a href="vfrEvent.html#getScreen">イベントが発生したスクリーン</a>
+<li><a href="vfrEvent.html#getMPoint">イベント発生時のマウス位置</a>
+<li><a href="vfrEvent.html#getMMove">イベント発生時のマウス移動量</a>
+<li><a href="vfrEvent.html#getKey">イベント発生時の入力キーコード</a>
+</ul>
+
+<hr>
+
+<a name="Register_Original_Actions"><h4>Register Original Actions</h4></a>
+
+作成したアクションは、以下の手順で、
+特定の<a href="vfrDrawArea.html">描画領域(vfrDrawArea)</a>の
+<a href="vfrEvent.html">仮想イベント</a>のイベントハンドラとして登録する。
+<ol>
+<li>vfrDrawAreaのインスタンスを取得する
+<li>vfrDrawAreaの<a href="vfrDispatch.html#instance">イベントディスパッチャーを取得</a>する
+<li>イベントディスパッチャーからアクションを登録したい<a href="vfrDispatch.html#KeyIn">仮想イベントを取得</a>する
+<li>取得した仮想イベントに<a href="vfrEvent.html#regist">アクションを登録</a>する
+</ol>
+
+<hr>
+
+<a name="Examples"><h4>Examples</h4></a>
+
+<pre>
+// アクション MyAction の定義
+//   マウスクリックされた位置を cerr に出力する
+class MyAction : public vfrAction {
+  public:
+    void execute(vfrEvent& e) {
+      vfrScreen* screen = e.getScreen();
+      if ( ! screen ) return;
+      Point2 mp;
+      if ( ! e.getMPoint(mp) ) return;
+      cerr << "Clicked (" << mp.x << ", " << mp.y << ")" << endl;
+   }
+} aMyAction;
+
+
+  // アクションの登録
+  //   MyActionクラスのインスタンス aMyAction を
+  //   Click仮想イベントに登録する
+  vfrDrawArea& da = .... ; // プラットフォームで異る
+  vfrDispatch& dp = vfrDispatch::instance(da);
+  vfrEvClick::instance(dp).regist(&aMyAction);
+</pre>
+
+<hr width="100%" noshade>
+<table width="100%">
+<tr>
+<td align="right">
+<font size="1">Copyright(c) 2005 RIKEN</font></td>
+</tr>
+</table>
+</body>

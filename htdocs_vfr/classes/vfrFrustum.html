@@ -1,0 +1,196 @@
+<html>
+<head>
+<title>class vfrFrustum</title>
+</head>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrFrustum</h2>
+
+<h3>Class Hierarchy</h3>
+<ul>
+<li>vfrFrustum
+</ul>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrFrustum.h"
+</dl>
+<p>
+<h4>Definitions</h4>
+<dl>
+<dt><a name="EyeType">EyeType</a>  視点タイプ
+<dd><i>CYCLOP</i>  標準
+<dd><i>LEFT_EYE</i>  右目
+<dd><i>RIGHT_EYE</i> 左目
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+
+<dl>
+<dt>virtual vfrFrustum()
+<dd>デフォルトコンストラクタ
+<p>
+<dt>virtual vfrFrustum(const vfrFrustum& org)
+<dd>コピーコンストラクタ
+<p>
+<dt>virtual ~vfrFrustum()
+<dd>vfrFrustumオブジェクトを破壊する
+</dl>
+
+<hr>
+
+<h3>Public Methods / Variables</h3>
+
+<dl>
+<dt>Vec3&lt;float&gt; <a name="m_eye">m_eye</a>
+<dd>視点座標
+<p>
+<dt>Vec3&lt;float&gt; <a name="m_eyeOff">m_eyeOff</a>
+<dd>ステレオビューイング時の視点オフセット量
+<p>
+<dt><a href="#EyeType">EyeType</a> <a name="m_eyeType">m_eyeType</a>
+<dd>視点タイプ
+<p>
+<dt>float <a name="m_hpr">m_hpr</a>[3]
+<dd>視線方向の回転量(HPR形式)
+<p>
+<dt>float <a name="m_dist">m_dist</a>
+<dd>視点−焦点間距離
+<p>
+<dt>float <a name="m_halfW">m_halfW</a>
+<dd>左右の視界幅の1/2
+<p>
+<dt>float <a name="m_halfH">m_halfH</a>
+<dd>上下の視界幅の1/2
+<p>
+<dt>double <a name="m_near">m_near</a>
+<dd>前方クリップ面までの距離
+<p>
+<dt>double <a name="m_far">m_far</a>
+<dd>後方クリップ面までの距離
+<p>
+<dt>static float <a name="s_strOff">s_strOff</a>
+<dd>ステレオビューイング時の左右の目の距離(スタティックメンバー変数)
+<p>
+
+<dt>void <a name="equal">operator=</a>(const <a href="vfrBase.html">vfrBase</a>& org)
+<dd>代入オペレータ
+<dd> org 代入元のvfrBaseオブジェクト
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>
+ <a name="ApplyProjection">ApplyProjection</a>(
+ const <a href="vfrDefs.html#Bool">Bool</a> ortho <i>=FALSE</i>,
+ const double asp <i>=1.0</i>) const
+<dd>プロジェクションのOpenGLコマンドを実行する
+<dd> ortho 直交投影モードフラグ(省略時はFALSE)
+<dd> asp   アスペクト比(省略時は1.0)
+<p>
+<dt>void <a name="ApplyModelview">ApplyModelview</a>() const
+<dd>視界変換のOpenGLコマンドを実行する
+<p>
+<dt><a href="vfrBase.html#vfrMatrix">vfrMatrix</a>
+ <a name="GetPM">GetPM</a>(
+  const <a href="vfrDefs.html#Bool">Bool</a> ortho <i>=FALSE</i>,
+  const double asp <i>=1.0</i>) const
+<dd>プロジェクションマトリックスを返す
+<dd> ortho 直交投影モードフラグ(省略時はFALSE)
+<dd> asp   アスペクト比(省略時は1.0)
+<p>
+<dt><a href="vfrBase.html#vfrMatrix">vfrMatrix</a>
+ <a name="GetMVRM">GetMVRM</a>() const
+<dd>視界変換の回転成分のみを含むマトリックスを返す
+<p>
+<dt><a href="vfrBase.html#vfrMatrix">vfrMatrix</a>
+ <a name="GetMVM">GetMVM</a>() const
+<dd>視界変換マトリックスを返す
+<p>
+<dt>Vec3&lt;float&gt; <a name="GetEye">GetEye</a>() const
+<dd>視点座標を返す
+<p>
+<dt>Vec3&lt;float&gt; <a name="GetViewDirMVM">GetViewDirMVM</a>() const
+<dd>視界変換マトリックス適用済みの視線方向ベクトルを返す
+</dl>
+
+<hr>
+<h3>Description</h3>
+
+vfrFrustumクラスは、プロジェクションおよび視界変換の機能を実装したクラスである。
+
+<hr>
+
+<h4>Projection Matrix</h4>
+
+vfrFrustumクラスは、透視投影時に以下のプロジェクションマトリックスを生成する。
+
+<table>
+<tr valign="center">
+<td><img src="Lparen.gif" width="5" height="100" alt="["></td>
+<td>
+ <table>
+ <tr><td align="center">m_near/W</td><td align="center">0</td><td align="center">0</td><td align="center">0</td></tr>
+ <tr><td align="center">0</td><td align="center">m_near/m_halfH</td><td align="center">0</td><td align="center">0</td></tr>
+ <tr><td align="center">0</td><td align="center">0</td><td align="center">-(m_far+m_near)</td><td align="center">-2×m_far×m_near</td></tr>
+ <tr><td align="center"> </td><td align="center"> </td><td align="center"> /(m_far-m_near)</td><td align="center"> /(m_far-m_near)</td></tr>
+ <tr><td align="center">0</td><td align="center">0</td><td align="center">-1</td><td align="center">0</td></tr>
+ </table>
+</td>
+<td><img src="Rparen.gif" width="5" height="100" alt="]"></td>
+</tr>
+</table>
+
+<p>
+また、直交投影時には以下のプロジェクションマトリックスを生成する。
+
+<table>
+<tr valign="center">
+<td><img src="Lparen.gif" width="5" height="100" alt="["></td>
+<td>
+ <table>
+ <tr><td align="center">1/W</td><td align="center">0</td><td align="center">0</td><td align="center">0</td></tr>
+ <tr><td align="center">0</td><td align="center">1/m_halfH</td><td align="center">0</td><td align="center">0</td></tr>
+ <tr><td align="center">0</td><td align="center">0</td><td align="center">-2/(m_far-m_near)</td><td align="center">(m_far+m_near)</td></tr>
+ <tr><td align="center"> </td><td align="center"> </td><td align="center"> </td><td align="center"> /(m_far-m_near)</td></tr>
+ <tr><td align="center">0</td><td align="center">0</td><td align="center">0</td><td align="center">1</td></tr>
+ </table>
+</td>
+<td><img src="Rparen.gif" width="5" height="100" alt="]"></td>
+</tr>
+</table>
+
+<p>
+ここで、W = m_halfH×(asp×m_halfH／m_halfW)×m_near／m_dist である。
+
+
+<hr>
+
+<h4>Modelview Matrix</h4>
+
+vfrFrustumクラスは、以下の視界変換マトリックスを生成する。
+
+<blockquote>
+<dl>
+<dt> M = Rz × Rx × Ry × T
+<dd>
+<dd> Rz : Z軸周りにm_hpr[2](rad)の回転
+<dd> Rx : X軸周りにm_hpr[1](rad)の回転
+<dd> Ry : Y軸周りにm_hpr[0](rad)の回転
+<dd> T  : m_eyeの平行移動
+</dl>
+</blockquote>
+
+<hr width="100%" noshade>
+<table width="100%">
+<tr>
+<td align="right"><font size="1">Copyright(c) 2005 RIKEN</font></td>
+</tr>
+</table>
+</body>

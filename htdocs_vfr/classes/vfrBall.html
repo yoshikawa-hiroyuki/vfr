@@ -1,0 +1,120 @@
+<title>class vfrBall</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrBall</h2>
+
+<h3>Class Hierarchy</h3>
+<ul>
+<li><a href="vfrBase.html">vfrBase</a>
+<ul>
+<li><a href="vfrNode.html">vfrNode</a>
+<ul>
+<li>vfrBall
+</ul>
+</ul>
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrBall.h"
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+
+<dl>
+<dt>vfrBall(const std::string& name <i><a href="vfrNode.html#VFR_NONAME">VFR_NONAME</a></i>, const <a href="vfrDefs.html#Bool">Bool</a> mode <I>= FALSE</I>)
+<dd>デフォルトサイズ(半径0.5)、デフォルトの再分割数(2回)のvfrBallオブジェクトを
+インスタンスする。
+<dd> name  オブジェクト名
+<dd> mode  自己破壊モード
+<p>
+<dt>vfrBall(const float r, const std::string& name <i><a href="vfrNode.html#VFR_NONAME">VFR_NONAME</a></i>, const <a href="vfrDefs.html#Bool">Bool</a> mode <I>= FALSE</I>)
+<dd>指定された半径(r)のvfrBallオブジェクトをインスタンスする。
+<dd> r   半径
+<dd> name  オブジェクト名
+<dd> mode  自己破壊モード
+<p>
+<dt>virtual ~vfrBall()
+<dd>vfrBallオブジェクトを破壊する。
+</dl>
+
+<hr>
+
+<h3>public methods / variables</h3>
+
+<dl>
+<dt>void <a name="setRadius">setRadius</a>(const float r)
+<dd>半径を設定する。
+<dd> r		半径(デフォルト: 0.5)
+<p>
+<dt>void <a name="setSubdiv">setSubdiv</a>(const int div)
+<dd>再分割数を設定する。
+<dd> div	再分割数(デフォルト: 2)
+<p>
+<dt>float <a name="getRadius">getRadius</a>() const
+<dd>半径を返す。
+</dl>
+
+<hr>
+
+<h3>Description</h3>
+
+vfrBallクラスは、球を表すオブジェクトクラスである。<br>
+半径(radius)が指定されたとき、
+以下のような球をレンダリングする。
+
+<center>
+<img src="ball_fig.gif" width="278" height="262" alt="BALL">
+</center>
+
+<p>
+vfrBallオブジェクトは、<a href="vfrDefs.html#RenderType">レンダリングモード</a>が
+<i>RT_POINT</i>の場合、中心位置に一点のみポイントレンダリングを行う。
+
+<hr>
+
+<h4>Subdivision</h4>
+
+vfrBallオブジェクトは8面体を基本形状とし、各三角形を4つの小三角形に分割する操作を
+再帰的に繰り返すことによって球体を表現する。<br>
+再分割操作を何回繰り返すかは<a href="#setSubdiv">setSubdiv()</a>メソッドで
+指定する。
+
+<hr>
+
+<h4>Feedback</h4>
+
+vfrBallオブジェクトはローカル座標系の原点の頂点情報しか持たない。
+そのため、フィードバックテストにおいては、
+<a href="vfrDefs.html#FeedbackType">フィードバックモード</a>属性に応じ、
+以下のような結果を返す。
+
+<dl>
+<dt><i>FB_VERTEX</i>
+<dd>ローカル座標系の原点がフィードバックテストに合格したとき、
+頂点数 1、頂点番号 0 を返す。
+<p>
+<dt><i>FB_FACE, FB_EDGE</i>
+<dd>フィードバックテストは常に合格数 0 を返す。
+</dl>
+
+<hr width="100%" noshade>
+<table width="100%">
+<tr>
+<td align="right">
+<font size="1">Copyright(c) 2005 RIKEN
+</font></td>
+</tr>
+</table>
+</body>

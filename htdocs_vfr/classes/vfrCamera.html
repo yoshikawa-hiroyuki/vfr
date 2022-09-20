@@ -1,0 +1,405 @@
+<title>class vfrCamera</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrCamera</h2>
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li><a href="vfrBase.html">vfrBase</a>
+<ul>
+<li>vfrCamera
+</ul>
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrCamera.h"
+</dl>
+<p>
+<h4>Definitions</h4>
+<dl>
+<dt><i><a name="VFR_SELECT_SUITE_SPOT">VFR_SELECT_SUITE_SPOT</a></i>
+<dd> マウスクリックの有効領域サイズの初期値(= <i>5 pixels</i>)
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+
+<dl>
+<dt>virtual ~vfrCamera()
+<dd>vfrCameraノードを破壊する
+</dl>
+
+<hr>
+
+<h3>Public Methods / Variables</h3>
+
+<dl>
+<dt>void	<a name="redraw">redraw</a>()
+<dd>再描画を行う
+<p>
+<dt>void	redraw(const GLdouble a)
+<dd>再描画を行う
+<dd> a	描画領域のアスペクト比
+<p>
+<dt>void  <a name="setFrustum">setFrustum</a>(const <a href="vfrFrustum.html">vfrFrustum</a> f)
+<dd>カメラの視界を設定する。
+<dd> f	視界情報
+<p>
+<dt><a href="vfrFrustum.html">vfrFrustum</a> <a name="getFrustum">getFrustum</a>() const
+<dd>カメラの視界を取得する。
+<p>
+<dt>void	<a name="setScene">setScene</a>(<a href="vfrScene.html">vfrScene</a>* s)
+<dd><a href="vfrScene.html">シーン</a>を設定する
+<dd> s	設定するシーン
+<p>
+<dt><a href="vfrScene.html">vfrScene</a>* <a name="getScene">getScene</a>()
+<dd>設定されている<a href="vfrScene.html">シーン</a>を返す
+<p>
+<dt>void	<a name="setFrontNode">setFrontNode</a>(<a href="vfrNode.html">vfrNode</a>* node)
+<dd><a href="#Front_Node">前景ノード</a>を設定する。
+<br><i>NULL</i>を設定すると、前景ノード無しの状態になる。
+<dd> node	前景ノード
+<p>
+<dt><a href="vfrNode.html">vfrNode</a>* <a name="getFrontNode">getFrontNode</a>()
+<dd>設定されている<a href="#Front_Node">前景ノード</a>を返す
+<p>
+<dt>void	<a name="setScreen">setScreen</a>(<a href="vfrScreen.html">vfrScreen</a>* sc)
+<dd><a href="vfrScreen.html">スクリーン</a>への登録を行う
+<dd> sc	スクリーン
+<p>
+<dt><a href="vfrScreen.html">vfrScreen</a>* <a name="getScreen">getScreen</a>()
+<dd>登録されている<a href="vfrScreen.html">スクリーン</a>を返す
+<p>
+<dt><a href="vfrDefs.html#matrix4">matrix4</a>	&<a name="getProjMatrix">getProjMatrix</a>()
+<dd>プロジェクション行列を返す
+<p>
+<dt><a href="vfrDefs.html#matrix4">matrix4</a>	&<a name="getModelMatrix">getModelMatrix</a>()
+<dd>モデルビュー行列を返す
+<p>
+<dt>void	<a name="setBgColor">setBgColor</a>(const <a href="vfrDefs.html#vector4">vector4</a> bc)
+<dd><a href="#Background_Color">背景色</a>を設定する(初期値: (0.0, 0.0, 0.0, 1.0))
+<dd> bc	背景色(RGBA)
+<p>
+<dt>void	setBgColor(const float r, const float g, const float b)
+<dd>背景色を設定する
+<dd> r	背景色(R成分)
+<dd> g	背景色(G成分)
+<dd> b	背景色(B成分)
+<p>
+<dt>void	setBgColor(const float r, const float g, const float b, const float a)
+<dd>背景色を設定する
+<dd> r	背景色(R成分)
+<dd> g	背景色(G成分)
+<dd> b	背景色(B成分)
+<dd> a	背景色(A成分)
+<p>
+<dt>void	<a name="getBgColor">getBgColor</a>(<a href="vfrDefs.html#vector4">vector4</a> bc) const
+<dd>背景色を取得する
+<dd> bc	背景色格納領域
+<p>
+<dt>void	<a name="setFogMode">setFogMode</a>(const <a href="vfrDefs.html#Bool">Bool</a> fm)
+<dd>フォグモードの設定を行う
+<dd> fm		フォグモード(<i>TRUE</i>: フォグ有効、初期値: <i>FALSE</i>)
+<p>
+<dt>void	setFogMode(const <a href="vfrDefs.html#Bool">Bool</a> fm, const float s, const float e)
+<dd>フォグモードとフォグパラメータの設定を行う
+<dd> fm		フォグモード(<i>TRUE</i>: フォグ有効、初期値: <i>FALSE</i>)
+<dd> s		フォグ開始距離(初期値: 9.0)
+<dd> e		フォグ終了距離(初期値: 15.0)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	<a name="getFogMode">getFogMode</a>() const
+<dd>フォグモードを返す
+<p>
+<dt>void	<a name="setFogParam">setFogParam</a>(const float s, const float e)
+<dd>フォグパラメータを設定する
+<dd> s		フォグ開始距離(初期値: 9.0)
+<dd> e          フォグ終了距離(初期値: 15.0)
+<p>
+<dt>void	<a name="getFogParam">getFogParam</a>(float& s, float& e) const
+<dd>フォグパラメータを取得する
+<dd> s		フォグ開始距離格納領域
+<dd> e          フォグ終了距離格納領域
+<p>
+<dt>virtual void <a name="setProjection">setProjection</a>(const <a href="vfrDefs.html#ProjectType">ProjectType</a> p) const
+<dd>投影タイプを設定する
+<dd> p		投影タイプ
+<p>
+<dt><a href="vfrDefs.html#ProjectType">ProjectType</a>	<a name="getProjection">getProjection</a>() const
+<dd>投影タイプを返す
+<p>
+<dt>void	<a name="setAntiAliasMode">setAntiAliasMode</a>(const <a href="vfrDefs.html#Bool">Bool</a> am)
+<dd>アンチエイリアスラインモードの設定を行う
+<dd> am		アンチエイリアスラインモード(<i>TRUE</i>: 有効、初期値: <i>FALSE</i>)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	<a name="getAntiAliasMode">getAntiAliasMode</a>() const
+<dd>アンチエイリアスラインモードを取得する
+<p>
+<dt>void <a name="setClickSpotSize">setClickSpotSize</a>(const int cs)
+<dd>マウスクリックの有効領域サイズを設定する
+<dd>デフォルト: <i><a href="#VFR_SELECT_SUITE_SPOT">VFR_SELECT_SUITE_SPOT</a></i>
+<dd> cs		有効領域サイズ(<i>pixels</i>)
+<p>
+<dt>int <a name="getClickSpotSize">getClickSpotSize</a>() const
+<dd>マウスクリックの有効領域サイズを返す
+<p>
+<dt>unsigned int* <a name="clickSelect">clickSelect</a>(const int cx, const int cy)
+<dd>クリック<a href="#Selection_Test">セレクションテスト</a>を行う
+<dd> cx		クリックポイント(X座標)
+<dd> cy		クリックポイント(Y座標)
+<p>
+<dt>unsigned int* <a name="sweepSelect">sweepSelect</a>(const int cx, const int cy, const int w, const int h)
+<dd>スウィープ<a href="#Selection_Test">セレクションテスト</a>を行う
+<dd> cx		スウィープセンター(X座標)
+<dd> cy		スウィープセンター(Y座標)
+<dd> w		スウィープサイズ(幅)
+<dd> h		スウィープサイズ(高さ)
+<p>
+<dt>int* <a name="clickFeedback">clickFeedback</a>(const int cx, const int cy, const unsigned int id)
+<dd>クリック<a href="#Feedback_Test">フィードバックテスト</a>を行う
+<dd> cx		クリックポイント(X座標)
+<dd> cy		クリックポイント(Y座標)
+<dd> id		フィードバックテスト対象のノードのID
+<p>
+<dt>int* <a name="sweepFeedback">sweepFeedback</a>(const int cx, const int cy, const int w, const int h, const unsigned int id)
+<dd>スウィープ<a href="#Feedback_Test">フィードバックテスト</a>を行う
+<dd> cx		スウィープセンター(X座標)
+<dd> cy		スウィープセンター(Y座標)
+<dd> w		スウィープサイズ(幅)
+<dd> h		スウィープサイズ(高さ)
+<dd> id		フィードバックテスト対象のノードのID
+<p>
+<dt>void	<a name="relaxSelect">relaxSelect</a>()
+<dd>セレクションテストのロックを解除する
+<p>
+<dt>void	<a name="relaxFeedback">relaxFeedback</a>()
+<dd>フィードバックテストのロックを解除する
+<p>
+<dt>virtual GLdouble	<a name="getFocusDepth">getFocusDepth</a>() const
+<dd>ウインドウ座標系の仮想焦点深さを返す
+<p>
+<dt>virtual void	<a name="dragRot">dragRot</a>(const int dx, const int dy)
+<dd>マウスドラッグに対する視界回転操作を行う
+<dd> dx		マウス移動量(X成分)
+<dd> dy		マウス移動量(Y成分)
+<p>
+<dt>virtual void	dragRot(const float dx, const float dy)
+<dd>マウスドラッグに対する視界回転操作を行う
+<dd> dx		マウス移動量(X成分)
+<dd> dy		マウス移動量(Y成分)
+<p>
+<dt>virtual void	<a name="dragTrans">dragTrans</a>(const int dx, const int dy)
+<dd>マウスドラッグに対する上下左右の視界平行移動操作を行う
+<dd> dx		マウス移動量(X成分)
+<dd> dy		マウス移動量(Y成分)
+<p>
+<dt>virtual void	dragTrans(const float dx, const float dy)
+<dd>マウスドラッグに対する上下左右の視界平行移動操作を行う
+<dd> dx		マウス移動量(X成分)
+<dd> dy		マウス移動量(Y成分)
+<p>
+<dt>virtual void	<a name="dragTransZ">dragTransZ</a>(const int dx, const int dy)
+<dd>マウスドラッグに対する前後の視界平行移動操作を行う
+<dd> dx		マウス移動量(X成分)
+<dd> dy		マウス移動量(Y成分)
+<p>
+<dt>virtual void	dragTransZ(const float dx, const float dy)
+<dd>マウスドラッグに対する前後の視界平行移動操作を行う
+<dd> dx		マウス移動量(X成分)
+<dd> dy		マウス移動量(Y成分)
+<p>
+<dt>virtual void	<a name="trans">trans</a>(const <a href="vfrDefs.html#vector3">vector3</a> tv)
+<dd>平行移動を行う
+<dd> tv		移動量ベクトル
+<p>
+<dt>virtual void	trans(const float x, const float y, const float z)
+<dd>平行移動を行う
+<dd> x		移動量(X方向成分)
+<dd> y		移動量(Y方向成分)
+<dd> z		移動量(Z方向成分)
+<p>
+<dt>virtual void	<a name="rotx">rotx</a>(const float r)
+<dd>X軸周りの回転を行う
+<dd> r	回転角度(<i>radian</i>)
+<p>
+<dt>virtual void	<a name="roty">roty</a>(const float r)
+<dd>Y軸周りの回転を行う
+<dd> r	回転角度(<i>radian</i>)
+<p>
+<dt>virtual void	<a name="rotz">rotz</a>(const float r)
+<dd>Z軸周りの回転を行う
+<dd> r	回転角度(<i>radian</i>)
+<p>
+<dt>virtual void	<a name="rotation">rotation</a>(const float r, <a href="vfrDefs.html#vector3">vector3</a> a)
+<dd>任意軸周りの回転を行う
+<dd> r	回転角度(<i>radian</i>)
+<dd> a	回転中心軸ベクトル
+<p>
+<dt>virtual void	<a name="scale">scale</a>(const <a href="vfrDefs.html#vector3">vector3</a> sv)
+<dd>スケーリングを行う
+<dd> sv		スケーリングファクター(各軸方向に sv[0],sv[1],sv[2])
+<p>
+<dt>virtual void	scale(const float s)
+<dd>スケーリングを行う
+<dd> s		各軸方向共通のスケーリングファクター
+<p>
+<dt>virtual void	scale(const float sx, const float sy, const float sz)
+<dd>スケーリングを行う
+<dd> sx		X軸方向のスケーリングファクター
+<dd> sy		Y軸方向のスケーリングファクター
+<dd> sz		Z軸方向のスケーリングファクター
+<p>
+<dt>virtual <a href="vfrDefs.html#Bool">Bool</a> <a name="sweepZoom">sweepZoom</a>(const <a href="vfrDefs.html#Point2">Point2</a> p0, const <a href="vfrDefs.html#Point2">Point2</a> p1)
+<dd>指定された2点を対角線とする矩形領域が視界全体になるようにズームする
+<dd>(純粋仮想関数)
+<dd> p0		矩形領域の頂点
+<dd> p1		矩形領域の頂点
+<p>
+<dt><a href="vfrNode.html">vfrNode</a>* <a name="getNode">getNode</a>(const unsigned int id)
+<dd>ノードIDで<a href="#setScene">シーン</a>配下のノードを検索する
+<dd> id		検索対象のノードID
+<p>
+<dt><a href="vfrNode.html">vfrNode</a>* getNode(const char* name)
+<dd>ノード名で<a href="#setScene">シーン</a>配下のノードを検索する
+<dd> name	検索対象のノード名
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	<a name="accumMatrix">accumMatrix</a>(const unsigned int id, <a href="vfrMatrix.html">vfrMatrix</a>& m)
+<dd><a href="#setScene">シーン</a>配下のノードの累積幾何変換行列を計算する
+<dd> id		対象ノードのノードID
+<dd> m		累積幾何変換行列
+<p>
+<dt>void	<a name="rumor">rumor</a>(<a href="vfrBase.html">vfrBase</a>* ref)
+<dd>配下のノードの破壊通知を受け付ける
+<dd> ref	破壊されるノード
+<p>
+<dt>void	<a name="notice">notice</a>()
+<dd>描画内容変更通知を行う
+<p>
+<dt>void	<a name="chkNotice">chkNotice</a>()
+<dd>描画内容変更検査を要求する
+<p>
+<dt>void	<a name="clearDispList">clearDispList</a>()
+<dd>ディスプレイリストを無効にする
+</dl>
+
+<hr>
+
+<h3>Description</h3>
+
+vfrCameraクラスは、グラフィックスシーンに対する<a href="vfrFrustum.html">視界</a>を定義する、
+カメラに対応したプリミティブの基底クラスである。
+<p>
+vfrCameraクラスは、インスタンスを作ることは出来ない。
+
+<hr>
+
+<a name="Selection_Test"><h4>Selection Test</h4></a>
+
+vfrCameraクラスは、OpenGLのセレクションテストへのインターフェースを持っている。
+
+<dl>
+<dt>・<a href="#clickSelect">clickSelect()</a>
+<dd>マウスクリックに対するセレクションテストのインターフェース。
+<br>ノードのピッキングを実装するものである。
+<p>
+<dt>・<a href="#sweepSelect">sweepSelect()</a>
+<dd>矩形領域に対するセレクションテストのインターフェース。
+<br>ラバーボックスを用いたセレクションを実装するものである。
+</dl>
+
+どちらも、ウインドウ座標系(<i>pixel</i>単位で、左上隅が原点)でテスト領域の
+中心座標と領域のサイズ(<a href="#clickSelect">clickSelect</a>では
+サイズは<a href="#VFR_SELECT_SUITE_SPOT"><i>VFR_SELECT_SUITE_SPOT</i>×<i>VFR_SELECT_SUITE_SPOT</i></a>になる)
+を指定する。
+<p>
+結果は、メソッドの戻り値で返される。
+これは<i>unsigned int</i>型の配列で、先頭の要素にテストに合格したノードの数が格納され、
+続く要素にはテストに合格した<a href="#getNode">ノード</a>のIDが、視点に近い順に格納される。
+<br>
+戻り値の内容は、次にセレクションテストを実行するか、
+<a href="#relaxSelect">relaxSelect()</a>を実行するまで有効である。
+
+<hr>
+
+<a name="Feedback_Test"><h4>Feedback Test</h4></a>
+
+vfrCameraクラスは、OpenGLのフィードバックテストへのインターフェースを
+持っている。
+
+<dl>
+<dt>・<a href="#clickFeedback">clickFeedback()</a>
+<dd>マウスクリックに対するフィードバックテストのインターフェース。
+<br>頂点、面、辺などに対するピッキングを実装するものである。
+<p>
+<dt>・<a href="#sweepFeedback">sweepFeedback()</a>
+<dd>矩形領域に対するフィードバックテストのインターフェース。
+<br>ラバーボックスを用いたエレメントフィードバックを実装するものである。
+</dl>
+
+どちらも、ノードのIDでテスト対象となるノードを指定し、
+ウインドウ座標系(<i>pixel</i>単位で、左上隅が原点)でテスト領域の
+中心座標と領域のサイズ(<a href="#clickFeedback">clickFeedback</a>では
+サイズは<a href="#VFR_SELECT_SUITE_SPOT"><i>VFR_SELECT_SUITE_SPOT</i>×<i>VFR_SELECT_SUITE_SPOT</i></a>になる)
+を指定する。
+<p>
+結果は、メソッドの戻り値で返される。
+これは<i>int</i>型の配列で、先頭の要素にテストに合格したエレメントの数が格納され、
+続く要素にはテストに合格したエレメントの番号(描画順に0からはじまる)が格納される。
+<br>
+戻り値の内容は、次にフィードバックテストを実行するか、
+<a href="#relaxFeedback">relaxFeedback()</a>を実行するまで有効である。
+
+<hr>
+
+<a name="Front_Node"><h4>Front Nodes</h4></a>
+
+vfrCameraクラスでは、<a href="#setFrontNode">setFrontNode()</a>メソッドで
+前景ノードを登録する事ができる。
+<br>
+前景ノードは、視界の幾何変換の影響を受けず、常に最前面に描画される。
+また、前景ノードには<a href="vfrLight.html">ライト</a>による照光効果は
+影響しない。
+<p>
+前景ノードには<a href="vfrScene.html">シーン(vfrScene)</a>を登録してはならない。
+複数のノードを前景ノードに登録する場合は、
+<a href="vfrGroup.html">グループノード(vfrGroup)</a>を用いる。
+<br>
+尚、シーンツリーのルートが<a href="vfrScene.html">vfrScene</a>ではないため、
+前景ノードにはデフォルト<a href="vfrMaterial.html">マテリアル</a>は存在しない。
+必要な場合は、<a href="vfrNode.html#alcMaterial">alcMaterial()</a>メソッドで
+明示的に確保しなければならない。
+<p>
+前景ノードは独立した座標系で描画される。
+描画範囲は、表示領域の天地(高さ)を基準にしており、下端が <i>-1.0</i>、上端が <i>1.0</i>である。
+左右の表示範囲は、表示領域のアスペクト比によって決まる。
+
+<hr>
+
+<a name="Background_Color"><h4>Background Color</h4></a>
+
+vfrCameraクラスでは、表示領域の背景色を<a href="#setBgColor">setBgColor()</a>メソッドで
+指定する事ができる。
+<br>
+背景色では、Alpha成分は意味を持たない。
+<p>
+背景色は、<a href="#setFogMode">フォグ</a>が有効な場合の混合色としても用いられる。
+
+<hr width="100%" noshade>
+<table width="100%">
+<tr>
+<td align="right">
+<font size="1">Copyright(c) 2005 RIKEN</font></td>
+</tr>
+</table>
+</body>

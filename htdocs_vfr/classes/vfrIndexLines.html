@@ -1,0 +1,120 @@
+<title>class vfrIndexLines</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrIndexLines</h2>
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li><a href="vfrBase.html">vfrBase</a>
+<ul>
+<li><a href="vfrNode.html">vfrNode</a>
+<ul>
+<li>vfrIndexLines
+</ul>
+</ul>
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrIndexLines.h"
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+
+<dl>
+<dt>vfrIndexLines(const std::string& name <i><a href="vfrNode.html#VFR_NONAME">VFR_NONAME</a></i>, const <a href="vfrDefs.html#Bool">Bool</a> mode <i>= FALSE</i>)
+<dd>空のvfrIndexLinesオブジェクト(頂点0個、連結情報無し)を
+インスタンスする。
+<dd> name  オブジェクト名
+<dd> mode  自己破壊モード
+<p>
+<dt>virtual ~vfrIndexLines()
+<dd>vfrIndexLinesオブジェクトを破壊する。
+</dl>
+
+<hr>
+
+<h3>public methods / variables</h3>
+
+<dl>
+<dt>void <a name="setLoopMode">setLoopMode</a>(const <a href="vfrDefs.html#Bool">Bool</a> lm)
+<dd>ラインループモードを設定する
+<dd> lm		ループモード(デフォルト: <i>FALSE</i>)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> getLoopMode() const
+<dd>ループモードを返す
+<p>
+<dt><a href="vfrDefs.html#RenderType">RenderType</a>  <a name="getRenderMode">getRenderMode</a>() const
+<dd>レンダリングモードを返す
+<p>
+<dt>void	<a name="renderFeedBack">renderFeedBack</a>(const unsigned int tid)
+<dd>フィードバックテストレンダリングを行う。
+<dd> tid	ターゲットID
+</dl>
+
+<hr>
+
+<h3>Description</h3>
+
+viTndexLinesクラスは、インデックス参照型の線分集合オブジェクトである。<br>
+与えられた<a href="vfrNode.html#alcVerts">頂点集合</a>と、
+<a href="vfrNode.html#alcIndices">頂点連結情報</a>(インデックス)を参照し、
+<pre>
+	頂点[インデックス[i]]
+</pre>
+を順に直線で連結する。
+<p>
+線分は、インデックスが<a href="vfrNode.html#VFR_END_OF_ELEM">要素終端</a>の場合は連結しない。
+<br>また、<a href="#setLoopMode">ループモード</a>が<i>TRUE</i>の場合は、
+<a href="vfrNode.html#VFR_END_OF_ELEM">要素終端</a>またはインデックスの終端に達した時に
+線分を閉じ、閉多角形を描く。
+
+<hr>
+
+<h4>RenderMode</h4>
+
+vfrIndexLinesオブジェクトは、<a href="vfrDefs.html#RenderType">レンダリングモード</a>が<i>NONE</i>か<i>RT_POINT</i>
+の場合を除き、<a href="#getRenderMode">getRenderMode()</a>で返される
+レンダリングモードに<i>RT_WIRE</a>を加える。
+
+<hr>
+
+<h4>Feedback</h4>
+
+フィードバックテストにおいて、vfrIndexLinesオブジェクトは
+<a href="vfrDefs.html#FeedbackType">フィードバックモード</a>属性に応じ、
+以下のような結果を返す。
+
+<dl>
+<dt><i>FB_VERTEX</i>
+<dd>登録されている頂点順に0から付番された番号でフィードバックテストの結果を返す。
+<p>
+<dt><i>FB_EDGE</i>
+<dd>描画される順序で線分に0から付番された番号でフィードバックテストの結果を返す。<br>
+<a href="#setLoopMode">ループモード</a>の設定によって、対応する線分の番号が変わる事がある。
+<p>
+<dt><i>FB_FACE</i>
+<dd>フィードバックテストは常に合格数 0 を返す。
+</dl>
+
+<hr noshade>
+<table width="100%">
+<tr>
+<td align="right">
+<font size="1">Copyright(c) 2005 RIKEN
+</font></td>
+</tr>
+</table>
+</body>

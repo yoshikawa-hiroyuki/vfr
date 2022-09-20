@@ -1,0 +1,147 @@
+<title>class vfrEvCDragStart</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrEvCDragStart, vfrEvRCDragStart, vfrEvMCDragStart</h2>
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li><a href="vfrEvent.html">vfrEvent</a>
+ <ul>
+ <li>vfrEvCDragStart
+ <li>vfrEvRCDragStart
+ <li>vfrEvMCDragStart
+ </ul>
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrEvCDrag.h"
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+<dl>
+<dt>vfrEvCDragStart()
+<dd>vfrEvCDragStartイベントオブジェクトを生成する
+<p>
+<dt>virtual ~vfrEvCDragStart()
+<dd>vfrEvCDragStartイベントオブジェクトを破壊する
+<p>
+<dt>vfrEvRCDragStart()
+<dd>vfrEvRCDragStartイベントオブジェクトを生成する
+<p>
+<dt>virtual ~vfrEvRCDragStart()
+<dd>vfrEvRCDragStartイベントオブジェクトを破壊する
+<p>
+<dt>vfrEvMCDragStart()
+<dd>vfrEvMCDragStartイベントオブジェクトを生成する
+<p>
+<dt>virtual ~vfrEvMCDragStart()
+<dd>vfrEvMCDragStartイベントオブジェクトを破壊する
+</dl>
+
+<hr>
+
+<h3>Public Methods / Variables</h3>
+
+<h4>vfrEvCDragStart::</h4>
+<dl>
+<dt>static <a href="vfrEvent.html">vfrEvent</a> &instance(<a href="vfrDispatch.html">vfrDispatch</a> &disp)
+<dd><a  href="vfrDispatch.html">イベントディスパッチャー</a>に登録されている
+CDragStart仮想イベントオブジェクトを取得する(スタティックメソッド)
+<dd> disp	イベントディスパッチャー
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>  <a name="isDragStartEvent">isDragStartEvent</a>() const
+<dd>ドラッギング開始イベントかどうかを返す(<i>TRUE</i>を返す)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>  <a name="withLeftButton">withLeftButton</a>() const
+<dd>マウス左ボタンイベントかどうかを返す(<i>TRUE</i>を返す)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>  <a name="withControlKey">withControlKey</a>() const
+<dd>Controlキーイベントかどうかを返す(<i>TRUE</i>を返す)
+</dl>
+
+<P>
+<h4>vfrEvRCDragStart::</h4>
+<dl>
+<dt>static <a href="vfrEvent.html">vfrEvent</a> &instance(<a href="vfrDispatch.html">vfrDispatch</a> &disp)
+<dd><a  href="vfrDispatch.html">イベントディスパッチャー</a>に登録されている
+RCDragStart仮想イベントオブジェクトを取得する(スタティックメソッド)
+<dd> disp	イベントディスパッチャー
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> isDragStartEvent() const
+<dd>ドラッギング開始イベントかどうかを返す(<i>TRUE</i>を返す)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>  <a name="withRightButton">withRightButton</a>() const
+<dd>マウス右ボタンイベントかどうかを返す(<i>TRUE</i>を返す)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> withControlKey() const
+<dd>Controlキーイベントかどうかを返す(<i>TRUE</i>を返す)
+</dl>
+
+<P>
+<h4>vfrEvMCDragStart::</h4>
+<dl>
+<dt>static <a href="vfrEvent.html">vfrEvent</a> &instance(<a href="vfrDispatch.html">vfrDispatch</a> &disp)
+<dd><a  href="vfrDispatch.html">イベントディスパッチャー</a>に登録されている
+MCDragStart仮想イベントオブジェクトを取得する(スタティックメソッド)
+<dd> disp	イベントディスパッチャー
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> isDragStartEvent() const
+<dd>ドラッギング開始イベントかどうかを返す(<i>TRUE</i>を返す)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>  <a name="withMiddleButton">withMiddleButton</a>() const
+<dd>マウス中ボタンイベントかどうかを返す(<i>TRUE</i>を返す)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> withControlKey() const
+<dd>Controlキーイベントかどうかを返す(<i>TRUE</i>を返す)
+</dl>
+
+<P>
+
+<hr>
+<h3>Description</h3>
+
+vfrEvCDragStart, vfrEvRCDragStart, vfrEvMCDragStartの各クラスは、
+<a href="vfrDrawArea.html">描画領域</a>に対するCDragStart、RCDragStart
+およびMCDragStart仮想イベントを
+処理するイベントオブジェクトのクラスである。
+<p>
+描画領域において<i>CONTROL</i>キーを押しながらのマウスドラッグが開始されると、
+<a href="vfrDrawArea.html">vfrDrawArea</a>クラスの
+内部イベントハンドラは<a href="vfrDispatch.html">イベントディスパッチャー</a>を介して
+取得したvfrEvCDragStart(左ドラッグ)、vfrEvRCDragStart(右ドラッグ)、
+vfrEvMCDragStart(中ドラッグ)インスタンスにイベント情報を登録し、
+各インスタンスに登録されている<a href="vfrAction.html">アクション</a>を
+<a href="vfrAction.html#execute">実行</a>する。
+
+<hr>
+
+<a name="Event_Information"><h4>Event Information</h4></a>
+
+vfrEvCDragStart, vfrEvRCDragStart, vfrEvMCDragStartの各クラスは、
+以下のイベント情報をサポートする。
+<ul>
+<li><a href="vfrEvent.html#getScreen">イベントが発生したスクリーン</a>
+<li><a href="vfrEvent.html#getMPoint">イベント発生時のマウス位置</a>
+</ul>
+
+<hr width="100%" noshade>
+<table width="100%">
+<tr>
+<td align="right"><font size="1">Copyright(c) 2005 RIKEN
+</font></td>
+</tr>
+</table>
+</body>

@@ -1,0 +1,93 @@
+<title>class vfrScaleCameraAction</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrScaleCameraAction</h2>
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li><a href="vfrAction.html">vfrAction</a>
+ <ul>
+ <li>vfrScaleCameraAction
+ </ul>
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrDefaultActions.h"
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+<p>
+
+<hr>
+
+<h3>Public Methods / Variables</h3>
+
+<dl>
+<dt>void <a name="execute">execute</a>(<a href="vfrEvent.html">vfrEvent</a>& ev)
+<dd>仮想イベントに対してアクション(イベントハンドラ)を実行する
+<dd> ev		仮想イベント
+<p>
+<dt>static <a href="vfrScaleCameraAction.html">vfrScaleCameraAction</a>& <a name="instance">instance</a>()
+<dd>vfrScaleCameraActionクラスの(唯一の)インスタンスを取得する
+<br>(スタティックメソッド)
+</dl>
+
+<hr>
+<h3>Description</h3>
+
+vfrScaleCameraActionクラスは、
+マウスドラッギングに対応したカメラ(視点位置)の視界の拡大／縮小を行う
+<a href="vfrDefaultActions.html#Default_Actions">デフォルトアクション</a>のクラスである。
+<br>
+視界の拡大／縮小操作は、視点位置を視線方向に前後に移動する事で実現される。
+<p>
+vfrScaleCameraActionクラスのインスタンスはプログラム内で1つだけ存在し、
+その取得には<a href="#instance">instance()</a>メソッドを用いる。
+
+<hr>
+
+<h4>Behavior</h4>
+
+vfrScaleCameraActionクラスは、<a href="#execute">execute()</a>メソッドがコールされると、
+以下の動作を行う。
+<ul>
+<li>パスされた仮想イベントから、マウス移動量を取得する
+<li>移動量に応じて、<a href="vfrCamera.html#dragTrans">カメラを視線方向に前後に移動</a>させる
+</ul>
+
+これらの動作は、以下のコードで実装されている。
+<pre>
+void
+vfrScaleCameraAction::execute(vfrEvent& e) {
+  Point2 mv;
+  vfrScreen* screen = (vfrScreen*)e.getScreen();
+  if ( ! screen ) return;
+  if ( ! e.getMMove(mv) ) return;
+  vfrCamera* camera = screen->getCamera();
+  if ( ! camera ) return;
+  camera->dragTransZ(mv.x, mv.y);
+}
+</pre>
+
+<hr width="100%" noshade>
+<table width="100%">
+<tr>
+<td align="right">
+<font size="1">Copyright(c) 2005 RIKEN
+</font></td>
+</tr>
+</table>
+</body>

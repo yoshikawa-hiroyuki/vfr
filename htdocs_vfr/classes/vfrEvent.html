@@ -1,0 +1,198 @@
+<title>class vfrEvent</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrEvent</h2>
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li>vfrEvent
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrEvent.h"
+</dl>
+
+<p>
+<h4>Definitions</h4>
+<ul>
+<li><a name="VFRkeyCode">VFRkeyCode</a>       キーコードを表す型
+<br>(<i>unsigned int</i> 型)
+</ul>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+<p>
+
+<hr>
+
+<h3>Public Methods / Variables</h3>
+
+<dl>
+<dt>void <a name="regist">regist</a>(<a href="vfrAction.html">vfrAction</a>* act)
+<dd>アクション(イベントハンドラ)を登録する。
+<br><i>NULL</i>を登録すると、ノーリアクションの状態になる。
+<dd> act	アクションへのポインタ(初期値: <i>NULL</i>)
+<p>
+<dt><a href="vfrAction.html">vfrAction</a>* <a name="getAction">getAction</a>()
+<dd>登録されているアクションを返す。
+<br>登録されていなければ<i>NULL</i>を返す。
+<p>
+<dt>void    <a name="execAction">execAction</a>()
+<dd>登録されているアクションをコールする
+<p>
+<dt><a href="vfrScreen.html">vfrScreen</a>* <a name="getScreen">getScreen</a>()
+<dd>イベント発生スクリーンを返す。
+<br>有効なスクリーンが登録されていない場合は、<i>NULL</i>を返す。
+<p>
+<dt>void    <a name="setScreen">setScreen</a>(<a href="vfrScreen.html">vfrScreen</a>* s)
+<dd>イベント発生スクリーンを登録する
+<dd> s          イベント発生スクリーン
+<p>
+<dt>virtual <a href="vfrDefs.html#Point2">Point2</a>&  <a name="getMPoint">getMPoint</a>()
+<dd>イベント発生時のマウス位置を返す
+<p>
+<dt>virtual void <a name="setMPoint">setMPoint</a>(const <a href="vfrDefs.html#Point2">Point2</a>& mp)
+<dd>イベント発生時のマウス位置を登録する
+<dd> mp		マウス位置
+<p>
+<dt>virtual <a href="vfrDefs.html#Point2">Point2</a>&  <a name="getMMove">getMMove</a>()
+<dd>イベント発生時のマウス移動量を返す
+<p>
+<dt>virtual void <a name="setMMove">setMMove</a>(const <a href="vfrDefs.html#Point2">Point2</a>& md)
+<dd>イベント発生時のマウス移動量を登録する
+<dd> md		マウス移動量
+<p>
+<dt>virtual <a href="#VFRkeyCode">VFRkeyCode</a>&  <a name="getKey">getKey</a>()
+<dd>イベント発生時の入力キーコードを返す
+<p>
+<dt>virtual void <a name="setKey">setKey</a>(const <a href="#VFRkeyCode">VFRkeyCode</a>& kc)
+<dd>イベント発生時の入力キーコードを登録する
+<dd> kc		入力キーコード
+<p>
+<dt>virtual <a href="vfrDefs.html#Bool">Bool</a> <a name="isKeyEvent">isKeyEvent</a>() const
+<dd>キー入力イベントかどうかを返す(<i>FALSE</i>を返す)
+<p>
+<dt>virtual <a href="vfrDefs.html#Bool">Bool</a> <a name="isClickEvent">isClickEvent</a>() const
+<dd>マウスクリックイベントかどうかを返す(<i>FALSE</i>を返す)
+<p>
+<dt>virtual <a href="vfrDefs.html#Bool">Bool</a> <a name="isDragEvent">isDragEvent</a>() const
+<dd>マウスドラッグイベントかどうかを返す(<i>FALSE</i>を返す)
+<p>
+<dt>virtual <a href="vfrDefs.html#Bool">Bool</a> <a name="isDragStartEvent">isDragStartEvent</a>() const
+<dd>マウスドラッグ開始イベントかどうかを返す(<i>FALSE</i>を返す)
+<p>
+<dt>virtual <a href="vfrDefs.html#Bool">Bool</a> <a name="isDragEndEvent">isDragEndEvent</a>() const
+<dd>マウスドラッグ終了イベントかどうかを返す(<i>FALSE</i>を返す)
+<p>
+<dt>virtual <a href="vfrDefs.html#Bool">Bool</a> <a name="withLeftButton">withLeftButton</a>() const
+<dd>マウス左ボタンイベントかどうかを返す(<i>FALSE</i>を返す)
+<p>
+<dt>virtual <a href="vfrDefs.html#Bool">Bool</a> <a name="withRightButton">withRightButton</a>() const
+<dd>マウス右ボタンイベントかどうかを返す(<i>FALSE</i>を返す)
+<p>
+<dt>virtual <a href="vfrDefs.html#Bool">Bool</a> <a name="withMiddleButton">withMiddleButton</a>() const
+<dd>マウス中ボタンイベントかどうかを返す(<i>FALSE</i>を返す)
+<p>
+<dt>virtual <a href="vfrDefs.html#Bool">Bool</a> <a name="withShiftKey">withShiftKey</a>() const
+<dd>Shiftキーマウスイベントかどうかを返す(<i>FALSE</i>を返す)
+<p>
+<dt>virtual <a href="vfrDefs.html#Bool">Bool</a> <a name="withControlKey">withControlKey</a>() const
+<dd>Controlキーマウスイベントかどうかを返す(<i>FALSE</i>を返す)
+</dl>
+
+<hr>
+<h3>Description</h3>
+
+vfrEventクラスは、<a href="vfrDrawArea.html">描画領域</a>に対する「仮想イベント」の
+純粋基底クラスである。
+<p>
+
+<hr>
+
+<a name="Event_Model"><h4>Event Model</h4></a>
+vfrでは、<a href="vfrDrawArea.html">描画領域(vfrDrawArea)</a>に対するキーボード、マウスからの入力に関して、
+vfr特有の「仮想イベント」を定義し、これに対する<a href="vfrAction.html">アクション</a>(イベントハンドラ)を
+<a href="#regist">登録</a>する事により、イベントハンドリングを行う。
+<p>
+仮想イベントには以下のものがあり、それぞれ対応するクラス(vfrEventの派生クラス)が用意されている。
+<p>
+<table border="1">
+<tr><td>仮想イベント <td>対応するクラス  <td>イベントの意味
+<tr><td>KeyIn        <td><a href="vfrEvKeyIn.html">vfrEvKeyIn</a>  <td>キー入力(<i>SHIFT, CONTROL</i>キーを除く)
+<tr><td>Click        <td><a href="vfrEvClick.html">vfrEvClick</a>   <td>マウス左クリック
+<tr><td>DragStart    <td><a href="vfrEvDragStart.html">vfrEvDragStart</a>   <td>マウス左ドラッギング開始
+<tr><td>Drag         <td><a href="vfrEvDrag.html">vfrEvDrag</a>   <td>マウス左ドラッギング
+<tr><td>DragEnd      <td><a href="vfrEvDragEnd.html">vfrEvDragEnd</a>   <td>マウス左ドラッギング終了
+<tr><td>SClick       <td><a href="vfrEvSClick.html">vfrEvSClick</a>   <td><i>SHIFT</i>+マウス左クリック
+<tr><td>SDragStart   <td><a href="vfrEvSDragStart.html">vfrEvSDragStart</a>   <td><i>SHIFT</i>+マウス左ドラッギング開始
+<tr><td>SDrag        <td><a href="vfrEvSDrag.html">vfrEvSDrag</a>   <td><i>SHIFT</i>+マウス左ドラッギング
+<tr><td>SDragEnd     <td><a href="vfrEvSDragEnd.html">vfrEvSDragEnd</a>   <td><i>SHIFT</i>+マウス左ドラッギング終了
+<tr><td>CClick       <td><a href="vfrEvCClick.html">vfrEvCClick</a>   <td><i>CONTROL</i>+マウス左クリック
+<tr><td>CDragStart   <td><a href="vfrEvCDragStart.html">vfrEvCDragStart</a>   <td><i>CONTROL</i>+マウス左ドラッギング開始
+<tr><td>CDrag        <td><a href="vfrEvCDrag.html">vfrEvCDrag</a>   <td><i>CONTROL</i>+マウス左ドラッギング
+<tr><td>CDragEnd     <td><a href="vfrEvCDragEnd.html">vfrEvCDragEnd</a>   <td><i>CONTROL</i>+マウス左ドラッギング終了
+<tr><td>SCClick      <td><a href="vfrEvSCClick.html">vfrEvSCClick</a>   <td><i>SHIFT</i>+<i>CONTROL</i>+マウス左クリック
+<tr><td>SCDragStart  <td><a href="vfrEvSCDragStart.html">vfrEvSCDragStart</a>   <td><i>SHIFT</i>+<i>CONTROL</i>+マウス左ドラッギング開始
+<tr><td>SCDrag       <td><a href="vfrEvSCDrag.html">vfrEvSCDrag</a>   <td><i>SHIFT</i>+<i>CONTROL</i>+マウス左ドラッギング
+<tr><td>SCDragEnd    <td><a href="vfrEvSCDragEnd.html">vfrEvSCDragEnd</a>   <td><i>SHIFT</i>+<i>CONTROL</i>+マウス左ドラッギング終了
+<!-------------------- RIGHT BUTTON -------------------->
+<tr><td>RClick        <td><a href="vfrEvClick.html#vfrEvRClick">vfrEvRClick</a>   <td>マウス右クリック
+<tr><td>RDragStart    <td><a href="vfrEvDragStart.html#vfrEvRDragStart">vfrEvRDragStart</a>   <td>マウス右ドラッギング開始
+<tr><td>RDrag         <td><a href="vfrEvDrag.html#vfrEvRDrag">vfrEvRDrag</a>   <td>マウス右ドラッギング
+<tr><td>RDragEnd      <td><a href="vfrEvDragEnd.html#vfrEvRDragEnd">vfrEvRDragEnd</a>   <td>マウス右ドラッギング終了
+<tr><td>RSClick       <td><a href="vfrEvSClick.html#vfrEvRSClick">vfrEvRSClick</a>   <td><i>SHIFT</i>+マウス右クリック
+<tr><td>RSDragStart   <td><a href="vfrEvSDragStart.html#vfrEvRSDragStart">vfrEvRSDragStart</a>   <td><i>SHIFT</i>+マウス右ドラッギング開始
+<tr><td>RSDrag        <td><a href="vfrEvSDrag.html#vfrEvRSDrag">vfrEvRSDrag</a>   <td><i>SHIFT</i>+マウス右ドラッギング
+<tr><td>RSDragEnd     <td><a href="vfrEvSDragEnd.html#vfrEvRSDragEnd">vfrEvRSDragEnd</a>   <td><i>SHIFT</i>+マウス右ドラッギング終了
+<tr><td>RCClick       <td><a href="vfrEvCClick.html#vfrEvRCClick">vfrEvRCClick</a>   <td><i>CONTROL</i>+マウス右クリック
+<tr><td>RCDragStart   <td><a href="vfrEvCDragStart.html#vfrEvRCDragStart">vfrEvRCDragStart</a>   <td><i>CONTROL</i>+マウス右ドラッギング開始
+<tr><td>RCDrag        <td><a href="vfrEvCDrag.html#vfrEvRCDrag">vfrEvRCDrag</a>   <td><i>CONTROL</i>+マウス右ドラッギング
+<tr><td>RCDragEnd     <td><a href="vfrEvCDragEnd.html#vfrEvRCDragEnd">vfrEvRCDragEnd</a>   <td><i>CONTROL</i>+マウス右ドラッギング終了
+<tr><td>RSCClick      <td><a href="vfrEvSCClick.html#vfrEvRSCClick">vfrEvRSCClick</a>   <td><i>SHIFT</i>+<i>CONTROL</i>+マウス右クリック
+<tr><td>RSCDragStart  <td><a href="vfrEvSCDragStart.html#vfrEvRSCDragStart">vfrEvRSCDragStart</a>   <td><i>SHIFT</i>+<i>CONTROL</i>+マウス右ドラッギング開始
+<tr><td>RSCDrag       <td><a href="vfrEvSCDrag.html#vfrEvRSCDrag">vfrEvRSCDrag</a>   <td><i>SHIFT</i>+<i>CONTROL</i>+マウス右ドラッギング
+<tr><td>RSCDragEnd    <td><a href="vfrEvSCDragEnd.html#vfrEvRSCDragEnd">vfrEvRSCDragEnd</a>   <td><i>SHIFT</i>+<i>CONTROL</i>+マウス右ドラッギング終了
+<!-------------------- MIDDLE BUTTON -------------------->
+<tr><td>MClick        <td><a href="vfrEvClick.html#vfrEvMClick">vfrEvMClick</a>   <td>マウス中クリック
+<tr><td>MDragStart    <td><a href="vfrEvDragStart.html#vfrEvMDragStart">vfrEvMDragStart</a>   <td>マウス中ドラッギング開始
+<tr><td>MDrag         <td><a href="vfrEvDrag.html#vfrEvMDrag">vfrEvMDrag</a>   <td>マウス中ドラッギング
+<tr><td>MDragEnd      <td><a href="vfrEvDragEnd.html#vfrEvMDragEnd">vfrEvMDragEnd</a>   <td>マウス中ドラッギング終了
+<tr><td>MSClick       <td><a href="vfrEvSClick.html#vfrEvMSClick">vfrEvMSClick</a>   <td><i>SHIFT</i>+マウス中クリック
+<tr><td>MSDragStart   <td><a href="vfrEvSDragStart.html#vfrEvMSDragStart">vfrEvMSDragStart</a>   <td><i>SHIFT</i>+マウス中ドラッギング開始
+<tr><td>MSDrag        <td><a href="vfrEvSDrag.html#vfrEvMSDrag">vfrEvMSDrag</a>   <td><i>SHIFT</i>+マウス中ドラッギング
+<tr><td>MSDragEnd     <td><a href="vfrEvSDragEnd.html#vfrEvMSDragEnd">vfrEvMSDragEnd</a>   <td><i>SHIFT</i>+マウス中ドラッギング終了
+<tr><td>MCClick       <td><a href="vfrEvCClick.html#vfrEvMCClick">vfrEvMCClick</a>   <td><i>CONTROL</i>+マウス中クリック
+<tr><td>MCDragStart   <td><a href="vfrEvCDragStart.html#vfrEvMCDragStart">vfrEvMCDragStart</a>   <td><i>CONTROL</i>+マウス中ドラッギング開始
+<tr><td>MCDrag        <td><a href="vfrEvCDrag.html#vfrEvMCDrag">vfrEvMCDrag</a>   <td><i>CONTROL</i>+マウス中ドラッギング
+<tr><td>MCDragEnd     <td><a href="vfrEvCDragEnd.html#vfrEvMCDragEnd">vfrEvMCDragEnd</a>   <td><i>CONTROL</i>+マウス中ドラッギング終了
+<tr><td>MSCClick      <td><a href="vfrEvSCClick.html#vfrEvMSCClick">vfrEvMSCClick</a>   <td><i>SHIFT</i>+<i>CONTROL</i>+マウス中クリック
+<tr><td>MSCDragStart  <td><a href="vfrEvSCDragStart.html#vfrEvMSCDragStart">vfrEvMSCDragStart</a>   <td><i>SHIFT</i>+<i>CONTROL</i>+マウス中ドラッギング開始
+<tr><td>MSCDrag       <td><a href="vfrEvSCDrag.html#vfrEvMSCDrag">vfrEvMSCDrag</a>   <td><i>SHIFT</i>+<i>CONTROL</i>+マウス中ドラッギング
+<tr><td>MSCDragEnd    <td><a href="vfrEvSCDragEnd.html#vfrEvMSCDragEnd">vfrEvMSCDragEnd</a>   <td><i>SHIFT</i>+<i>CONTROL</i>+マウス中ドラッギング終了
+</table>
+<p>
+vfrDrawAreaの内部イベントハンドラでは、<a href="vfrDispatch.html">イベントディスパッチャー</a>を介して
+仮想イベントのインスタンスを取得し、ここにイベント情報を登録した上で、
+仮想イベントに登録されている<a href="vfrAction.html">アクション</a>をコールする。
+<br>(参照: <a href="vfrAction.html">アクション</a>)
+
+<hr width="100%" noshade>
+<table width="100%">
+<tr>
+<td align="right"><font size="1">Copyright(c) 2005 RIKEN
+</font></td>
+</tr>
+</table>
+</body>

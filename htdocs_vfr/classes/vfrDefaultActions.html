@@ -1,0 +1,128 @@
+<title>class vfrDefaultActions</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h1>class vfrDefaultActions</h1>
+
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li>vfrDefaultActions
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrDefaultActions.h"
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+<dl>
+<dd><i>None</i>
+</dl>
+
+<hr>
+
+<h3>Public Methods / Variables</h3>
+
+<dl>
+<dt>static void <a name="SetDefaultAction">SetDefaultAction</a>(<a href="vfrDrawArea.html">vfrDrawArea</a>& da)
+<dd>描画領域に対して、デフォルトアクションの設定を行う(スタティックメソッド)
+<dd> da	描画領域
+<p>
+<dt>static void <a name="SetSelectedObj">SetSelectedObj</a>(<a href="vfrNode.html">vfrNode</a>* obj)
+<dd>注目オブジェクトを登録する(スタティックメソッド)
+<dd> obj	登録するオブジェクト(初期状態は<i>NULL</i>)
+<p>
+<dt>static <a href="vfrNode.html">vfrNode</a>* <a name="GetSelectedObj">GetSelectedObj</a>()
+<dd>登録されている注目オブジェクトを返す(スタティックメソッド)
+</dl>
+
+<hr>
+<h3>Description</h3>
+
+vfrDefaultActionsクラスは、<a href="vfrDrawArea.html">描画領域</a>に対して
+あらかじめ用意されている<a href="vfrAction.html">アクション</a>(イベントハンドラ)群を
+登録するためのユーティリティクラスである。
+<p>
+vfrDefaultActionsクラスはスタティックメソッドしか持っていない。
+
+<hr>
+
+<a name="Default_Actions"><h4>Default Actions</h4></a>
+
+<a href="#SetDefaultAction">SetDefaultAction()</a>メソッドを
+コールする事で、デフォルトアクション群をいくつかの仮想イベントに一括して登録する事ができる。
+<br>
+SetDefaultAction()で登録されるアクションは、以下の通りである。
+<br>
+<table border>
+<tr><td>仮想イベント    <td>デフォルトアクション        <td>動作
+<tr><td><a href="vfrEvKeyIn.html">KeyIn</a>           <td><a href="vfrKeyInAction.html">vfrKeyInAction</a>       <td><i>RETURN</i>で幾何変換をリセット<br><i>ESC</i>で終了(UNIX版のみ)
+<tr><td><a href="vfrEvClick.html">Click</a>           <td><a href="vfrClickSelectAction.html">vfrClickSelectAction</a> <td>クリックセレクションテスト
+<tr><td><a href="vfrEvDragStart.html">DragStart</a>       <td><a href="vfrStartRBoxAction.html">vfrStartRBoxAction</a>   <td>ラバーボックス描画開始
+<tr><td><a href="vfrEvDrag.html">Drag</a>            <td><a href="vfrDrawRBoxAction.html">vfrDrawRBoxAction</a>    <td>ラバーボックス再描画
+<tr><td><a href="vfrEvDragEnd.html">DragEnd</a>         <td><a href="vfrEndRBoxAction.html">vfrEndRBoxAction</a>     <td>ラバーボックスセレクションテスト
+<tr><td><a href="vfrEvSClick.html">SClick</a>          <td><i>None</i>         <td>なし
+<tr><td><a href="vfrEvSDragStart.html">SDragStart</a>      <td><i>None</i>         <td>なし
+<tr><td><a href="vfrEvSDrag.html">SDrag</a>           <td><a href="vfrTransCameraAction.html">vfrTransCameraAction</a><br><a href="vfrTransObjAction.html">vfrTransObjAction</a>
+                        <td>カメラ平行移動<br>選択オブジェクト平行移動
+<tr><td><a href="vfrEvSDragEnd.html">SDragEnd</a>        <td><i>None</i>         <td>なし
+<tr><td><a href="vfrEvCClick.html">CClick</a>          <td><i>None</i>         <td>なし
+<tr><td><a href="vfrEvCDragStart.html">CDragStart</a>      <td><i>None</i>         <td>なし
+<tr><td><a href="vfrEvCDrag.html">CDrag</a>           <td><a href="vfrRotCameraAction.html">vfrRotCameraAction</a><br><a href="vfrRotObjAction.html">vfrRotObjAction</a>
+                        <td>カメラ回転<br>選択オブジェクト回転
+<tr><td><a href="vfrEvCDragEnd.html">CDragEnd</a>        <td><i>None</i>         <td>なし
+<tr><td><a href="vfrEvSCClick.html">SCClick</a>         <td><i>None</i>         <td>なし
+<tr><td><a href="vfrEvSCDragStart.html">SCDragStart</a>     <td><i>None</i>         <td>なし
+<tr><td><a href="vfrEvSCDrag.html">SCDrag</a>          <td><a href="vfrScaleCameraAction.html">vfrScaleCameraAction</a><br><a href="vfrScaleObjAction.html">vfrScaleObjAction</a>
+                        <td>カメラ視野拡大縮小<br>選択オブジェクト拡大縮小
+<tr><td><a href="vfrEvSCDragEnd.html">SCDragEnd</a>       <td><i>None</i>         <td>なし
+</table>
+<br>
+デフォルトアクション群による動作は、マウス左ボタンに対して
+以下のように設定されている。
+
+<ul>
+<li>(修飾キーを押さず)マウスクリックまたはマウスドラッグを行うと、
+<a href="vfrNode.html">オブジェクト</a>に対し
+<a href="vfrCamera.html#clickSelect">セレクションテスト</a>を行い、
+最も視点に近いオブジェクトを<a href="#GetSelectedObj">選択されたオブジェクト</a>
+として、<a href="vfrNode.html#setBboxShowMode">バウンディングボックス</a>を表示する。
+<br>セレクションテストに何も合格しない(背景をクリックなど)場合は、何も選択されていない状態とする。
+<p>
+<li><i>SHIFT</i>キーを押しながらマウスドラッグを行うと、
+<a href="#GetSelectedObj">選択されたオブジェクト</a>を
+<a href="vfrEvent.html#getMMove">マウスの移動量</a>に応じて平行移動させる。
+<br>何も選択されていない場合は、<a href="vfrCamera.html">カメラ</a>(視点)を平行移動させる。
+<p>
+<li><i>CONTROL</i>キーを押しながらマウスドラッグを行うと、
+<a href="#GetSelectedObj">選択されたオブジェクト</a>を
+<a href="vfrEvent.html#getMMove">マウスの移動量</a>に応じて回転させる。
+<br>何も選択されていない場合は、<a href="vfrCamera.html">カメラ</a>(視点)を回転させる。
+<p>
+<li><i>SHIFT</i>キーと<i>CONTROL</i>キーを両方押しながらマウスドラッグを行うと、
+<a href="#GetSelectedObj">選択されたオブジェクト</a>を
+<a href="vfrEvent.html#getMMove">マウスの移動量</a>に応じて拡大／縮小させる。
+<br>何も選択されていない場合は、<a href="vfrCamera.html">カメラ</a>(視点)を前後に移動させる。
+</ul>
+
+<hr noshade>
+<table width="100%">
+<tr>
+<td align="right">
+<font size="1">Copyright(c) 2005 RIKEN
+</font></td>
+</tr>
+</table>
+</body>

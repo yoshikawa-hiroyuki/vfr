@@ -1,0 +1,207 @@
+<title>class vfrDrawArea</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrDrawArea</h2>
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li>vfrDrawArea
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrDrawArea.h"
+</dl>
+
+<p>
+<h4>Definitions</h4>
+<dl>
+<dt><a name="VFR_MAX_SCREEN_NUM">VFR_MAX_SCREEN_NUM</a>
+<dd>vfrDrawAreaクラスが持つことができる<a href="vfrScreen.html">スクリーン</a>の最大数( = 4)
+<p>
+<dt><a name="ScrMapType">ScrMapType</a>
+<dd><a href="vfrScreen.html">スクリーン</a>配置タイプ
+<dd><table>
+<tr><td><i>HORIZONTAL</i><td>横方向優先
+<tr><td><i>VERTICAL</i><td>縦方向優先
+</table>
+<p>
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+<p>
+
+<dl>
+<dt>void vfrDrawArea()
+<dd>デフォルトコンストラクタ
+<p>
+<dt>virtual ~vfrDrawArea()
+<dd>vfrDrawAreaオブジェクトを破壊する。
+</dl>
+
+<hr>
+
+<h3>public methods / variables</h3>
+
+<dl>
+<dt>virtual void <a name="redraw">redraw</a>()
+<dd>再描画を行う(純粋仮想関数)
+<p>
+<dt>virtual void <a name="notice">notice</a>()
+<dd>描画内容の変更通知を行う(純粋仮想関数)
+<p>
+<dt>virtual void <a name="rumor">rumor</a>(<a href="vfrScreen.html">vfrScreen</a>* s)
+<dd><a href="vfrScreen.html">スクリーン</a>の破壊通知を受け付ける(純粋仮想関数)
+<dd> s  破壊されるスクリーン
+<p>
+<dt>virtual void    <a name="chkNotice">chkNotice</a>()
+<dd>描画内容の変更検査を要求する(純粋仮想関数)
+<p>
+<dt>virtual <a href="vfrDefs.html#Point2">Point2</a>  <a name="getSize">getSize</a>()
+<dd>描画領域のサイズ(<i>pixels</i>)を返す(純粋仮想関数)
+<p>
+<dt>virtual void        <a name="drawRubberBox">drawRubberBox</a>(const <a href="vfrDefs.html#Point2">Point2</a>& 
+p0, const <a href="vfrDefs.html#Point2">Point2</a>& p1)
+<dd>描画領域内にラバーボックスを描く(純粋仮想関数)
+<dd> p0         ラバーボックスの始点座標
+<dd> p1         ラバーボックスの終点座標
+<p>
+<dt>void <a name="setRubberBoxColor">setRubberBoxColor</a>(const <a href="vfrDefs.html#vector4">vector4</a> rbc)
+<dd>ラバーボックスの色を設定する
+<dd> rbc  ラバーボックスの色
+<p>
+<dt>void <a name="getRubberBoxColor">getRubberBoxColor</a>(<a href="vfrDefs.html#vector4">vector4</a>& rbc) const
+<dd> ラバーボックスの色を取得する
+<dd> rbc  ラバーボックスの色の格納領域
+<p>
+<dt>void <a name="setRubberBoxLineWidth">setRubberBoxLineWidth</a>(const GLfloat rblw)
+<dd>ラバーボックスの線幅を設定する
+<dd> rblw  ラバーボックスの線幅(pixel)
+<p>
+<dt>GLfloat <a name="getRubberBoxLineWidth">getRubberBoxLineWidth</a>() const
+<dd>ラバーボックスの線幅を返す
+<p>
+<dt>void <a name="setRubberBoxLineType">setRubberBoxLineType</a>(const <a href="vfrDefs.html#StippleType">StippleType</a> rblt)
+<dd>ラバーボックスの線種を設定する
+<dd> rblt  線種タイプ
+<p>
+<dt><a href="vfrDefs.html#StippleType">StippleType</a> <a name="getRubberBoxLineType">getRubberBoxLineType</a>() const
+<dd>ラバーボックスの線種を返す
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="addScreen">addScreen</a>(<a href="vfrScreen.html">vfrScreen</a>* s)
+<dd><a href="vfrScreen.html">スクリーン</a>を登録する。登録に成功すると<i>TRUE</i>を返す。
+<dd>スクリーンは、1つのvfrDrawAreaインスタンスに<a href="#VFR_MAX_SCREEN_NUM">VFR_MAX_SCREEN_NUM</a>個まで登録できる。
+<dd> s	登録するスクリーンへのポインタ
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="remScreen">remScreen</a>(<a href="vfrScreen.html">vfrScreen</a>* s)
+<dd>登録されているスクリーンの中に指定されたスクリーンと同じものがあれば、リストから削除する。
+<br>実際にリストから削除した場合、<i>TRUE</i>を返す。
+<dd> s	登録削除するスクリーンへのポインタ
+<p>
+<dt>void <a name="remapScreen">remapScreen</a>()
+<dd>描画領域内でのスクリーン再配置を行う。
+<br>スクリーンの<a href="#addScreen">登録</a>または<a href="#remScreen">削除</a>を行うと、自動的に実行される。
+<p>
+<dt>int <a name="whichScreen">whichScreen</a>(const int x, const int y)
+<dd>指定されたウインドウ座標が含まれるスクリーンのスクリーン番号を返す。
+<br>スクリーンが張られていない領域の場合、-1 を返す。
+<dd> x	X座標値
+<dd> y	Y座標値
+<p>
+<dt>int <a name="setCurScreen">setCurScreen</a>(const int cs)
+<dd>カレントスクリーンを設定する
+<dd> cs	カレントスクリーンに設定するスクリーンのスクリーン番号
+<p>
+<dt>void <a name="setScrBorderMode">setScrBorderMode</a>(const <a href="vfrDefs.html#Bool">Bool</a> sbm)
+<dd>カレントスクリーンボーダーモードを設定する
+<dd> sbm	カレントスクリーンボーダーモード(デフォルト: <i>TRUE</i>)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="getScrBorderMode">getScrBorderMode</a>()
+<dd>カレントスクリーンボーダーモードを返す
+<p>
+<dt><a href="vfrScreen.html">vfrScreen</a>* <a name="getScreen">getScreen</a>(const int ns)
+<dd>指定されたスクリーン番号の<a href="vfrScreen.html">スクリーン</a>を返す。
+<br>指定されたスクリーン番号のスクリーンが存在しない場合は<i>NULL</i>を返す。
+<dd> ns	スクリーン番号
+<p>
+<dt>void <a name="setScreenMapType">setScreenMapType</a>(const <a href="#ScrMapType">ScrMapType</a> smt)
+<dd>スクリーンのレイアウトポリシーを設定する
+<dd> smt     レイアウトポリシー
+<p>
+<dt><a href="#ScrMapType">ScrMapType</a> <a name="getScreenMapType">getScreenMapType</a>() const
+<dd>スクリーンのレイアウトポリシーを返す
+<p>
+<p>
+<dt><a href="vfrDispatch.html">vfrDispatch</a>& <a name="getDispatcher">getDispatcher</a>()
+<dd>イベントディスパッチャーを返す
+</dl>
+
+
+<hr>
+<h3>Description</h3>
+
+vfrDrawAreaクラスは、描画領域機能を定義する純粋基底クラスである。
+<p>
+インスタンスを作成することはできない。
+
+<hr>
+
+<a name="Screens"><h3>Screens</h3></a>
+
+vfrDrawAreaクラスは、複数の<a href="vfrScreen.html">スクリーン</a>を持ち、
+これらを管理する。
+<p>
+vfrDrawAreaクラスのインスタンスが持つことができるスクリーンの数は
+最大で<a href="#VFR_MAX_SCREEN_NUM">VFR_MAX_SCREEN_NUM</a>であり、
+この数を越えてスクリーンの<a href="#addScreen">登録</a>を行うことはできない。
+<p>
+vfrDrawAreaインスタンスにスクリーンが<a href="#addScreen">登録</a>または
+<a href="#remScreen">登録削除</a>されると、自動的にスクリーンの
+<a href="#remapScreen">再配置</a>が行われる。
+<br>
+スクリーンの再配置は、スクリーンの数によって<i>Fig.1</i>のように行われる。
+<p>
+<center>
+<img src="drawArea_screens.gif" width="604" height="274" alt="Fig.1 Screen Layout">
+<br><i>Fig.1 Screen Layout</i>
+</center>
+<p>
+スクリーン再配置は、vfrDrawAreaがリサイズされた場合にも自動的に実行される。
+<br>
+いづれの場合も、vfrDrawAreaの<a href="#getSize">サイズ</a>をもとに
+各スクリーンの<a href="vfrScreen.html#Viewport">ビューポート</a>設定も
+同時に行われる。
+
+<hr>
+
+<a name="Event_Handler"><h3>Event Handler</h3></a>
+
+vfrDrawAreaクラスは、ウインドウシステムからアプリケーションにパスされる
+様々なイベント(Windowsではメッセージ)を、クラス内部のイベントハンドラーで処理し、
+vfr独自の<a href="vfrEvent.html#Event_Model">仮想イベント</a>として再構成する。
+<p>
+クラス内部のイベントハンドラーは、独自の<a href="drawArea_evChart.gif">状態遷移表</a>に基づき、
+<a href="vfrDispatch.html">イベントディスパッチャー</a>を介して取得した
+<a href="vfrEvent.html">イベント</a>に登録されている
+<a href="vfrAction.html">アクション</a>をコールする。
+
+
+<hr width="100%" noshade>
+<table width="100%">
+<tr>
+<td align="right"><font size="1">Copyright(c) 2005 RIKEN
+</tr>
+</table>
+</body>

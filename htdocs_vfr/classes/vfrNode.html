@@ -1,0 +1,572 @@
+<title>class vfrNode</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrNode</h2>
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li><a href="vfrBase.html">vfrBase</a>
+<ul>
+<li>vfrNode
+</ul>
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrNode.h"
+</dl>
+<p>
+<h4>Definitions</h4>
+<dl>
+<dt><i><a name="VFR_NONAME">VFR_NONAME</a></i>
+<dd> 未設定ノード名(= <i>"%%noname%%"</i>、グローバルスコープ)
+<p>
+<dt><i><a name="VFR_END_OF_ELEM">VFR_END_OF_ELEM</a></i>
+<dd> インデックス参照型オブジェクトの要素終端(= <i>-1</i>、グローバルスコープ)
+<p>
+<dt><i><a name="VFR_FEEDBACK_SIZE_FACTOR">VFR_FEEDBACK_SIZE_FACTOR</a></i>
+<dd> フィードバックバッファサイズ係数(ライブラリ内部で使用、グローバルスコープ)
+<p>
+<dt><a name="vfrMaterialStack">vfrMaterialStack</a>
+<dd> マテリアルスタック(ライブラリ内部で使用、グローバルスコープ)
+<p>
+<dt><a name="DLFlagType">DLFlagType</a>
+<dd> ディスプレイリスト状態フラグ(ライブラリ内部で使用)
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+
+<dl>
+<dt>virtual ~vfrNode()
+<dd>vfrNodeオブジェクトを破壊する
+</dl>
+
+<hr>
+
+<h3>Public Methods / Variables</h3>
+
+<dl>
+<dt>void	<a name="setName">setName</a>(const std::string& name)
+<dd>オブジェクトの名前を設定する
+<dd> name	設定する名前
+<p>
+<dt>const std::string <a name="getName">getName</a>() const
+<dd>オブジェクトの名前を返す
+<p>
+<dt>unsigned int  <a name="getID">getID</a>() const
+<dd>オブジェクトID番号を返す
+<p>
+<dt>virtual void	<a name="render">render</a>(<a href="#vfrMaterialStack">vfrMaterialStack</a>* mstk <i>= NULL</i>)
+<dd>オブジェクトのレンダリングを行う
+<dd> mstk  マテリアルスタック
+<p>
+<dt>virtual void	render(const <a href="vfrDefs.html#Bool">Bool</a> transp, <a href="#vfrMaterialStack">vfrMaterialStack</a>* mstk <i>= NULL</i>)
+<dd>オブジェクトのレンダリングを行う
+<dd> transp	不透明(FALSE)/半透明(TRUE)モード指定フラグ
+<dd> mstk  マテリアルスタック
+<p>
+<dt>virtual void	<a name="renderFeedBack">renderFeedBack</a>(const unsigned int id)
+<dd>フィードバックを実行する
+<dd> id	ターゲットオブジェクトID番号
+<p>
+<dt>virtual GLsizei	<a name="getFeedbackSize">getFeedbackSize</a>() const
+<dd>フィードバックバッファのサイズを返す
+<p>
+<dt>virtual void	<a name="notice">notice</a>()
+<dd>オブジェクトの変更通知を行う
+<p>
+<dt>virtual void	<a name="rumor">rumor</a>()
+<dd>参照オブジェクトからの破壊通知を受け付ける
+<p>
+<dt>virtual void	<a name="renderSolid">renderSolid</a>()
+<dd>ソリッドレンダリングのインターフェース
+<p>
+<dt>virtual void	<a name="renderWire">renderWire</a>()
+<dd>ワイヤーフレームレンダリングのインターフェース
+<p>
+<dt>virtual void	<a name="renderPoint">renderPoint</a>()
+<dd>ポイントフレームレンダリングを行う
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>
+ <a name="beginDispList">beginDispList</a>(<a href="#DLFlagType">DLFlagType</a> dlf)
+<dd>OpenGLディスプレイリストの定義を開始する
+<dd> dlf 定義するディスプレイリストタイプ
+<p>
+<dt>void	<a name="endDispList">endDispList</a>()
+<dd>OpenGLディスプレイリストの定義を終了する
+<p>
+<dt>virtual void	<a name="invalidateDispList">invalidateDispList</a>()
+<dd>全ての種類のOpenGLディスプレイリストを無効化する
+<p>
+<dt>virtual void	<a name="clearDispList">clearDispList</a>()
+<dd>全ての種類のOpenGLディスプレイリストを破壊する
+<p>
+<dt>virtual <a href="vfrDefs.html#Bool">Bool</a>	<a name="generateNormals">generateNormals</a>()
+<dd>法線ベクトルの自動生成を行う
+<p>
+<dt>void	<a name="switchAlpha">switchAlpha</a>(const <a href="vfrDefs.html#Bool">Bool</a> mode)
+<dd>半透明モードの設定を行う
+<dd> mode	モード指定フラグ(不透明:FALSE, 半透明:TRUE)
+<p>
+<dt>void	<a name="setAlpha">setAlpha</a>(const float a)
+<dd>不透明度を設定する
+<dd> a	不透明度(0.0 = 透明, 1.0 = 不透明)
+<p>
+<dt>void	setAlpha(const <a href="vfrDefs.html#Bool">Bool</a> mode, const float a)
+<dd>半透明設定を行う
+<dd> mode	モード指定フラグ(不透明:FALSE, 半透明:TRUE)
+<dd> a	不透明度(0.0 = 透明, 1.0 = 不透明)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	<a name="isTransparency">isTransparency</a>() const
+<dd>半透明モードかを返す(不透明:FALSE, 半透明:TRUE)
+<p>
+<dt>void	<a name="setTransparency">setTransparency</a>(const <a href="vfrDefs.html#Bool">Bool</a> tm)
+<dd>半透明モードかを設定する(不透明:FALSE, 半透明:TRUE)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	<a name="alcPools">alcPools</a>(const int nV, const int nN, const int nI, const int nC)
+<dd>頂点座標、色、法線および頂点インデックスの格納予約領域を確保する
+<dd> nV  頂点座標数
+<dd> nN  法線ベクトル数
+<dd> nI  頂点インデックス数
+<dd> nC  色数
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	<a name="alcVerts">alcVerts</a>(const int n)
+<dd>頂点座標の格納領域を確保する
+<dd> n	頂点数
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	<a name="setVerts">setVerts</a>(const int n, const <a href="vfrDefs.html#vector3">vector3</a>* vl)
+<dd>頂点座標の格納領域を確保し、値をセットする
+<dd> n	頂点数
+<dd> vl	頂点座標列(n個)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	<a name="setVert">setVert</a>(const int i, const <a href="vfrDefs.html#vector3">vector3</a> v)
+<dd>1つの頂点座標を置き換える
+<dd> i	頂点番号
+<dd> v	頂点iの座標
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	<a name="alcNormals">alcNormals</a>(const int n)
+<dd>法線ベクトルの格納領域を確保する
+<dd> n	法線ベクトル数
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	<a name="alcNormals">alcNormals</a>(const int n)
+<dd>法線ベクトルの格納領域を確保する
+<dd> n	法線ベクトル数
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	<a name="setNormals">setNormals</a>(const int n, const <a href="vfrDefs.html#vector3">vector3</a>* vl)
+<dd>法線ベクトルの格納領域を確保し、値をセットする
+<dd> n	法線ベクトル数
+<dd> vl	法線ベクトル列(n個)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	<a name="setNormal">setNormal</a>(const int i, const <a href="vfrDefs.html#vector3">vector3</a> v)
+<dd>1つの法線ベクトルを置き換える
+<dd> i	法線ベクトル番号
+<dd> v	i番目の法線ベクトル
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	<a name="alcIndices">alcIndices</a>(const int n)
+<dd>頂点インデックスの格納領域を確保する
+<dd> n	頂点インデックス数
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	<a name="setIndices">setIndices</a>(const int n, const int* ind)
+<dd>頂点インデックスの格納領域を確保し、値をセットする
+<dd> n	頂点インデックス数
+<dd> ind	頂点インデックス列(n個)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	<a name="setIndice">setIndice</a>(const int i, const int ind)
+<dd>1つの頂点インデックスを置き換える
+<dd> i	頂点インデックス番号
+<dd> ind	i番目の頂点インデックス
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	<a name="alcColors">alcColors</a>(const int n)
+<dd>色データの格納領域を確保する
+<dd> n		色数
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	<a name="setColors3">setColors3</a>(const int n, const <a href="vfrDefs.html#vector3">vector3</a>* vl)
+<dd>色データ(RGB)の格納領域を確保し、値をセットする
+<dd> n		色数
+<dd> vl		色データ(RGB)列(n個)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	<a name="setColors4">setColors4</a>(const int n, const <a href="vfrDefs.html#vector4">vector4</a>* vl)
+<dd>色データ(RGBA)の格納領域を確保し、値をセットする
+<dd> n		色数
+<dd> vl		色データ(RGBA)列(n個)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	<a name="setColor3">setColor3</a>(const int i, const <a href="vfrDefs.html#vector3">vector3</a> v)
+<dd>1つの色データ(RGB)を置き換える
+<dd> i		色番号
+<dd> v		i番目の色(RGB)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	setColor3(const int i, const float r, const float g, const float b)
+<dd>1つの色データ(RGB)を置き換える
+<dd> i		色番号
+<dd> r		i番目の色(R)
+<dd> g		i番目の色(G)
+<dd> b		i番目の色(B)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	<a name="setColor4">setColor4</a>(const int i, const <a href="vfrDefs.html#vector4">vector4</a> v)
+<dd>1つの色データ(RGBA)を置き換える
+<dd> i		色番号
+<dd> v		i番目の色(RGBA)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	setColor4(const int i, const float r, const float g, const float b, const float a)
+<dd>1つの色データ(RGBA)を置き換える
+<dd> i		色番号
+<dd> r		i番目の色(R)
+<dd> g		i番目の色(G)
+<dd> b		i番目の色(B)
+<dd> a		i番目の色(Alpha)
+<p>
+<dt>void	<a name="setNormalMode">setNormalMode</a>(const <a href="vfrDefs.html#AppearType">AppearType</a> at)
+<dd>法線ベクトルの属性を設定する
+<dd> at		法線ベクトルの属性
+<p>
+<dt><a href="vfrDefs.html#AppearType">AppearType</a>	<a name="getNormalMode">getNormalMode</a>() const
+<dd>法線ベクトルの属性を返す
+<p>
+<dt>void	<a name="setColorMode">setColorMode</a>(const <a href="vfrDefs.html#AppearType">AppearType</a> at)
+<dd>色データの属性を設定する
+<dd> at		色データ属性
+<p>
+<dt><a href="vfrDefs.html#AppearType">AppearType</a>	<a name="getColorMode">getColorMode</a>() const
+<dd>色データの属性を返す
+<p>
+<dt>void	<a name="setFeedbackMode">setFeedbackMode</a>(const <a href="vfrDefs.html#FeedbackType">FeedbackType</a> ft)
+<dd>フィードバックテストの種類を設定する
+<dd> ft		フィードバックテストの種類
+<p>
+<dt><a href="vfrDefs.html#FeedbackType">FeedbackType</a>	<a name="getFeedbackMode">getFeedbackMode</a>() const
+<dd>設定されているフィードバックテストの種類を返す
+<p>
+<dt>int	<a name="getNumVerts">getNumVerts</a>() const
+<dd>登録されている頂点数を返す
+<p>
+<dt>int	<a name="getNumIndices">getNumIndices</a>() const
+<dd>登録されている頂点インデックス数を返す
+<p>
+<dt>int	<a name="getNumNormals">getNumNormals</a>() const
+<dd>登録されている法線ベクトル数を返す
+<p>
+<dt>int	<a name="getNumColors">getNumColors</a>() const
+<dd>登録されている色データ数を返す
+<p>
+<dt><a href="vfrDefs.html#vector3">vector3</a>* <a name="getVerts">getVerts</a>()
+<dd>登録されている頂点へのポインタを返す
+<p>
+<dt>int* <a name="getIndices">getIndices</a>()
+<dd>登録されている頂点インデックスへのポインタを返す
+<p>
+<dt><a href="vfrDefs.html#vector3">vector3</a>* <a name="getNormals">getNormals</a>()
+<dd>登録されている法線ベクトルへのポインタを返す
+<p>
+<dt><a href="vfrDefs.html#vector4">vector4</a>* <a name="getColors">getColors</a>()
+<dd>登録されている色データへのポインタを返す
+<p>
+<dt>void        <a name="setPickMode">setPickMode</a>(const <a href="vfrDefs.html#PickType">PickType</a> pm)
+<dd>ピッキングモードを設定する
+<dd> pm		ピッキングモード
+<p>
+<dt><a href="vfrDefs.html#PickType">PickType</a>	<a name="getPickMode">getPickMode</a>() const
+<dd>登録されているピッキングモードを返す
+<p>
+<dt>virtual void <a name="renderBbox">renderBbox</a>()
+<dd><a href="#Bounding_Box">バウンディングボックス</a>を描画する
+<p>
+<dt>const Vec3&lt;float&gt;* <a name="getBbox">getBbox</a>() const
+<dd>バウンディングボックスデータを返す
+<p>
+<dt>void	<a name="getMatrixBbox">getMatrixBbox</a>(Vec3&lt;float&gt;* b) const
+<dd>バウンディングボックスデータに幾何変換行列を適用する
+<dd> b		バウンディングボックスデータ
+<p>
+<dt>void	<a name="setBboxShowMode">setBboxShowMode</a>(const <a href="vfrDefs.html#Bool">Bool</a> sm)
+<dd>バウンディングボックスの表示モードを設定する
+<dd> sm		バウンディングボックス表示モード
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>	<a name="getBboxShowMode">getBboxShowMode</a>() const
+<dd>バウンディングボックスの表示モードを返す
+<p>
+<dt>void	<a name="setBboxColor">setBboxColor</a>(const <a href="vfrDefs.html#vector4">vector4</a> bc)
+<dd>バウンディングボックスの色(RGBA)を設定する
+<dd> bc		バウンディングボックスの色(RGBA)
+<p>
+<dt>void	setBboxColor(const float r, const float g, const float b)
+<dd>バウンディングボックスの色(RGB)を設定する(デフォルト: <i>(0.6,0.6,0.6,1.0)</i>)
+<dd> r		バウンディングボックスの色(R)
+<dd> g		バウンディングボックスの色(G)
+<dd> b		バウンディングボックスの色(B)
+<p>
+<dt>void	setBboxColor(const float r, const float g, const float b, const float a)
+<dd>バウンディングボックスの色(RGBA)を設定する
+<dd> r		バウンディングボックスの色(R)
+<dd> g		バウンディングボックスの色(G)
+<dd> b		バウンディングボックスの色(B)
+<dd> a		バウンディングボックスの色(A)
+<p>
+<dt>void	<a name="getBboxColor">getBboxColor</a>(<a href="vfrDefs.html#vector4">vector4</a> bc) const
+<dd>バウンディングボックスの色(RGBA)を取得する
+<dd> bc		バウンディングボックスの色(RGBA)格納領域
+<p>
+<dt>void	<a name="setBboxWidth">setBboxWidth</a>(const float bw)
+<dd>バウンディングボックスの線幅を設定する(デフォルト: <i>3.0</i>)
+<dd> bw		バウンディングボックスの線幅
+<p>
+<dt>float	<a name="getBboxWidth">getBboxWidth</a>() const
+<dd>バウンディングボックスの線幅を返す
+<p>
+<dt>virtual void	<a name="generateBbox">generateBbox</a>()
+<dd>バウンディングボックスを計算する
+<p>
+<dt>virtual void	generateBbox(const Vec3&lt;float&gt;& np)
+<dd>新しい頂点が追加された場合のバウンディングボックスを計算する
+<dd> np  追加頂点の座標
+<p>
+<dt>virtual <a href="vfrNode.html">vfrNode</a>* <a name="getNode">getNode</a>(const unsigned int id)
+<dd>オブジェクトIDで自分自身を含む配下のオブジェクトを検索する
+<dd> id		検索対象のオブジェクトID
+<p> 
+<dt>virtual <a href="vfrNode.html">vfrNode</a>* getNode(const char* name)
+<dd>オブジェクト名で自分自身を含む配下のオブジェクトを検索する
+<dd> name		検索対象のオブジェクト名
+<p>
+<dt>virtual <a href="vfrDefs.html#Bool">Bool</a>	<a name="accumMatrix">accumMatrix</a>(const unsigned int id, <a href="vfrMatrix.html">vfrMatrix</a>& m)
+<dd>自分自身を含む配下のオブジェクトの累積幾何変換行列を計算する
+<dd> id		対象オブジェクトのオブジェクトID
+<dd> m		累積幾何変換行列
+<p>
+<dt>virtual void <a name="clearDispList">clearDispList</a>()
+<dd>ディスプレイリストを無効化する
+<p>
+<dt>const <a href="vfrMaterial.html">vfrMaterial</a>* <a name="getMaterial">getMaterial</a>() const
+<dd>参照マテリアルを返す。マテリアルを持たない場合、<i>NULL</i>を返す。
+<dd><i><b>*Note*</b></i>
+<br>レンダリング処理中はgetMaterial()メソッドは<a href="vfrMaterial.html#MaterialStack">マテリアルスタック</a>を参照してカレントマテリアルを検索するが、
+それ以外の場合は、独自のマテリアルを持つ時はそのポインタを返し、
+独自のマテリアルを持たない時は<i>NULL</i>を返す。
+<br>独自のマテリアルを確保するには、<a href="#alcMaterial">alcMaterial()</a>メソッドを使用する。
+<p>
+<dt>virtual GLenum      <a name="getFaceMode">getFaceMode</a>() const
+<dd>参照マテリアルのポリゴンフェースモードを返す
+<p>
+<dt>virtual <a href="vfrDefs.html#RenderType">RenderType</a>  <a name="getRenderMode">getRenderMode</a>() const
+<dd>参照マテリアルのレンダリングモードを返す
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>       <a name="useAuxPointColor">useAuxPointColor</a>(<a href="vfrDefs.html#vector4">vector4</a>& cv) const
+<dd>参照マテリアルのポイント代替色モードとポイント代替色を返す
+<dd> cv		ポイント代替色
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>       useAuxPointColor() const
+<dd>参照マテリアルのポイント代替色モード返す
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>       <a name="useAuxLineColor">useAuxLineColor</a>(<a href="vfrDefs.html#vector4">vector4</a>& cv) const
+<dd>参照マテリアルのライン代替色モードとライン代替色を返す
+<dd> cv		ライン代替色
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>       useAuxLineColor() const
+<dd>参照マテリアルのライン代替色モードを返す
+<p>
+<dt><a href="vfrMaterial.html">vfrMaterial</a>* <a name="alcMaterial">alcMaterial</a>()
+<dd>独自のマテリアルを確保する
+<br>確保に成功した場合、独自マテリアルのポインタを返す
+<p>
+<dt><a href="vfrMaterial.html">vfrMaterial</a>* alcMaterial(const vfrMaterial& m)
+<dd>渡されたマテリアルを独自のマテリアルとしてコピーする
+<br>確保に成功した場合、独自マテリアルのポインタを返す
+<dd> m		コピー元のマテリアル
+<p>
+<dt><a href="vfrMaterial.html">vfrMaterial</a>* <a name="getPrivateMaterial">getPrivateMaterial</a>()
+<dd>独自のマテリアルを返す
+<br>独自のマテリアルを持たない場合は<i>NULL</i>を返す
+<p>
+<dt><a href="vfrTexture.html">vfrTexture</a>* <a name="getTexture">getTexture</a>()
+<dd>登録されているテクスチャデータを返す
+<br>テクスチャデータを持たない場合は<i>NULL</i>を返す
+<p>
+<dt>void <a name="setTexture">setTexture</a>(<a href="vfrTexture.html">vfrTexture</a>* t)
+<dd>テクスチャデータを登録する
+<dd> t  テクスチャデータ
+<p>
+<dt>void <a name="setHpr">setHpr</a>(const float h, const float p, const float r)
+<dd>HPR(<i>Head, Pitch, Roll</i>)による姿勢設定を行う
+<dd> h  Head(<i>radian</i>)
+<dd> p  Pitch(<i>radian</i>)
+<dd> r  Roll(<i>radian</i>)
+<p>
+<dt>void <a name="setHprDeg">setHprDeg</a>(const float dh, const float dp, const float dr)
+<dd>HPR(<i>Head, Pitch, Roll</i>)による姿勢設定を行う(Degree指定)
+<dd> dh         Head(<i>degree</i>)
+<dd> dp         Pitch(<i>degree</i>)
+<dd> dr         Roll(<i>degree</i>)
+<p>
+<dt>static unsigned int <a name="getNodeSequence">getNodeSequence</a>()
+<dd>現在のオブジェクトシーケンス番号を返す(スタティックメソッド)
+<p>
+<dt>static void <a name="setImmediateMode">setImmediateMode</a>(const <a href="vfrDefs.html#Bool">Bool</a> mode)
+<dd>イミディアットモードを有効/無効に設定する(スタティックメソッド)
+<dd> mode  イミディアットモード有効フラグ
+<p>
+<dt>static <a href="vfrDefs.html#Bool">Bool</a> <a name="isImmediateMode">isImmediateMode</a>()
+<dd>イミディアットモードかどうかを返す(スタティックメソッド)
+</dl>
+
+<hr>
+
+<h3>Description</h3>
+
+vfrNodeクラスは、ポリゴンベースの形状に対するレンダリング機能を実装した
+3Dグラフィックスプリミティブの基底クラスである。
+<p>
+vfrNodeクラスは、インスタンスを作ることは出来ない。
+
+<hr>
+
+<a name="Rendering"><h4>Rendering</h4></a>
+
+vfrNodeクラスは、レンダリングメソッドを実装している。
+ここでは、以下の機能を実装している。
+
+<ul>
+<li>ポイントレンダリング<br>
+登録された頂点にポイント表示を行う<a href="vfrDefs.html#RenderType">レンダリングモード</a>である。<br>
+これは、参照する<a href="vfrMaterial.html">マテリアルオブジェクト</a>の<a href="vfrDefs.html#RenderType">レンダリングモード</a>が
+<i>RT_POINT</i>を含む場合に描画される。<br>
+ここで描画されるポイントに対しては、法線ベクトルは無視され、
+光学的効果は影響しない。<br>
+表示するポイントのサイズは<a href="vfrMaterial.html">マテリアルオブジェクト</a>の
+ポイントサイズ属性で決定され、
+<a href="vfrCamera.html">カメラ</a>、<a href="vfrNode.html">オブジェクト</a>のいずれの幾何変換にかかわらず大きさは一定である。<br>
+<a href="vfrMaterial.html">マテリアルオブジェクト</a>のポイント代替色属性が<i>TRUE</i>の場合は、
+自分自身が持つ色属性は無視され、ポイント代替色(auxPointColor)で描画される。
+<p>
+
+<li>ワイヤーフレームレンダリング<br>
+定義されたポリゴンのエッジをラインで結び表示する<a href="vfrDefs.html#RenderType">レンダリングモード</a>である。<br>
+参照するマ<a href="vfrMaterial.html">テリアルオブジェクト</a>の<a href="vfrDefs.html#RenderType">レンダリングモード</a>が
+<i>RT_WIRE</i>を含む場合に描画される。<br>
+ここで描画されるラインに対しては、法線ベクトルは無視され、
+光学的効果は影響しない。<br>
+表示するラインの幅は<a href="vfrMaterial.html">テリアルオブジェクト</a>の線幅属性で決定され、
+<a href="vfrCamera.html">カメラ</a>、<a href="vfrNode.html">オブジェクト</a>のいずれの幾何変換にかかわらず太さは一定である。<br>
+<a href="vfrMaterial.html">マテリアルオブジェクト</a>のライン代替色属性が<i>TRUE</i>の場合は、
+自分自身が持つ色属性は無視され、ライン代替色(auxLineColor)で描画される。
+<p>
+
+<li>フラットシェーディング<br>
+<li>スムースシェーディング<br>
+いずれも、法線ベクトルと<a href="vfrLight.html">ライティングオブジェクト</a>を考慮した
+シェーディングを行う<a href="vfrDefs.html#RenderType">レンダリングモード</a>である。<br>
+参照する<a href="vfrMaterial.html">マテリアルオブジェクト</a>の<a href="vfrDefs.html#RenderType">レンダリングモード</a>が<i>RT_FLAT</i>および
+<i>RT_SMOOTH</i>を含む場合に描画される。<br>
+<a href="vfrNode.html">オブジェクト</a>が持っている法線データにより、上記いずれかのレンダリングモードが
+選択される。いずれのレンダリングモードでの表示が可能な場合、
+これらのレンダリングモードの違いが意味を持つが、現在のバージョンでは
+ほとんどの場合「シェーディング」という意味しか持たない。
+<p>
+
+<li>ノーライトレンダリング<br>
+シェーディング無しのポリゴン表示モードである。<br>
+参照する<a href="vfrMaterial.html">マテリアルオブジェクト</a>の
+<a href="vfrDefs.html#RenderType">レンダリングモード</a>が
+<i>RT_NOLIGHT</i>を含む場合に描画される。<br>
+ここで描画されるポリゴンに対しては、法線ベクトルは無視され、
+光学的効果は影響しない。
+
+</ul>
+
+これらの<a href="vfrDefs.html#RenderType">レンダリングモード</a>は、
+<a href="vfrMaterial.html">マテリアルオブジェクト</a>において
+論理演算子を用いて複数定義できる(<i>RT_WIRE|RT_NOLIGHT</i>のように)が、
+ポリゴン描画モードである<i>RT_SMOOTH, RT_FLAT, RT_NOLIGHT</i>の和をとることは
+無意味であるだけでなくパフォーマンスの重大な低下をもたらす。
+<p>
+尚、<a href="#setTexture">テクスチャデータ</a>が登録されている場合、
+レンダリングモードが<i>RT_SMOOTH, RT_FLAT, RT_NOLIGHT</i>のいずれかの場合のみ
+テクスチャマッピングが実行される。
+
+<hr>
+
+<a name="Allocate_Datas"><h4>Allocate Datas</h4></a>
+
+<a href="#alcVerts">頂点</a>、<a href="#alcNormals">法線ベクトル</a>、
+<a href="#alcColors">色</a>および<a href="#alcIndices">頂点インデックス</a>を
+<i>alcXXX<b>s</b>()</i>メソッドで確保する場合、
+既に確保されているデータ数より大きいデータ数を指定すると、
+既に確保されていたデータ部分はそのままで領域が拡張され、
+拡張部分はデータの種類に応じた初期値にセットされる。
+<p>
+初期値は以下の通りである。
+<blockquote>
+<table border="1">
+<tr><td>頂点座標</td><td>(0.0f, 0.0f, 0.0f)</td></tr>
+<tr><td>法線ベクトル</td><td>(0.0f, 0.0f, 1.0f)</td></tr>
+<tr><td>色(R,G,B,A)</td><td>(0.9f, 0.9f, 0.9f, 1.0f)</td></tr>
+<tr><td>頂点インデックス</td><td><i><a href="#VFR_END_OF_ELEM">VFR_END_OF_ELEM</a></i></td></tr>
+</table>
+</blockquote>
+
+また、<i>setXXX<b>s</b>()</i>メソッドでは領域確保とデータ値の設定が行われるが、
+既に確保されているデータ数より小さいデータ数を指定すると、
+データ数は新しく設定された数になり、はみ出した部分のデータは参照できなくなる。
+<p>
+<i>alcXXX<b>s</b>()</i>メソッドまたは<a href="#alcPools">alcPools</a>()メソッドを
+実行することで、データ確保予約領域(プール)が確保される。
+プールされた領域は、オブジェクトが破壊されるまで解放されない。
+<br>データ量が逐次増減するような場合、最大のデータ量をプールしておくことで
+ヒープの(再)確保によるオーバーヘッドを抑えることができる。
+<p>
+いずれの場合も領域確保(拡張)に失敗すると、データ数は 0 になる。
+
+<hr>
+
+<a name="Bounding_Box"><h4>Bounding Box</h4></a>
+
+vfrNodeクラスのインスタンスは、常に自分自身のバウンディングボックスデータを
+保持している。
+<br>
+バウンディングボックスとは、オブジェクトの<a href="#alcVerts">頂点</a>が存在する
+範囲をX, Y, Z軸方向それぞれについて格納したもので、以下の形式になっている。
+<pre>
+  Vec3&lt;float&gt; bbox[2]
+</pre>
+bbox[0]には、X, Y, Z軸方向の頂点存在範囲の最小値が、
+bbox[1]には最大値が格納されている。
+<p>
+<a href="#alcVerts">alcVerts()</a>や<a href="#setVerts">setVerts()</a>などの
+頂点操作のメソッドを実行する度にバウンディングボックスデータは再計算され、
+実際の頂点データとの一貫性を保つ。
+<br>(<a href="getVerts">getVerts</a>()メソッドで頂点座標格納領域を取得し、
+直接座標値を操作した場合は、
+<a href="#generateBbox">generateBbox</a>()メソッドで
+バウンディングボックスデータを明示的に再計算する必要がある。)
+<p>
+バウンディングボックスの表示/非表示は、<a href="#setBboxShowMode">setBboxShowMode()</a>メソッドで設定され、<i>TRUE</i>の場合はバウンディングボックスのサイズの
+六面体をワイヤーフレームで表示する。
+<br>
+バウンディングボックスが表示されている場合の色、太さはそれぞれ
+<a href="#setBboxColor">setBboxColor()</a>、<a href="#setBboxWidth">setBboxWidth()</a>メソッドで指定される。
+<p>
+また、バウンディングボックスが表示されている場合にバウンディングボックスそのものが
+<a href="vfrCamera.html#Selection_Test">セレクションテスト</a>の対象になるかどうかは、
+<a href="#setPickMode">ピッキングモード</a>に<i>PT_BBOX</i>が
+含まれているかどうかで決定される。
+
+
+<hr noshade>
+<table width="100%">
+<tr>
+<td align="right">
+<font size="1">Copyright(c) 2005 RIKEN
+</font></td>
+</tr>
+</table>
+</body>

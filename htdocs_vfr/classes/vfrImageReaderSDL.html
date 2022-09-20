@@ -1,0 +1,69 @@
+<title>vfr - class vfrImageReaderSDL</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrImageReaderSDL</h2>
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li>vfrImageReaderSDL
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrImageReaderSDL.h"
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+
+<dl>
+<dt><i>None</i>
+</dl>
+
+<hr>
+
+<h3>public methods / variables</h3>
+
+<dl>
+<dt>static <a href="vfrImage.html">vfrImage</a>* 
+	<a name="ReadImage">ReadImage</a>(const char* fname,
+	const <a href="vfrDefs.html#Bool">Bool</a> adjustFlg <i>=TRUE</i>)
+<dd>SDL_imageを使用し、イメージ読み込みを行う(スタティックメソッド)
+<dd> fname  イメージファイルのパス
+<dd> adjustFlg  イメージサイズを 2<SUP>n</SUP> に合わせるかのフラグ
+ (<i>TRUE</i> = 合わせる)
+<p>
+</dl>
+
+<hr>
+
+<h3>Description</h3>
+
+vfrImageReaderSDLクラスは、SDL環境において
+SDL_imageライブラリを使用してイメージ読み込みを行う機能を実装するクラスである。
+<p>
+vfrImageReaderSDLクラスは、スタティックメソッドである
+<a href="#ReadImage">ReadImage()</a>メソッドのみが実装されている。
+このメソッドでは、第2引数に<i>TRUE</i>を指定すると、
+OpenGLのテクスチャロードのために、イメージサイズが
+ 2<sup>m</sup> × 2<sup>n</sup> になるようにイメージのクリップを行う。
+
+<hr width="100%" noshade>
+<table width="100%">
+<tr>
+<td align="right"><font size="1">Copyright(c) 2005 RIKEN
+</font></td>
+</tr>
+</table>
+</body>

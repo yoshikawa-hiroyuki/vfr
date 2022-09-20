@@ -1,0 +1,122 @@
+<title>class vfrPrimSet</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrPrimSet</h2>
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li><a href="vfrBase.html">vfrBase</a>
+<ul>
+<li><a href="vfrNode.html">vfrNode</a>
+<ul>
+<li>vfrPrimSet
+</ul>
+</ul>
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrPrimSet.h"
+</dl>
+<p>
+<h4>Definitions</h4>
+<dl>
+<dt><i><a name="PrimRSType">PrimRSType</a></i>
+<dd> プリミティブへの回転／スケール適用フラグタイプ('|'で重複定義が可能)
+<dd> <i>VFR_PRIMSET_ROT</i>
+<dd> <i>VFR_PRIMSET_SCALE</i>
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+
+<dl>
+<dt>vfrPrimSet(const std::string& name <i><a href="vfrNode.html#VFR_NONAME">VFR_NONAME</a></i>, const <a href="vfrDefs.html#Bool">Bool</a> mode <i>= FALSE</i>)
+<dd>空のvfrPrimSetオブジェクト(頂点0個、プリミティブ登録なし)をインスタンスする。
+<dd> name  オブジェクト名
+<dd> mode  自己破壊モード
+<p>
+<dt>virtual ~vfrPrimSet()
+<dd>vfrPrimSetオブジェクトを破壊する。登録されているプリミティブの破壊は行わない。
+</dl>
+
+<hr>
+
+<h3>public methods / variables</h3>
+
+<dl>
+<dt><a href="vfrNode.html">vfrNode</a>*  <a name="getPrimitive">getPrimitive</a>()
+<dd>登録されているプリミティブへのポインタを返す
+<p>
+<dt>void	<a name="setPrimitive">setPrimitive</a>(<a href="vfrNode.html">vfrNode</a>* p)
+<dd>プリミティブを登録する(<i>NULL</i>を登録すると、登録なしになる)
+<dd> p プリミティブへのポインタ
+<p>
+<dt>void	<a name="setRotScaleMode">setRotScaleMode</a>(const <a href="#PrimRSType">PrimRSType</a> rsm)
+<dd>プリミティブの回転／スケール適用フラグを設定する
+<dd> rsm  プリミティブの回転／スケール適用フラグ
+<p>
+<dt><a href="#PrimRSType">PrimRSType</a> <a name="getRotScaleMode">getRotScaleMode</a>() const
+<dd>プリミティブの回転／スケール適用フラグを返す
+</dl>
+
+<hr>
+
+<h3>Description</h3>
+
+vfrPrimSetクラスは、登録された<a href="vfrNode.html">形状データ</a>をプリミティブとし、自分の頂点座標位置に描画するオブジェクトクラスである。<br>
+登録された<a href="#setPrimitive">プリミティブ</a>を、<a href="vfrNode.html#alcVerts">頂点集合</a>として
+与えられた座標位置に描画する。
+
+<hr>
+
+<h4>RotScaleMode</h4>
+
+vfrPrimSetオブジェクトでは、プリミティブを描画する際に、
+<a href="#PrimRSType">プリミティブへの回転／スケール適用フラグ</a>の値に応じて、
+以下のようにプリミティブへの幾何変換を適用する。
+
+<dl>
+<dt><i>VFR_PRIMSET_ROT</i>
+<dd>描画する頂点に対応する法線ベクトルが存在する場合、(0, 0, 1)をその法線ベクトルに合致させる回転を適用してからプリミティブを描画する。
+<p>
+<dt><i>VFR_PRIMSET_SCALE</i>
+<dd>描画する頂点に対応する法線ベクトルが存在する場合、その法線ベクトルの長さをスケーリング倍率とする拡大縮小を適用してからプリミティブを描画する。
+</dl>
+
+<hr>
+
+<h4>RenderMode</h4>
+
+vfrPrimSetオブジェクトでは、プリミティブの<a href="vfrDefs.html#RenderType">レンダリングモード</a>は参照されず、
+vfrPrimSetオブジェクトのレンダリングモードに従ってプリミティブが描画される。
+<br>また、レンダリング時にプリミティブの<a href="vfrMaterial.html">マテリアル</a>は
+参照されず、vfrPrimSetオブジェクトのマテリアルが適用される。
+
+<hr>
+
+<h4>Feedback</h4>
+
+フィードバックテストにおいて、vfrPrimSetオブジェクトは常に
+登録されている頂点順に0から付番された番号でフィードバックテストの結果を返す。
+
+<hr width="100%" noshade>
+<table width="100%">
+<tr>
+<td align="right">
+<font size="1">Copyright(c) 2005 RIKEN
+</font></td>
+</tr>
+</table>
+</body>

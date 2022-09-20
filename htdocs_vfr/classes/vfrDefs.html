@@ -1,0 +1,261 @@
+<title>namespace VFR</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>namespace VFR</h2>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrDefs.h"
+</dl>
+<p>
+<hr>
+<h4>Definitions</h4>
+<ul>
+<li><a name="Bool">Bool</a>
+<br>ブーリアンタイプ(<i>TRUE</i> | <i>FALSE</i>)
+(グローバルスコープ)
+<p>
+<li><a name="vfrGlContext">vfrGlContext</a>
+<br>OpenGLレンダリングコンテキスト
+(グローバルスコープ)
+<p>
+<li><a name="matrix4">matrix4</a>
+<br>以下の幾何変換行列を表す(float[16])
+<table>
+<tr valign="center">
+<td><img src="Lparen.gif" width="5" height="100" alt="["></td>
+<td>
+ <table>
+ <tr><td>m0</td><td>m4</td><td align="center"> m8</td><td>m12</td></tr>
+ <tr><td>m1</td><td>m5</td><td align="center"> m9</td><td>m13</td></tr>
+ <tr><td>m2</td><td>m6</td><td>m10</td><td>m14</td></tr>
+ <tr><td>m3</td><td>m7</td><td>m11</td><td>m15</td></tr>
+ </table>
+</td>
+<td><img src="Rparen.gif" width="5" height="100" alt="]"></td>
+</tr>
+</table>
+<p>
+<li><a name="matrix44">matrix44</a>
+<br>以下の幾何変換行列を表す(float[4][4])
+<table>
+<tr valign="center">
+<td><img src="Lparen.gif" width="5" height="100" alt="["></td>
+<td>
+ <table>
+ <tr><td>m00</td><td>m10</td><td>m20</td><td>m30</td></tr>
+ <tr><td>m01</td><td>m11</td><td>m21</td><td>m31</td></tr>
+ <tr><td>m02</td><td>m12</td><td>m22</td><td>m32</td></tr>
+ <tr><td>m03</td><td>m13</td><td>m23</td><td>m33</td></tr>
+ </table>
+</td>
+<td><img src="Rparen.gif" width="5" height="100" alt="]"></td>
+</tr>
+</table>
+<p>
+<li><a name="vector4">vector4</a>
+<br>以下の4成分ベクトルを表す(float[4])
+<table>
+<tr valign="center">
+<td><img src="Lparen.gif" width="5" height="100" alt="["></td>
+<td>
+ <table>
+ <tr><td>v0</td></tr>
+ <tr><td>v1</td></tr>
+ <tr><td>v2</td></tr>
+ <tr><td>v3</td></tr>
+ </table>
+</td>
+<td><img src="Rparen.gif" width="5" height="100" alt="]"></td>
+</tr>
+</table>
+<p>
+<li><a name="vector3">vector3</a>
+<br>以下の3成分ベクトルを表す(float[3])
+<table>
+<tr valign="center">
+<td><img src="Lparen.gif" width="5" height="80" alt="["></td>
+<td>
+ <table>
+ <tr><td>v0</td></tr>
+ <tr><td>v1</td></tr>
+ <tr><td>v2</td></tr>
+ </table>
+</td>
+<td><img src="Rparen.gif" width="5" height="80" alt="]"></td>
+</tr>
+</table>
+<p>
+<li><a name="vector2">vector2</a>
+<br>以下の2成分ベクトルを表す(float[2])
+<table>
+<tr valign="center">
+<td><img src="Lparen.gif" width="5" height="60" alt="["></td>
+<td>
+ <table>
+ <tr><td>v0</td></tr>
+ <tr><td>v1</td></tr>
+ </table>
+</td>
+<td><img src="Rparen.gif" width="5" height="60" alt="]"></td>
+</tr>
+</table>
+<p>
+<li><i>struct</i> <a name="Point2">Point2</a>
+<br>ウインドウ座標構造体(int <i>x, y</i>)
+<br>Point2() デフォルトコンストラクタ
+<br>Point2(const Point2& p) コピーコンストラクタ
+<br>Point2 operator+(const Point2& p) ＋演算子
+<br>Point2 operator-(const Point2& p) −演算子
+<br><a href="#Bool">Bool</a> operator==(const Point2& p) ＝＝演算子
+<p>
+<li><a name="RenderType">RenderType</a>
+<br>レンダリングタイプ('|'で重複定義が可能)
+<table>
+<tr><td><i>RT_NONE</i>		<td>レンダリングしない
+<tr><td><i>RT_SMOOTH</i>	<td>スムースシェーディング
+<tr><td><i>RT_FLAT</i>	<td>フラットシェーディング
+<tr><td><i>RT_NOLIGHT</i>	<td>ノーライティング(照光効果なし)
+<tr><td><i>RT_WIRE</i>	<td>ワイヤーフレーム
+<tr><td><i>RT_POINT</i>	<td>ポイントレンダリング
+</table>
+<p>
+<li><a name="PickType">PickType</a>
+<br>ピッキングタイプ('|'で重複定義が可能)
+<table>
+<tr><td><i>PT_NONE</i>		<td>ピッキングしない
+<tr><td><i>PT_OBJECT</i>	<td>オブジェクト形状をピッキング対象とする
+<tr><td><i>PT_BBOX</i>	<td>バウンディングボックスをピッキング対象とする
+</table>
+<p>
+<li><a name="AppearType">AppearType</a>
+<br>表面属性(色、法線)
+<table>
+<tr><td><i>AT_WHOLE</i>		<td>プリミティブ全体に対して指定
+<tr><td><i>AT_PER_VERTEX</i>	<td>頂点毎に指定
+<tr><td><i>AT_PER_FACE</i>	<td>面毎に指定
+</table>
+<p>
+<li><a name="FeedbackType">FeedbackType</a>
+<br>フィードバックタイプ
+<table>
+<tr><td><i>FB_VERTEX</i>	<td>頂点情報をフィードバック
+<tr><td><i>FB_FACE</i>	<td>面情報をフィードバック
+<tr><td><i>FB_EDGE</i>	<td>線情報をフィードバック
+</table>
+<p>
+<li><a name="StippleType">StippleType</a>
+<br>線種タイプ
+<table>
+<tr><td><i>ST_SOLID</i>	<td>実線
+<tr><td><i>ST_DOT</i>	<td>点線
+<tr><td><i>ST_DASH</i>	<td>破線
+<tr><td><i>ST_DDASH1</i>	<td>一点鎖線
+<tr><td><i>ST_DDASH2</i>	<td>二点鎖線
+</table>
+<p>
+<li><a name="SymbolType">SymbolType</a>
+<br>シンボルマークタイプ
+<table>
+<tr><td><i>SYM_NORMAL</i> <td>通常のOpenGLポイント
+<tr><td><i>SYM_PLUS</i>   <td>＋
+<tr><td><i>SYM_CROSS</i>  <td>×
+<tr><td><i>SYM_CIRCLE</i>        <td>○
+<tr><td><i>SYM_CIRCFILL</i>        <td>●
+<tr><td><i>SYM_SQUARE</i>        <td>□
+<tr><td><i>SYM_SQUAFILL</i>        <td>■
+<tr><td><i>SYM_TRIANGLE</i>        <td>△
+<tr><td><i>SYM_TRIAFILL</i>        <td>▲
+</table>
+<p>
+<li><a name="LightType">LightType</a>
+<br>ライティングタイプ
+<table>
+<tr><td><i>LT_DIRECTIONAL</i>	<td>平行光源
+<tr><td><i>LT_POINT</i>		<td>点光源
+<tr><td><i>LT_SPOT</i>		<td>スポットライト光源
+</table>
+<p>
+<li><a name="PolyFaceType">PolyFaceType</a>
+<br>表示面タイプ
+<table>
+<tr><td><i>PF_FRONT</i>	<td>表の面のみ表示
+<tr><td><i>PF_BACK</i>	<td>裏の面のみ表示
+<tr><td><i>PF_BOTH</i>	<td>両方の面を表示
+</table>
+<p>
+<li><a name="AlignType">AlignType</a>
+<br>アライメントタイプ
+<table>
+<tr><td><i>AL_LEFT</i>	<td>左揃え
+<tr><td><i>AL_RIGHT</i>	<td>右揃え
+<tr><td><i>AL_CENTER</i>	<td>中央揃え
+</table>
+<p>
+<li><a name="ProjectType">ProjectType</a>
+<br>プロジェクションタイプ
+<table>
+<tr><td><i>PR_PERSPECTIVE</i>	<td>透視投影
+<tr><td><i>PR_ORTHOGONAL</i>	<td>平行投影
+</table>
+
+</ul>
+
+<hr>
+
+<h3><a name="function">Functions</a></h3>
+
+<dl>
+<dt>void* <a name="Allocate">Allocate</a>(size_t size)
+<dd>メモリアロケーション
+<br>失敗時にはNULLを返す
+<br>解放には <a href="#DeAllocate">DeAllocate</a>() を使用すること
+<dd> size  アロケーションするサイズ(bytes)
+<p>
+<dt>void <a name="DeAllocate">DeAllocate</a>()
+<dd>メモリの開放
+<p>
+<dt>void* <a name="CeAllocate">CeAllocate</a>(size_t nelem, size_t elsize)
+<dd>要素アロケーション
+<br>失敗時にはNULLを返す
+<br>解放には <a href="#DeAllocate">DeAllocate</a>() を使用すること
+<dd> nelem   アロケーションする要素数
+<dd> elsize  要素サイズ(bytes)
+<p>
+<dt>void* <a name="ReAllocate">ReAllocate</a>(void* ptr, size_t size)
+<dd>メモリの再アロケーション
+<br>失敗時にはNULLを返す
+<br>解放には <a href="#DeAllocate">DeAllocate</a>() を使用すること
+<dd> ptr   再アロケーションする元の領域
+<dd> size  再アロケーションするサイズ(bytes)
+<p>
+<dt>char* <a name="StrDuplicate">StrDuplicate</a>(const char* str)
+<dd>文字列の複製
+<br>失敗時にはNULLを返す
+<br>解放には <a href="#DeAllocate">DeAllocate</a>() を使用すること
+<dd> str   複製元の文字列
+<p>
+<dt><a href="#Bool">Bool</a> <a name="QueryGlExt">QueryGlExt</a>(const char* extName)
+<dd>OpenGL拡張機能サポートの判定
+<br>この関数呼出時には、<a href="#vfrGlContext">レンダリングコンテキスト</a>が
+有効化されていなければならない
+<dd> extName   判定するOpenGL拡張機能名
+<p>
+
+</dl>
+
+<hr width="100%" noshade>
+<table width="100%">
+<tr>
+<td align="right">
+<font size="1">Copyright(c) 2005 RIKEN</font></td>
+</tr>
+</table>
+</body>

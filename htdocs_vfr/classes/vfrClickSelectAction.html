@@ -1,0 +1,198 @@
+<title>class vfrClickSelectAction</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2> class vfrClickSelectAction</h2>
+
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li><a href="vfrAction.html">vfrAction</a>
+ <ul>
+ <li>vfrClickSelectAction
+ </ul>
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrDefaultActions.h"
+</dl>
+<p>
+<h4>Definitions</h4>
+<ul>
+<li><a name="MButtonType">MButtonType</a> イベント割り当てボタンタイプ
+<table>
+<tr><td>VFRDA_MBLEFT</td><td>マウス左ボタン</td></tr>
+<tr><td>VFRDA_MBRIGHT</td><td>マウス右ボタン</td></tr>
+<tr><td>VFRDA_MBMIDDLE</td><td>マウス中ボタン</td></tr>
+</table>
+</ul>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+<p>
+
+<hr>
+
+<h3>Public Methods / Variables</h3>
+
+<dl>
+<dt>void <a name="execute">execute</a>(<a href="vfrEvent.html">vfrEvent</a> &ev)
+<dd>仮想イベントに対してアクション(イベントハンドラ)を実行する
+<dd> ev		仮想イベント
+<p>
+<dt>void <a name="setMButtonType">setMButtonType</a>(const <a href="#MButtonType">MButtonType</a> bt)
+<dd>仮想イベントを割り当てるボタンタイプを指定する
+<dd> bt		ボタンタイプ
+<p>
+<dt><a href="#MButtonType">MButtonType</a> <a name="getMButtonType">getMButtonType</a>() const
+<dd>設定されている仮想イベント割り当てボタンタイプを返す
+<p>
+<dt>static <a href="vfrClickSelectAction.html">vfrClickSelectAction</a>& <a name="instance">instance</a>()
+<dd>vfrClickSelectActionクラスの(唯一の)インスタンスを取得する
+<br>(スタティックメソッド)
+</dl>
+
+<hr>
+<h3>Description</h3>
+
+vfrClickSelectActionクラスは、<a href="vfrDrawArea.html">描画領域(vfrDrawArea)</a>への
+マウスクリックによるオブジェクト選択を行う
+<a href="vfrDefaultActions.html#Default_Actions">デフォルトアクション</a>のクラスである。
+<p>
+vfrClickSelectActionクラスのインスタンスはプログラム内で1つだけ存在し、
+その取得には<a href="#instance">instance()</a>メソッドを用いる。
+
+<hr>
+
+<h4>Behavior</h4>
+
+vfrClickSelectActionクラスは、<a href="#execute">execute()</a>メソッドがコールされると、
+以下の動作を行う。
+<ul>
+<li>パスされた仮想イベントから、イベント発生時のマウス位置を取得する
+<li>既に選択されていたオブジェクトが存在する場合は、バウンディングボックスを非表示にし、
+選択を解除する
+<li>マウス位置について、クリックセレクションテストを実行する
+<li>セレクションテストに合格したオブジェクトがある場合は、その中で視点に最も近いオブジェクトを
+選択されたオブジェクトとして登録し、バウンディングボックスを表示させ、
+<a href="vfrEvSDrag.html">vfrEvSDrag</a>, <a href="vfrEvCDrag.html">vfrEvCDrag</a>,
+<a href="vfrEvSCDrag.html">vfrEvSCDrag</a>のアクションをそれぞれ
+<a href="vfrTransObjAction.html">vfrTransObjAction</a>, 
+<a href="vfrRotObjAction.html">vfrRotObjAction</a>, 
+<a href="vfrScaleObjAction.html">vfrScaleObjAction</a> に設定する
+(<a href="#getMButtonType">仮想イベント割り当てボタンタイプ</a>により、設定するイベントタイプは変更される)
+<li>セレクションテストに合格したオブジェクトがない場合は、
+<a href="vfrEvSDrag.html">vfrEvSDrag</a>, <a href="vfrEvCDrag.html">vfrEvCDrag</a>,
+<a href="vfrEvSCDrag.html">vfrEvSCDrag</a>のアクションをそれぞれ
+<a href="vfrTransCameraAction.html">vfrTransCameraAction</a>, 
+<a href="vfrRotCameraAction.html">vfrRotCameraAction</a>, 
+<a href="vfrScaleCameraAction.html">vfrScaleCameraAction</a> に設定する
+(<a href="#getMButtonType">仮想イベント割り当てボタンタイプ</a>により、設定するイベントタイプは変更される)
+</ul>
+
+これらの動作は、以下のコードで実装されている。
+<pre>
+void
+vfrClickSelectAction::execute(vfrEvent& e) {
+    if ( ! e.isClickEvent() ) return;
+
+    Point2   cp;
+    vfrScreen* screen = (vfrScreen*)e.getScreen();
+    if ( ! screen ) return;
+    if ( ! e.getMPoint(&cp) ) return;
+    cp = screen->getRelativePoint(cp);
+    unsigned int *r = screen->clickSelect(cp.x, cp.y);
+    vfrObject* selectedObj = vfrDefaultActions::GetSelectedObj();
+    if ( selectedObj ) {
+        selectedObj->setBboxShowMode(FALSE);
+        vfrDefaultActions::SetSelectedObj(NULL);
+    }
+    if ( r[0] > 0 ) {
+        vfrObject* co = screen->getObj(r[1]);
+        if ( co ) {
+            screen->clickFeedback(cp.x, cp.y, r[1]);
+            co->setBboxShowMode(TRUE);
+            vfrDefaultActions::SetSelectedObj(co);
+
+            // Change Actions
+            vfrDrawArea* da = screen->getParent();
+            if ( ! da ) return;
+            vfrDispatch& dpr = vfrDispatch::instance(*da);
+            if ( _bType & VFRDA_MBLEFT ) {
+                vfrEvent& Sdrag = vfrEvSDrag::instance(dpr);
+                Sdrag.regist(&vfrTransObjAction::instance());
+                vfrEvent& Cdrag = vfrEvCDrag::instance(dpr);
+                Cdrag.regist(&vfrRotObjAction::instance());
+                vfrEvent& SCdrag = vfrEvSCDrag::instance(dpr);
+                SCdrag.regist(&vfrScaleObjAction::instance());
+            }
+            if ( _bType & VFRDA_MBRIGHT ) {
+                vfrEvent& Sdrag = vfrEvRSDrag::instance(dpr);
+                Sdrag.regist(&vfrTransObjAction::instance());
+                vfrEvent& Cdrag = vfrEvRCDrag::instance(dpr);
+                Cdrag.regist(&vfrRotObjAction::instance());
+                vfrEvent& SCdrag = vfrEvRSCDrag::instance(dpr);
+              SCdrag.regist(&vfrScaleObjAction::instance());
+            }
+            if ( _bType & VFRDA_MBMIDDLE ) {
+                vfrEvent& Sdrag = vfrEvMSDrag::instance(dpr);
+                Sdrag.regist(&vfrTransObjAction::instance());
+                vfrEvent& Cdrag = vfrEvMCDrag::instance(dpr);
+                Cdrag.regist(&vfrRotObjAction::instance());
+                vfrEvent& SCdrag = vfrEvMSCDrag::instance(dpr);
+                SCdrag.regist(&vfrScaleObjAction::instance());
+            }
+
+            return;
+        }
+    }
+    vfrDrawArea* da = screen->getParent();
+    if ( ! da ) return;
+    vfrDispatch& dpr = vfrDispatch::instance(*da);
+    if ( _bType & VFRDA_MBLEFT ) {
+        vfrEvent& Sdrag = vfrEvSDrag::instance(dpr);
+        Sdrag.regist(&vfrTransCameraAction::instance());
+        vfrEvent& Cdrag = vfrEvCDrag::instance(dpr);
+        Cdrag.regist(&vfrRotCameraAction::instance());
+        vfrEvent& SCdrag = vfrEvSCDrag::instance(dpr);
+        SCdrag.regist(&vfrScaleCameraAction::instance());
+    }
+    if ( _bType & VFRDA_MBRIGHT ) {
+        vfrEvent& Sdrag = vfrEvRSDrag::instance(dpr);
+        Sdrag.regist(&vfrTransCameraAction::instance());
+        vfrEvent& Cdrag = vfrEvRCDrag::instance(dpr);
+        Cdrag.regist(&vfrRotCameraAction::instance());
+        vfrEvent& SCdrag = vfrEvRSCDrag::instance(dpr);
+        SCdrag.regist(&vfrScaleCameraAction::instance());
+    }
+    if ( _bType & VFRDA_MBMIDDLE ) {
+        vfrEvent& Sdrag = vfrEvMSDrag::instance(dpr);
+        Sdrag.regist(&vfrTransCameraAction::instance());
+        vfrEvent& Cdrag = vfrEvMCDrag::instance(dpr);
+        Cdrag.regist(&vfrRotCameraAction::instance());
+        vfrEvent& SCdrag = vfrEvMSCDrag::instance(dpr);
+        SCdrag.regist(&vfrScaleCameraAction::instance());
+    }
+}
+</pre>
+
+<hr width="100%" noshade>
+<table width="100%">
+<tr>
+<td align="right">
+<font size="1">Copyright(c) 2005 RIKEN
+</font></td>
+</tr>
+</table>
+</body>

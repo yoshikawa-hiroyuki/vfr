@@ -1,0 +1,244 @@
+<title>class vfrBase</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrBase</h2>
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li>vfrBase
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrBase.h"
+</dl>
+<p>
+<h4>Definitions</h4>
+<dl>
+<dt><a name="vfrMatrix">vfrMatrix</a>
+<dd>4×4のマトリックスを表す型(グローバルスコープ)。
+<br>以下のように定義される。
+<pre>
+  template &lt;class T&gt; struct Mat4 {
+    T m_v[16];
+  };
+  typedef Mat4&lt;float&gt; vfrMatrix;
+</pre>
+行列成分の格納順序は<a href="vfrDefs.html#matrix4">matrix4</a>と同じ。
+<p>
+<dt><a name="VFR_CLAMP">VFR_CLAMP</a>(min,max,val)
+<dd>valを(min, max)でクランプした結果を返す(グローバルスコープ)
+
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+
+<dl>
+<dt>virtual ~vfrBase()
+<dd>vfrBaseオブジェクトを破壊する
+</dl>
+
+<hr>
+
+<h3>Public Methods / Variables</h3>
+
+<dl>
+<dt>void <a name="equal">operator=</a>(const <a href="vfrBase.html">vfrBase</a>& org)
+<dd>代入オペレータ
+<dd> org 代入元のvfrBaseオブジェクト
+<p>
+<dt>virtual void    <a name="identity">identity</a>()
+<dd><a href="vfrMatrix.html">幾何変換マトリックス</a>を単位行列にリセットする
+<p>
+<dt>virtual void    <a name="rotx">rotx</a>(const float rx)
+<dd>ローカル座標系をX軸回りに回転させる
+<dd> rx	回転角度(<i>Radian</i>)
+<pr>
+<dt>virtual void    <a name="roty">roty</a>(const float ry)
+<dd>ローカル座標系をY軸回りに回転させる
+<dd> ry	回転角度(<i>Radian</i>)
+<p>
+<dt>virtual void    <a name="rotz">rotz</a>(const float rz)
+<dd>ローカル座標系をZ軸回りに回転させる
+<dd> rz	回転角度(<i>Radian</i>)
+<p>
+<dt>virtual void    <a name="rotation">rotation</a>(const float r,
+ const <a href="vfrDefs.html#vector3">vector3</a> a)
+<dd>ローカル座標系を任意軸回りに回転させる
+<dd> r	回転角度(<i>Radian</i>)
+<dd> a	回転軸の方向ベクトル(a[0], a[1], a[2])
+<p>
+<dt>virtual void    <a name="trans">trans</a>(const <a href="vfrDefs.html#vector3">vector3</a> tv)
+<dd>ローカル座標系を平行移動させる
+<dd> tv	移動ベクトル(tv[0], tv[1], tv[2])
+<p>
+<dt>virtual void    trans(const float tx, const float ty, const float tz)
+<dd>ローカル座標系を平行移動させる
+<dd> tx,ty,tz	移動ベクトル(tx, ty, tz)
+<p>
+<dt>virtual void    <a name="scale">scale</a>(const <a href="vfrDefs.html#vector3">vector3</a> sv)
+<dd>ローカル座標系をスケーリングする
+<dd> sv	スケーリングファクター(各軸方向に sv[0],sv[1],sv[2])
+<p>
+<dt>virtual void    scale(const float sx, const float sy, const float sz)
+<dd>ローカル座標系をスケーリングする
+<dd> sx	X軸方向のスケーリングファクター
+<dd> sy	Y軸方向のスケーリングファクター
+<dd> sz	Z軸方向のスケーリングファクター
+<p>
+<dt>virtual void    scale(const float s)
+<dd>ローカル座標系をスケーリングする
+<dd> s	各軸方向共通のスケーリングファクター
+<p>
+<dt>virtual void <a name="mult">mult</a>(const <a href="vfrMatrix.html">vfrMatrix</a>& M)
+<dd>ローカル座標系に幾何変換行列を掛け合わせる
+<dd> M	幾何変換行列
+<p>
+<dt>virtual void mult(const <a href="vfrDefs.html#matrix4">matrix4</a>& m)
+<dd>ローカル座標系に幾何変換行列を掛け合わせる
+<dd> m	幾何変換行列
+<p>
+<dt>virtual void mult(const <a href="vfrDefs.html#matrix44">matrix44</a>& m)
+<dd>ローカル座標系に幾何変換行列を掛け合わせる
+<dd> m	幾何変換行列
+<p>
+<dt>const <a href="vfrMatrix.html">vfrMatrix</a>& <a name="getMatrix">getMatrix</a>() const
+<dd>ローカル座標系の幾何変換行列を取得する
+<p>
+<dt>void <a name="setMatrix">setMatrix</a>(const <a href="vfrMatrix.html">vfrMatrix</a>& M)
+<dd>ローカル座標系の幾何変換行列を置き換える
+<dd> M  幾何変換行列
+<p>
+<dt>void <a name="applyMatrix">applyMatrix</a>() const
+<dd>OpenGLのマトリックススタックに、ローカル座標系の幾何変換行列をプッシュする
+<p>
+<dt>void <a name="unApplyMatrix">unApplyMatrix</a>() const
+<dd>OpenGLのマトリックススタックから、ローカル座標系の幾何変換行列をポップする
+<p>
+<dt>virtual void    <a name="notice">notice</a>()
+<dd>グラフィックスプリミティブの形状変更通知を行う
+<p>
+<dt>void    <a name="setSuicide">setSuicide</a>(const Bool sm)
+<dd>インスタンスの自己破壊モードを設定する(デフォルトは<i>FALSE</i>)。
+<dd>自己破壊モードが<i>TRUE</i>の場合、リファレンスリストが空になると自分自身を破壊する。
+<dd> sm	自己破壊モード
+<p>
+<dt>Bool    <a name="getSuicide">getSuicide</a>() const
+<dd>インスタンスの自己破壊モードを返す
+<p>
+<dt>virtual void    <a name="rumor">rumor</a>(<a href="vfrBase.html">vfrBase</a>* ref)
+<dd>インスタンスの破壊通知を受け付ける
+<dd> ref	破壊されるインスタンス
+<p>
+<dt>virtual void    <a name="chkNotice">chkNotice</a>()
+<dd>グラフィックスプリミティブの形状変更検査を要求する
+<p>
+<dt>virtual void    <a name="clearDispList">clearDispList</a>()
+<dd>グラフィックスプリミティブのディスプレイリストを無効にする
+<p>
+<dt>void	<a name="addRef">addRef</a>(<a href="vfrBase.html">vfrBase</a>* ref)
+<dd>リファレンスリストへの追加を行う
+<dd> ref	追加されるインスタンス
+<p>
+<dt>Bool	<a name="remRef">remRef</a>(<a href="vfrBase.html">vfrBase</a>* ref)
+<dd>リファレンスリストからの削除を行う。
+<dd><a href="#setSuicide">自己破壊モード</a>が<i>TRUE</i>の場合、リファレンスリストが空になると自分自身を破壊(<i>delete</i>)する。
+<dd> ref	削除されるインスタンス(リストにrefが含まれていれば、削除し<i>TRUE</i>を返す)
+</dl>
+
+<hr>
+<h3>Description</h3>
+
+vfrBaseクラスは、他のプリミティブへのリファレンス機能と
+幾何変換機能を実装した、
+3Dグラフィックスプリミティブの基底クラスである。
+<p>
+vfrBaseクラスは、インスタンスを作ることは出来ない。
+
+<hr>
+
+<h4>Geometric Transformation</h4>
+
+vfrBaseクラスの(派生クラスの)インスタンスはそれぞれ
+<a href="vfrMatrix.html">幾何変換マトリックス</a>を持つ。
+幾何変換マトリックスは4×4 の実数配列で、
+3Dグラフィックスプリミティブのローカル座標系を表現する。
+この幾何変換マトリックスは、<a href="#getMatrix">getMatrix()</a>メソッドで
+参照することができる。
+<p>
+vfrBaseクラスは、以下の幾何変換機能を実装する。
+<ul>
+<li><a href="#identity">identity</a>
+<br>幾何変換マトリックスを単位行列にリセットする
+<li><a href="#rotx">rotx</a>,
+ <a href="#roty">roty</a>,
+ <a href="#rotz">rotz</a>
+<br>各軸回りの回転を幾何変換マトリックスに適用する
+<li> <a href="#rotation">rotation</a>
+<br>任意軸回りの回転を幾何変換マトリックスに適用する
+<li><a href="#trans">trans</a>
+<br>平行移動を幾何変換マトリックスに適用する
+<li><a href="#scale">scale</a>
+<br>拡大／縮小を幾何変換マトリックスに適用する
+</ul>
+
+全ての幾何変換操作は、リファレンス先のプリミティブに対する
+通知(<a href="#notice">notice</a>)処理を伴う。
+
+<hr>
+
+<h4>Reference Lists</h4>
+
+vfrBaseクラスは、同じvfrBaseクラスのプリミティブ(インスタンス)に対する
+複数のリファレンス(リファレンスリスト)をもつ。<br>
+リファレンスリストは、幾何変換や形状変化など表示方式の変更を、
+他のプリミティブに通知するための機構であり、以下のメソッドを介して機能する。
+
+<ul>
+<li><a href="#notice">notice</a>
+<br>リファレンスリストに登録されたプリミティブに変更通知を行う。
+notice()は、リファレンス先のプリミティブの<a href="#notice">notice()</a>を
+呼び出す。
+<li><a href="#rumor">rumor</a>
+<br>プリミティブが破壊されるときに、リファレンスリストに登録された
+プリミティブに通知する。
+<br>vfrBaseクラスのデストラクタは、リファレンス先の
+<a href="#rumor">rumor()</a>を呼び出す。
+<li><a href="#chkNotice">chkNotice</a>
+<br>リファレンスリストに登録されたプリミティブに対し、変更検査を強制する。
+<br>変更検査が行われると、リファレンス階層構造内で一回でも変更通知が
+出されている場合、最上位のレンダリングルーチンがコールされ、
+変更通知フラグがクリアされる。
+</ul>
+
+リファレンスリストは、<a href="#addRef">addRef()</a>,
+<a href="#remRef">remRef()</a>メソッドによって追加、削除が
+行われる。
+<p>
+<a href="#remRef">remRef()</a>メソッドでは、
+<a href="#setSuicide">自己破壊モード</a>が<i>TRUE</i>の場合、
+リファレンスリストが空になると自分自身を破壊(<i>delete</i>)する。
+<br>
+従って、<i>delete</i>できないインスタンス(テンポラリインスタンスやスタティックインスタンス)の場合、
+自己破壊モードは<i>TRUE</i>であってはならない。
+
+<hr width="100%" noshade>
+<table width="100%">
+<tr>
+<td align="right">
+<font size="1">Copyright(c) 2005 RIKEN</font></td>
+</tr>
+</table>
+</body>

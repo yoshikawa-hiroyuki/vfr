@@ -1,0 +1,201 @@
+<title>class vfrTexture</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrTexture</h2>
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li><a href="vfrBase.html">vfrBase</a>
+<ul>
+<li>vfrTexture
+</ul>
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrTexture.h"
+</dl>
+<p>
+<h4>Definitions</h4>
+<ul>
+<li><a name="MapType">vfrTexture::MapType</a> マッピングタイプ(<i>UVC, CYL, XYP, YZP, ZXP, NOMAP</i>)
+<p>
+<li><a name="ClipType">vfrTexture::ClipType</a> クリッピングタイプ(<i>CLAMP, REPEAT</i>)
+</ul>
+<p>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+
+<dl>
+<dt>vfrTexture(const <a href="vfrDefs.html#vector3">vector3</a>* tbb <i>=NULL</i>,
+  const <a href="vfrDefs.html#Bool">Bool</a> sm <i>=FALSE</i>)
+<dd>デフォルトコンストラクタ(空のvfrTextureオブジェクトを作成する)
+<dd> tbb  バウンディングボックス
+<dd> sm   自己破壊モード
+<p>
+<dt>vfrTexture(const <a href="vfrImage.html">vfrImage</a>& img,
+  const <a href="vfrDefs.html#vector3">vector3</a>* tbb <i>=NULL</i>,
+  const <a href="vfrDefs.html#Bool">Bool</a> sm <i>=FALSE</i>)
+<dd>イメージを指定したコンストラクタ
+<dd> img  イメージデータ
+<dd> tbb  バウンディングボックス
+<dd> sm   自己破壊モード
+<p>
+<dt>vfrTexture(const vfrTexture& org,
+  const <a href="vfrDefs.html#vector3">vector3</a>* tbb <i>=NULL</i>,
+  const <a href="vfrDefs.html#Bool">Bool</a> sm <i>=FALSE</i>)
+<dd>コピーコンストラクタ
+<dd> org  コピー元のvfrTextureオブジェクト
+<dd> tbb  バウンディングボックス
+<dd> sm   自己破壊モード
+<p>
+<dt>virtual ~vfrTexture()
+<dd>vfrTextureオブジェクトを破壊する。
+</dl>
+
+<hr>
+
+<h3>public methods / variables</h3>
+
+<dl>
+<dt>void <a name="equal">operator =</a>(const vfrTexture& org)
+<dd>代入オペレータ
+<p>
+<dt><a href="vfrImage.html">vfrImage</a>& <a name="getImage">getImage</a>()
+<dd>イメージを返す
+<p>
+<dt>void <a name="setImage">setImage</a>(const <a href="vfrImage.html">vfrImage</a>& img)
+<dd>イメージを設定する
+<dd> img  イメージデータ
+<p>
+<dt><a href="#MapType">vfrTexture::MapType</a> <a name="getMapType">getMapType</a>() const
+<dd>テクスチャマッピングのタイプを返す
+<p>
+<dt>void <a name="setMapType">setMapType</a>(const <a href="#MapType">vfrTexture::MapType</a> mt)
+<dd>テクスチャマッピングのタイプを設定する
+<dd> mt  マッピングタイプ(デフォルト: <i>XYP</i>)
+<p>
+<dt><a href="#ClipType">vfrTexture::ClipType</a> <a name="getClipType">getClipType</a>() const
+<dd>テクスチャのクリッピングタイプを返す
+<p>
+<dt>void <a name="setClipType">setClipType</a>(const <a href="#ClipType">vfrTexture::ClipType</a> ct)
+<dd>テクスチャのクリッピングタイプを設定する
+<dd> ct  クリッピングタイプ(デフォルト: <i>REPEAT</i>)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="alcUVCs">alcUVCs</a>(const int nv)
+<dd>テクスチャ座標の格納領域を確保する
+<dd> nv  確保するテクスチャ座標数
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="setUVCs">setUVCs</a>(const int nv, const <a href="vfrDefs.html#vector2">vector2</a>* v)
+<dd>テクスチャ座標の格納領域を確保し、値を設定する
+<dd> nv  テクスチャ座標数
+<dd> v  テクスチャ座標(nv個)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="setUVC">setUVC</a>(const int n, const <a href="vfrDefs.html#vector2">vector2</a> v)
+<dd>1つのテクスチャ座標を置き換える
+<dd> n  テクスチャ座標番号
+<dd> v  n番目のテクスチャ座標値
+<p>
+<dt><a href="vfrDefs.html#vector2">vector2</a>* <a name="getUVCs">getUVCs</a>()
+<dd>登録されているテクスチャ座標領域へのポインタを返す
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="getUVC">getUVC</a>(const int n, <a href="vfrDefs.html#vector2">vector2</a>& v) const
+<dd>指定された番号のテクスチャ座標を取得する
+<dd> n  テクスチャ座標番号
+<dd> v  テクスチャ座標格納領域
+<p>
+<dt>int <a name="getNumUVCs">getNumUVCs</a>() const
+<dd>登録されているテクスチャ座標数を返す
+<p>
+<dt>void <a name="setBbox">setBbox</a>(const <a href="vfrDefs.html#vector3">vector3</a>* tbb)
+<dd>バウンディングボックスを登録する。
+<br>バウンディングボックスが登録されていない場合、
+最初に<a href="vfrNode.html#setTexture">テクスチャ登録</a>された
+<a href="vfrNode.html">オブジェクト</a>のバウンディングボックスが参照される。
+<dd> tbb  バウンディングボックスデータ(vector3[2])
+<p>
+<dt><a href="vfrDefs.html#vector3">vector3</a>* <a name="getBbox">getBbox</a>() const
+<dd>登録されているバウンディングボックスを返す。
+<be>バウンディングボックスが登録されていない場合、
+最初に<a href="vfrNode.html#setTexture">テクスチャ登録</a>された
+<a href="vfrNode.html">オブジェクト</a>のバウンディングボックスが参照される。
+<p>
+<dt>unsigned int <a name="getID">getID</a>() const
+<dd>テクスチャインスタンスIDを返す
+<p>
+<dt>static void <a name="GetCylUVC">GetCylUVC</a>(
+  const <a href="vfrDefs.html#vector3">vector3</a> bb[2],
+  const <a href="vfrDefs.html#vector3">vector3</a> p,
+  <a href="vfrDefs.html#vector2">vector2</a> uv[3])
+<dd>三角形に対するCylindericalマッピングのテクスチャ座標を計算する(スタティックメソッド)
+<dd> bb  バウンディングボックスの頂点
+<dd> p   三角形の頂点座標
+<dd> uv  三角形の頂点のテクスチャ座標格納領域
+</dl>
+
+<hr>
+
+<h3>Description</h3>
+
+vfrTextureクラスは、<a href="vfrNode.html">オブジェクト</a>に対する
+テクスチャマッピング機能を実装するクラスである。
+<p>
+オブジェクトにマッピングをする場合、マッピングするイメージを元にしたvfrTextureオブジェクトを
+インスタンスし、対象オブジェクトの<a href="vfrNode.html#setTexture">setTexture</a>()
+メソッドを用いて関連付けを行う。
+
+<p>
+<hr>
+<h4>Mapping Type</h4>
+
+テクスチャマッピングは、設定されている<a href="#getMapType">マッピングタイプ</a>に応じて、
+以下のように行われる。
+
+<ul>
+<li><i>vfrTexture::NOMAP</i>
+ <br> テクスチャマッピングは行われない。
+<p>
+<li><i>vfrTexture::XYP, vfrTexture::YZP, vfrTexture::ZXP</i>
+ <br> それぞれXY平面、YZ平面、ZX平面に、オブジェクトの頂点を正射影した座標値を
+ テクスチャ座標として使用する。
+ <br> この時、オブジェクトのバウンディングボックスにフィットするように、
+ テクスチャはスケーリングされる。
+ <center><img src="texture_XYP.gif" width="246" height="205" alt="XYPlane mapping">
+ <br><i>Fig.1 XYPlane mapping type</i></center>
+<p>
+<li><i>vfrTexture::CYL</i>
+ <br> オブジェクト座標系のY軸を中心軸に、X軸方向を回転角0とする円筒面に沿って
+ テクスチャマッピングを行う。
+ <center><img src="texture_CYL.gif" width="160" height="164" alt="CYLINDER mapping">
+ <br><i>Fig.2 CYLINDER mapping type</i></center>
+<p>
+<li><i>vfrTexture::UVC</i>
+ <br> vfrTextureインスタンスに登録されている<a href="#alcUVCs">テクスチャ座標</a>を
+ 参照して、テクスチャマッピングを行う。
+ <a href="vfrBase.html#getMatrix">幾何変換行列</a>が設定されていれば、テクスチャ座標には
+ この行列による幾何変換が適用される。
+ <br> テクスチャ座標は、親オブジェクトに登録されている<a href="vfrNode.html#setVerts">頂点座標</a>
+ と同じ順序で格納されているものとして扱われる。
+</ul>
+
+
+<hr width="100%" noshade>
+<table width="100%">
+<tr>
+<td align="right"><font size="1">Copyright(c) 2005 RIKEN
+</font></td>
+</tr>
+</table>
+</body>

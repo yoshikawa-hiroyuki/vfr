@@ -1,0 +1,125 @@
+<title>class vfrCube</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrCube</h2>
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li><a href="vfrBase.html">vfrBase</a>
+<ul>
+<li><a href="vfrNode.html">vfrNode</a>
+<ul>
+<li>vfrCube
+</ul>
+</ul>
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrCube.h"
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+
+<dl>
+<dt>vfrCube(const std::string& name <i><a href="vfrNode.html#VFR_NONAME">VFR_NONAME</a></i>, const <a href="vfrDefs.html#Bool">Bool</a> mode <i>= FALSE</i>)
+<dd>デフォルトサイズ(幅1.0,高さ1.0,奥行き1.0)のvfrCubeオブジェクトを
+インスタンスする。
+<dd> name  オブジェクト名
+<dd> mode  自己破壊モード
+<p>
+<dt>vfrCube(const float w, const float h, const float d, const std::string& name <i><a href="vfrNode.html#VFR_NONAME">VFR_NONAME</a></i>, const <a href="vfrDefs.html#Bool">Bool</a> mode <i>= FALSE</i>)
+<dd>指定された幅(w)、高さ(h)、奥行き(d)のvfrCubeオブジェクトをインスタンスする。
+<dd> w   幅
+<dd> h   高さ
+<dd> d   奥行き
+<dd> name  オブジェクト名
+<dd> mode  自己破壊モード
+<p>
+<dt>virtual ~vfrCube()
+<dd>vfrCubeオブジェクトを破壊する。
+</dl>
+
+<hr>
+
+<h3>public methods / variables</h3>
+
+<dl>
+<dt>void <a name="setWidth">setWidth</a>(const float w)
+<dd>幅(X軸方向の長さ)を設定する。
+<dd> w		幅(デフォルト: 1.0)
+<p>
+<dt>void <a name="setHeight">setHeight</a>(const float h)
+<dd>高さ(Y軸方向の長さ)を設定する。
+<dd> h		高さ(デフォルト: 1.0)
+<p>
+<dt>void <a name="setDepth">setDepth</a>(const float d)
+<dd>奥行き(Z軸方向の長さ)を設定する。
+<dd> d		奥行き(デフォルト: 1.0)
+<p>
+<dt>float <a name="getWidth">getWidth</a>() const
+<dd>幅を返す。
+<p>
+<dt>float <a name="getHeight">getHeight</a>() const
+<dd>高さを返す。
+<p>
+<dt>float  <a name="getDepth">getDepth</a>() const
+<dd>奥行きを返す。
+</dl>
+
+<hr>
+
+<h3>Description</h3>
+
+vfrCubeクラスは、立方体を表すオブジェクトクラスである。<br>
+幅(width)、高さ(height)、奥行き(depth)が指定されたとき、
+以下のような立方体をレンダリングする。
+
+<center>
+<img src="cube_fig.gif" width="298" height="269" alt="CUBE">
+</center>
+
+<p>
+vfrCubeオブジェクトは、<a href="vfrDefs.html#RenderType">レンダリングモード</a>が
+<i>RT_POINT</i>の場合、ローカル座標系の原点位置に一点のみ
+ポイントレンダリングを行う。
+
+<hr>
+
+<h4>Feedback</h4>
+
+vfrCubeオブジェクトはローカル座標系の原点の頂点情報しか持たない。
+そのため、フィードバックテストにおいては、
+<a href="vfrDefs.html#FeedbackType">フィードバックモード</a>属性に応じ、
+以下のような結果を返す。
+
+<dl>
+<dt><i>FB_VERTEX</i>
+<dd>ローカル座標系の原点がフィードバックテストに合格したとき、
+頂点数 1、頂点番号 0 を返す。
+<p>
+<dt><i>FB_FACE, FB_EDGE</i>
+<dd>フィードバックテストは常に合格数 0 を返す。
+</dl>
+
+<hr width="90%" noshade>
+<table width="100%">
+<tr>
+<td align="right">
+<font size="1">Copyright(c) 2005 RIKEN
+</font></td>
+</tr>
+</table>
+</body>

@@ -1,0 +1,39 @@
+#
+# make.include for Linux / GNU C++ Compiler
+
+# GL section
+GLINC = 
+GLLIB = -lGL -lGLU
+
+# LIBS for ImageReader
+IMGINC = 
+IMGLIB = -lImlib -ltiff
+
+# CL/LD section
+RUNPATH = -Xlinker -rpath $(VFRLIBDIR)
+PICFLAG = -fpic
+LDFOPT = -shared $(G)
+CXX = g++
+RM = rm -f
+DEPEND = makedepend -Y
+RANLIB = ranlib
+
+# misc
+STYLE = 
+CFOPT = 
+
+# rules
+.SUFFIXES: .o .C
+
+.C.o :
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+# libvfr
+OPTNAME = 
+DYNAMIC_LIBVFR = libvfr$(OPTNAME)$(STYLE).so
+STATIC_LIBVFR = libvfr$(OPTNAME)$(STYLE).a
+
+VFR_DLIB = $(RUNPATH) -L$(VFRLIBDIR) -lvfr$(OPTNAME)$(STYLE)
+VFR_SLIB = $(VFRLIBDIR)/$(STATIC_LIBVFR)
+
+#EOF

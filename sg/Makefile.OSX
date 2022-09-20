@@ -1,0 +1,83 @@
+#
+
+G = -O2 -U_SELECT_DEBUG
+
+#include make.irix
+#include make.sun
+#include make.linux
+include make.osx
+
+OBJS = 	\
+	vfrAction.o \
+	vfrArrow.o \
+	vfrBall.o \
+	vfrBase.o \
+	vfrCamera.o \
+	vfrCamera2D.o \
+	vfrCamera3D.o \
+	vfrCone.o \
+	vfrCube.o \
+	vfrCylinder.o \
+	vfrDatamap.o \
+	vfrDefaultActions.o \
+	vfrDispatch.o \
+	vfrDrawArea.o \
+	vfrEvents.o \
+	vfrFrustum.o \
+	vfrGroup.o \
+	vfrHelveticaText.o \
+	vfrImage.o \
+	vfrIndexLines.o \
+	vfrIndexPolygons.o \
+	vfrLetters.o \
+	vfrLight.o \
+	vfrLineStrip.o \
+	vfrLineText.o \
+	vfrLines.o \
+	vfrMaterial.o \
+	vfrMesh2D.o \
+	vfrNode.o \
+	vfrPrimSet.o \
+	vfrScene.o \
+	vfrScreen.o \
+	vfrTexture.o \
+	vfrTimesRomanText.o \
+	vfrTriangles.o \
+	vfrVectors.o \
+
+VFRDIR = /usr/local/vfr
+VFRINCDIR = $(VFRDIR)/include
+VFRLIBDIR = $(VFRDIR)/lib
+
+INC = -I. -I../util -I$(VFRINCDIR) $(GLINC) $(IMGINC)
+CFLAGS = $(INC) $(G) $(PICFLAG) $(CFOPT)
+CXXFLAGS = $(CFLAGS)
+LDFLAGS = $(CFLAGS) $(LDFOPT)
+
+all : lib
+
+lib : $(DYNAMIC_LIBVFR) $(STATIC_LIBVFR)
+
+$(DYNAMIC_LIBVFR) : $(OBJS)
+	$(CXX) $(LDFLAGS) -install_name $(VFRLIBDIR)/$(DYNAMIC_LIBVFR) \
+	 -o $(DYNAMIC_LIBVFR) $(OBJS) $(GLLIB)
+
+$(STATIC_LIBVFR) : $(OBJS)
+	libtool -static -o $(STATIC_LIBVFR) $(OBJS)
+	$(RANLIB) $(STATIC_LIBVFR)
+
+clean :
+	$(RM) *.o *~ a.out core
+
+distclean : clean
+	$(RM) $(DYNAMIC_LIBVFR) $(STATIC_LIBVFR)
+
+depend:
+	$(DEPEND) vfr*.[hC]
+
+install: $(STATIC_LIBVFR)
+	install -d ../dist/lib
+	install $(STATIC_LIBVFR) ../dist/lib
+
+# DO NOT DELETE
+

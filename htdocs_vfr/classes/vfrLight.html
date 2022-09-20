@@ -1,0 +1,239 @@
+<title>class vfrLight</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" nolight>
+
+<h2>class vfrLight</h2>
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li><a href="vfrBase.html">vfrBase</a>
+<ul>
+<li><a href="vfrNode.html">vfrNode</a>
+<ul>
+<li>vfrLight
+</ul>
+</ul>
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrLight.h"
+</dl>
+<p>
+<h4>Definitions</h4>
+<ul>
+<li><a name="VFR_LIGHT_MAX">VFR_LIGHT_MAX</a>  <a href="vfrScene.html">シーン</a>内の最大照明数(<i> = 4</i>)
+</ul>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+
+<dl>
+<dt>virtual ~vfrLight()
+<dd>vfrLightオブジェクトを破壊する。
+</dl>
+
+<hr>
+
+<h3>public methods / variables</h3>
+
+<dl>
+<dt>void <a name="render">render</a>()
+<dd>レンダリングを行う
+<p>
+<dt>void <a name="reset">reset</a>()
+<dd>ライティング属性をリセットする。
+<blockquote><a name="default">属性の初期値(デフォルト値)</a>:
+<br><table border="1">
+<tr><td><i>Ambient</i></td><td>(0.2f, 0.2f, 0.2f, 1.0f)</td></tr>
+<tr><td><i>Diffuse</i></td><td>(1.0f, 1.0f, 1.0f, 1.0f)</td></tr>
+<tr><td><i>Specular</i></td><td>(1.0f, 1.0f, 1.0f, 1.0f)</td></tr>
+<tr><td><i>Spot Cutoff</i></td><td>45.0°</td></tr>
+<tr><td><i>Light Type</i></td><td><i>LT_DIRECTIONAL</i></td></tr>
+<tr><td><i>On/Off</i></td><td><i>FALSE</i>(= OFF)</td></tr>
+</table></blockquote>
+<p>
+<dt>void <a name="setOnOff">setOnOff</a>(const <a href="vfrDefs.html#Bool">Bool</a> on)
+<dd>ライトのON/OFFを設定する
+<dd> on		ON/OFF(<i>TRUE</i>=ON)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>  <a name="isOn">isOn</a>() const
+<dd>ライトが点灯しているかを返す(<i>TRUE</i>:点灯)
+<p>
+<dt>void <a name="setLightType">setLightType</a>(const <a href="vfrDefs.html#LightType">LightType</a> lt)
+<dd>ライトの種類を設定する
+<dd> lt		ライトの種類
+<p>
+<dt><a href="vfrDefs.html#LightType">LightType</a>  <a name="getLightType">getLightType</a>() const
+<dd>ライトの種類を返す
+<p>
+<dt>void <a name="setShowMode">setShowMode</a>(const <a href="vfrDefs.html#LightType">LightType</a> sm)
+<dd>ライトの表示モードを設定する。
+<br><i>TRUE</i>の時、<a href="#setLightType">ライトの種類</a>に応じて、位置、方向を示す
+オブジェクトを表示する。
+<dd> sm		ライトの表示モード
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>  <a name="isShow">isShow</a>() const
+<dd>ライトの表示モードを返す
+<p>
+<dt>void  <a name="setAmbient">setAmbient</a>(const <a href="vfrDefs.html#vector4">vector4</a> amb)
+<dd>環境光強度を設定する
+<dd> amb	環境光強度(R, G, B, A)
+<p>
+<dt>void  setAmbient(const float r, const float g, const float b, const float a)
+<dd>環境光強度を設定する
+<dd> r	環境光強度(R成分)
+<dd> g	環境光強度(G成分)
+<dd> b	環境光強度(B成分)
+<dd> a	環境光強度(A成分)
+<p>
+<dt>void  <a name="getAmbient">getAmbient</a>(<a href="vfrDefs.html#vector4">vector4</a> amb) const
+<dd>環境光強度を取得する
+<dd> amb	環境光強度格納領域(R, G, B, A)
+<p>
+<dt>void  <a name="setDiffuse">setDiffuse</a>(const <a href="vfrDefs.html#vector4">vector4</a> dif)
+<dd>拡散光強度を設定する
+<dd> dif	拡散光強度(R, G, B, A)
+<p>
+<dt>void  setDiffuse(const float r, const float g, const float b, const float a)
+<dd>拡散光強度を設定する
+<dd> r	拡散光強度(R成分)
+<dd> g	拡散光強度(G成分)
+<dd> b	拡散光強度(B成分)
+<dd> a	拡散光強度(A成分)
+<p>
+<dt>void  <a name="getDiffuse">getDiffuse</a>(<a href="vfrDefs.html#vector4">vector4</a> dif) const
+<dd>拡散光強度を取得する
+<dd> dif	拡散光強度格納領域(R, G, B, A)
+<p>
+<dt>void  <a name="setSpecular">setSpecular</a>(const <a href="vfrDefs.html#vector4">vector4</a> spc)
+<dd>鏡面光強度を設定する
+<dd> spc	鏡面光強度(R, G, B, A)
+<p>
+<dt>void  setSpecular(const float r, const float g, const float b, const float a)
+<dd>鏡面光強度を設定する
+<dd> r	鏡面光強度(R成分)
+<dd> g	鏡面光強度(G成分)
+<dd> b	鏡面光強度(B成分)
+<dd> a	鏡面光強度(A成分)
+<p>
+<dt>void  <a name="getSpecular">getSpecular</a>(<a href="vfrDefs.html#vector4">vector4</a> spc) const
+<dd>鏡面光強度を取得する
+<dd> spc	鏡面光強度格納領域(R, G, B, A)
+<p>
+<dt>void  <a name="setSpotCutoff">setSpotCutoff</a>(const float sc)
+<dd>スポットライトカットオフ角度を設定する
+<dd> sc	カットオフ角度(<i>degree</i>)
+<p>
+<dt>float  <a name="getSpotCutoff">getSpotCutoff</a>() const
+<dd>スポットライトカットオフ角度を返す(<i>degree</i>)
+<p>
+<dt>int  <a name="getLightNum">getLightNum</a>() const
+<dd>シーン内の照明番号を返す(0 〜 <a href="#VFR_LIGHT_MAX">VFR_LIGHT_MAX</a> -1)
+</dl>
+
+<hr>
+
+<h3>Description</h3>
+
+vfrLightクラスは、光源(ライト)を表すオブジェクトクラスである。<p>
+vfrLightクラスは、<a href="vfrScene.html">vfrSceneクラス</a>からのみインスタンスが作成される。
+vfrLightのインスタンスの取得は、vfrSceneクラスを通してのみ行う事ができる。
+<p>
+vfrLightクラスは、以下の3種類の中から<a href="#setLightType">setLightType()</a>メソッドを用いて
+ライティングタイプの選択ができる。
+<dl>
+<dt><i>LT_DIRECTIONAL</i>
+<dd>平行光源。光源は無限遠にあり、光強度は減衰しない。
+<br>光の方向ベクトルは、vfrLightオブジェクトのローカル座標系における (0,0,-1) であり、
+vfrLightオブジェクトの幾何変換によって方向を変える(平行移動、スケーリングは無意味)。
+<p>
+<dt><i>LT_POINT</i>
+<dd>点光源。光源から全方向に同じ強度で放射される。光強度は減衰しない。
+<br>光源位置はvfrLightオブジェクトのローカル座標系における (0,0,0) であり、
+vfrLightオブジェクトの幾何変換によって位置を変える(回転、スケーリングは無意味)。
+<p>
+<dt><i>LT_SPOT</i>
+<dd><table><tr>
+<td>
+スポットライト光源。光源から特定の範囲(円錐状の領域)にのみ照光する。光強度は減衰しない。
+<br>光源位置はvfrLightオブジェクトのローカル座標系における (0,0,0) 、
+方向ベクトルは (0,0,-1) であり、
+vfrLightオブジェクトの幾何変換によって位置と方向を変える(スケーリングは無意味)。
+<br>照光範囲は<a href="#setSpotCutoff">setSpotCutoff()</a>メソッドを用いて、
+方向ベクトルを中心とした円錐の軸と母線の角度(<i>degree</i>)で設定する。
+</td>
+<td valign="top" align="center">
+<img src="light_spot_fig.gif" width="215" height="166" alt="Fig.1 Spot Light">
+<br><i>Fig.1 Spot Light</i>
+</td>
+</tr></table>
+</dl>
+<p>
+
+vfrLightオブジェクトによる照光は、オブジェクトの<a href="vfrMaterial.html">マテリアル</a>
+に設定された反射係数との関係により、影響が決定される。<br>
+最終的にレンダリングされるオブジェクトの表面の色は、以下のように決定される。
+<pre>
+  Color = EMI<font size="1">mat</font> +
+    Σ{ AMB<font size="1">mat</font> × AMB<font size="1">lig</font>
+        + (<i>max</i>[(<b>S</b>・<b>N</b>), 0])<sup><font size="2">SHI</font><font size="0">mat</font></sup> × SPC<font size="1">mat</font> × SPC<font size="1">lig</font>
+        +  <i>max</i>[(<b>L</b>・<b>N</b>), 0] × DIF<font size="1">lig</font> × COLOR<font size="1">obj</font>
+      },
+
+      Color : レンダリングされる色,
+      EMI<font size="1">mat</font> : <a href="vfrMaterial.html#setEmission">マテリアルの放射光色</a>,
+      AMB<font size="1">mat</font> : <a href="vfrMaterial.html#setAmbient">マテリアルの環境光反射係数</a>,
+      AMB<font size="1">lig</font> : <a href="#setAmbient">ライトの環境光強度</a>,
+      SHI<font size="1">mat</font> : <a href="vfrMaterial.html#setShininess">マテリアルの鏡面反射指数</a>,
+      SPC<font size="1">mat</font> : <a href="vfrMaterial.html#setSpecular">マテリアルの鏡面反射係数</a>,
+      SPC<font size="1">lig</font> : <a href="#setSpecular">ライトの鏡面光強度</a>,
+      DIF<font size="1">lig</font> : <a href="#setDiffuse">ライトの拡散光強度</a>,
+      COLOR<font size="1">obj</font> : <a href="vfrNode.html#alcColors">オブジェクトの色</a>,
+       <b>S</b> : 光源、頂点、視点によって構成される角を2等分するベクトル,
+       <b>L</b> : ライトの方向ベクトル,
+       <b>N</b> : オブジェクトの頂点における法線ベクトル.
+</pre>
+
+尚、オブジェクトの<a href="vfrMaterial.html#setRenderMode">レンダリングモード</a>が
+<i>RT_NOLIGHT, RT_WIRE または RT_POINT</i>の場合は、
+照光による影響はなく、<a href="vfrNode.html#alcColors">オブジェクトの色</a>でレンダリングされる。
+
+
+<hr>
+
+<h4>Instance</h4>
+
+vfrLightオブジェクトは、<a href="vfrScene.html">シーン</a>がインスタンスされると
+シーンのメンバーとしてインスタンスされる。
+vfrLightオブジェクトはシーンからのみしかインスタンスされない(参照: <a href="vfrScene.html#Lights">vfrScene/Lights</a>)。
+<p>
+インスタンスされた時点では、vfrLightオブジェクトは<a href="#reset">リセット</a>された
+属性になっているが、シーンの 0 番目のライトだけは ON が初期状態となる。
+
+
+<hr>
+
+<h4>Feedback</h4>
+
+vfrLightオブジェクトはフィードバックテストは常に合格数 0 を返す。
+
+<hr width="100%" noshade>
+<table width="100%">
+<tr>
+<td align="right">
+<font size="1">Copyright(c) 2005 RIKEN
+</font></td>
+</tr>
+</table>
+</body>

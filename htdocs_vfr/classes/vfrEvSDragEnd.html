@@ -1,0 +1,146 @@
+<title>class vfrEvSDragEnd</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrEvSDragEnd, vfrEvRSDragEnd, vfrEvMSDragEnd</h2>
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li><a href="vfrEvent.html">vfrEvent</a>
+ <ul>
+ <li>vfrEvSDragEnd
+ <li>vfrEvRSDragEnd
+ <li>vfrEvMSDragEnd
+ </ul>
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrEvSDrag.h"
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+<dl>
+<dt>vfrEvSDragEnd()
+<dd>vfrEvSDragEndイベントオブジェクトを生成する
+<p>
+<dt>virtual ~vfrEvSDragEnd()
+<dd>vfrEvSDragEndイベントオブジェクトを破壊する
+<p>
+<dt>vfrEvRSDragEnd()
+<dd>vfrEvRSDragEndイベントオブジェクトを生成する
+<p>
+<dt>virtual ~vfrEvRSDragEnd()
+<dd>vfrEvRSDragEndイベントオブジェクトを破壊する
+<p>
+<dt>vfrEvMSDragEnd()
+<dd>vfrEvMSDragEndイベントオブジェクトを生成する
+<p>
+<dt>virtual ~vfrEvMSDragEnd()
+<dd>vfrEvMSDragEndイベントオブジェクトを破壊する
+</dl>
+
+<hr>
+
+<h3>Public Methods / Variables</h3>
+
+<h4>vfrEvSDragEnd::</h4>
+<dl>
+<dt>static <a href="vfrEvent.html">vfrEvent</a>& instance(<a href="vfrDispatch.html">vfrDispatch</a>& disp)
+<dd><a  href="vfrDispatch.html">イベントディスパッチャー</a>に登録されている
+SDragEnd仮想イベントオブジェクトを取得する(スタティックメソッド)
+<dd> disp	イベントディスパッチャー
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>  <a name="isDragEndEvent">isDragEndEvent</a>() const
+<dd>マウスドラッギング終了イベントかを返す(<i>TRUE</i>を返す)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>  <a name="withLeftButton">withLeftButton</a>() const
+<dd>マウス左ボタンイベントかを返す(<i>TRUE</i>を返す)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>  <a name="withShiftKey">withShiftKey</a>() const
+<dd>Shiftキーイベントかを返す(<i>TRUE</i>を返す)
+</dl>
+
+<p>
+<h4>vfrEvRSDragEnd::</h4>
+<dl>
+<dt>static <a href="vfrEvent.html">vfrEvent</a>& instance(<a href="vfrDispatch.html">vfrDispatch</a>& disp)
+<dd><a  href="vfrDispatch.html">イベントディスパッチャー</a>に登録されている
+RSDragEnd仮想イベントオブジェクトを取得する(スタティックメソッド)
+<dd> disp	イベントディスパッチャー
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> isDragEndEvent() const
+<dd>マウスドラッギング終了イベントかを返す(<i>TRUE</i>を返す)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>  <a name="withRightButton">withRightButton</a>() const
+<dd>マウス右ボタンイベントかを返す(<i>TRUE</i>を返す)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>withShiftKey() const
+<dd>Shiftキーイベントかを返す(<i>TRUE</i>を返す)
+</dl>
+
+<p>
+<h4>vfrEvMSDragEnd::</h4>
+<dl>
+<dt>static <a href="vfrEvent.html">vfrEvent</a>& instance(<a href="vfrDispatch.html">vfrDispatch</a>& disp)
+<dd><a  href="vfrDispatch.html">イベントディスパッチャー</a>に登録されている
+MSDragEnd仮想イベントオブジェクトを取得する(スタティックメソッド)
+<dd> disp	イベントディスパッチャー
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> isDragEndEvent() const
+<dd>マウスドラッギング終了イベントかを返す(<i>TRUE</i>を返す)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a>  <a name="withMiddleButton">withMiddleButton</a>() const
+<dd>マウス中ボタンイベントかを返す(<i>TRUE</i>を返す)
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> withShiftKey() const
+<dd>Shiftキーイベントかを返す(<i>TRUE</i>を返す)
+</dl>
+
+
+<hr>
+<h3>Description</h3>
+
+vfrEvSDragEnd, vfrEvRSDragEnd, vfrEvMSDragEndの各クラスは、
+<a href="vfrDrawArea.html">描画領域</a>に対するSDragEnd、RSDragEndおよび
+MSDragEnd仮想イベントを
+処理するイベントオブジェクトのクラスである。
+<p>
+描画領域において<i>SHIFT</i>キーを押しながらのマウスドラッグが終了する
+(<i>SHIFT</i>キーまたはマウスボタンを離す)と、
+<a href="vfrDrawArea.html">vfrDrawArea</a>クラスの
+内部イベントハンドラは<a href="vfrDispatch.html">イベントディスパッチャー</a>を介して
+取得したvfrEvSDragEnd(左ドラッグ)、vfrEvRSDragEnd(右ドラッグ)またはvfrEvMSDragEnd(中ドラッグ)インスタンスにイベント情報を登録し、
+各インスタンスに登録されている<a href="vfrAction.html">アクション</a>を
+<a href="vfrAction.html#execute">実行</a>する。
+
+<hr>
+
+<a name="Event_Information"><h4>Event Information</h4></a>
+
+vfrEvSDragEnd, vfrEvRSDragEnd, vfrEvMSDragEndの各クラスは、以下のイベント情報をサポートする。
+<ul>
+<li><a href="vfrEvent.html#getScreen">イベントが発生したスクリーン</a>
+<li><a href="vfrEvent.html#getMPoint">イベント発生時のマウス位置</a>
+<li><a href="vfrEvent.html#getMMove">イベント発生時のマウス移動量</a>
+</ul>
+
+<hr width="100%" noshade>
+<table width="100%">
+<tr>
+<td align="right"><font size="1">Copyright(c) 2005 RIKEN
+</font></td>
+</tr>
+</table>
+</body>

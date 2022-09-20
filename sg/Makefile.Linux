@@ -1,0 +1,256 @@
+#
+
+G = -O2 -U_SELECT_DEBUG
+
+#include make.irix
+#include make.sun
+include make.linux
+
+OBJS = \
+	vfrAction.o \
+	vfrArrow.o \
+	vfrBall.o \
+	vfrBase.o \
+	vfrCamera.o \
+	vfrCamera2D.o \
+	vfrCamera3D.o \
+	vfrCone.o \
+	vfrCube.o \
+	vfrCylinder.o \
+	vfrDatamap.o \
+	vfrDefaultActions.o \
+	vfrDispatch.o \
+	vfrDrawArea.o \
+	vfrEvents.o \
+	vfrFrustum.o \
+	vfrGroup.o \
+	vfrHelveticaText.o \
+	vfrImage.o \
+	vfrIndexLines.o \
+	vfrIndexPolygons.o \
+	vfrLetters.o \
+	vfrLight.o \
+	vfrLineStrip.o \
+	vfrLineText.o \
+	vfrLines.o \
+	vfrMaterial.o \
+	vfrMesh2D.o \
+	vfrNode.o \
+	vfrPrimSet.o \
+	vfrScene.o \
+	vfrScreen.o \
+	vfrTexture.o \
+	vfrTimesRomanText.o \
+	vfrTriangles.o \
+	vfrVectors.o \
+
+VFRDIR = /usr/local/vfr
+VFRINCDIR = $(VFRDIR)/include
+VFRLIBDIR = $(VFRDIR)/lib
+
+INC = -I. -I../util -I$(VFRINCDIR) $(GLINC) $(IMGINC)
+CFLAGS = $(INC) $(G) $(PICFLAG) $(CFOPT)
+CXXFLAGS = $(CFLAGS)
+LDFLAGS = $(CFLAGS) $(LDFOPT)
+
+all : lib
+
+lib : $(DYNAMIC_LIBVFR) $(STATIC_LIBVFR)
+
+$(DYNAMIC_LIBVFR) : $(OBJS)
+	$(CXX) $(LDFLAGS) -o $(DYNAMIC_LIBVFR) $(OBJS)
+
+$(STATIC_LIBVFR) : $(OBJS)
+	ar -curv $(STATIC_LIBVFR) $(OBJS)
+	$(RANLIB) $(STATIC_LIBVFR)
+
+clean :
+	$(RM) *.o *~ a.out core
+
+distclean : clean
+	$(RM) $(DYNAMIC_LIBVFR) $(STATIC_LIBVFR)
+
+depend:
+	$(DEPEND) vfr*.[hC]
+
+install: $(STATIC_LIBVFR)
+	install -d ../dist/lib
+	install $(STATIC_LIBVFR) ../dist/lib
+
+# DO NOT DELETE
+
+vfrAction.o: vfrAction.h vfrBase.h vfrDefs.h
+vfrAction.o: vfrBase.h vfrDefs.h
+vfrArrow.o: vfrArrow.h vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h
+vfrArrow.o: vfrDatamap.h vfrTexture.h vfrImage.h
+vfrArrow.o: vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h vfrDatamap.h
+vfrArrow.o: vfrTexture.h vfrImage.h
+vfrBall.o: vfrBall.h vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h vfrDatamap.h
+vfrBall.o: vfrTexture.h vfrImage.h
+vfrBall.o: vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h vfrDatamap.h
+vfrBall.o: vfrTexture.h vfrImage.h
+vfrBase.o: vfrBase.h vfrDefs.h
+vfrBase.o: vfrDefs.h
+vfrCamera.o: vfrCamera.h vfrScene.h vfrGroup.h vfrNode.h vfrBase.h vfrDefs.h
+vfrCamera.o: vfrMaterial.h vfrDatamap.h vfrTexture.h vfrImage.h vfrLight.h
+vfrCamera.o: vfrScreen.h vfrFrustum.h
+vfrCamera.o: vfrScene.h vfrGroup.h vfrNode.h vfrBase.h vfrDefs.h
+vfrCamera.o: vfrMaterial.h vfrDatamap.h vfrTexture.h vfrImage.h vfrLight.h
+vfrCamera.o: vfrScreen.h vfrFrustum.h
+vfrCamera2D.o: vfrCamera2D.h vfrCamera.h vfrScene.h vfrGroup.h vfrNode.h
+vfrCamera2D.o: vfrBase.h vfrDefs.h vfrMaterial.h vfrDatamap.h vfrTexture.h
+vfrCamera2D.o: vfrImage.h vfrLight.h vfrScreen.h vfrFrustum.h
+vfrCamera2D.o: vfrCamera.h vfrScene.h vfrGroup.h vfrNode.h vfrBase.h
+vfrCamera2D.o: vfrDefs.h vfrMaterial.h vfrDatamap.h vfrTexture.h vfrImage.h
+vfrCamera2D.o: vfrLight.h vfrScreen.h vfrFrustum.h
+vfrCamera3D.o: vfrCamera3D.h vfrCamera.h vfrScene.h vfrGroup.h vfrNode.h
+vfrCamera3D.o: vfrBase.h vfrDefs.h vfrMaterial.h vfrDatamap.h vfrTexture.h
+vfrCamera3D.o: vfrImage.h vfrLight.h vfrScreen.h vfrFrustum.h
+vfrCamera3D.o: vfrCamera.h vfrScene.h vfrGroup.h vfrNode.h vfrBase.h
+vfrCamera3D.o: vfrDefs.h vfrMaterial.h vfrDatamap.h vfrTexture.h vfrImage.h
+vfrCamera3D.o: vfrLight.h vfrScreen.h vfrFrustum.h
+vfrCone.o: vfrCone.h vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h vfrDatamap.h
+vfrCone.o: vfrTexture.h vfrImage.h
+vfrCone.o: vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h vfrDatamap.h
+vfrCone.o: vfrTexture.h vfrImage.h
+vfrCube.o: vfrCube.h vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h vfrDatamap.h
+vfrCube.o: vfrTexture.h vfrImage.h
+vfrCube.o: vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h vfrDatamap.h
+vfrCube.o: vfrTexture.h vfrImage.h
+vfrCylinder.o: vfrCylinder.h vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h
+vfrCylinder.o: vfrDatamap.h vfrTexture.h vfrImage.h
+vfrCylinder.o: vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h vfrDatamap.h
+vfrCylinder.o: vfrTexture.h vfrImage.h
+vfrDatamap.o: vfrDatamap.h vfrBase.h vfrDefs.h
+vfrDatamap.o: vfrBase.h vfrDefs.h
+vfrDefaultActions.o: vfrDefaultActions.h vfrAction.h vfrBase.h vfrDefs.h
+vfrDefaultActions.o: vfrDispatch.h vfrEvKeyIn.h vfrEvent.h vfrEvClick.h
+vfrDefaultActions.o: vfrEvDrag.h vfrEvSClick.h vfrEvSDrag.h vfrEvCClick.h
+vfrDefaultActions.o: vfrEvCDrag.h vfrEvSCClick.h vfrEvSCDrag.h vfrNode.h
+vfrDefaultActions.o: vfrMaterial.h vfrDatamap.h vfrTexture.h vfrImage.h
+vfrDefaultActions.o: vfrScene.h vfrGroup.h vfrLight.h vfrCamera.h vfrScreen.h
+vfrDefaultActions.o: vfrFrustum.h vfrDrawArea.h vfrKeyCode.h
+vfrDefaultActions.o: vfrAction.h vfrBase.h vfrDefs.h vfrDispatch.h
+vfrDefaultActions.o: vfrEvKeyIn.h vfrEvent.h vfrEvClick.h vfrEvDrag.h
+vfrDefaultActions.o: vfrEvSClick.h vfrEvSDrag.h vfrEvCClick.h vfrEvCDrag.h
+vfrDefaultActions.o: vfrEvSCClick.h vfrEvSCDrag.h vfrNode.h vfrMaterial.h
+vfrDefaultActions.o: vfrDatamap.h vfrTexture.h vfrImage.h vfrScene.h
+vfrDefaultActions.o: vfrGroup.h vfrLight.h vfrCamera.h vfrScreen.h
+vfrDefaultActions.o: vfrFrustum.h vfrDrawArea.h
+vfrDispatch.o: vfrDispatch.h vfrEvKeyIn.h vfrEvent.h vfrBase.h vfrDefs.h
+vfrDispatch.o: vfrEvClick.h vfrEvDrag.h vfrEvSClick.h vfrEvSDrag.h
+vfrDispatch.o: vfrEvCClick.h vfrEvCDrag.h vfrEvSCClick.h vfrEvSCDrag.h
+vfrDispatch.o: vfrDrawArea.h vfrScreen.h vfrNode.h vfrMaterial.h vfrDatamap.h
+vfrDispatch.o: vfrTexture.h vfrImage.h vfrCamera.h vfrScene.h vfrGroup.h
+vfrDispatch.o: vfrLight.h vfrFrustum.h
+vfrDispatch.o: vfrEvKeyIn.h vfrEvent.h vfrBase.h vfrDefs.h vfrEvClick.h
+vfrDispatch.o: vfrEvDrag.h vfrEvSClick.h vfrEvSDrag.h vfrEvCClick.h
+vfrDispatch.o: vfrEvCDrag.h vfrEvSCClick.h vfrEvSCDrag.h
+vfrDrawArea.o: vfrDrawArea.h vfrScreen.h vfrNode.h vfrBase.h vfrDefs.h
+vfrDrawArea.o: vfrMaterial.h vfrDatamap.h vfrTexture.h vfrImage.h vfrCamera.h
+vfrDrawArea.o: vfrScene.h vfrGroup.h vfrLight.h vfrFrustum.h vfrDispatch.h
+vfrDrawArea.o: vfrEvKeyIn.h vfrEvent.h vfrEvClick.h vfrEvDrag.h vfrEvSClick.h
+vfrDrawArea.o: vfrEvSDrag.h vfrEvCClick.h vfrEvCDrag.h vfrEvSCClick.h
+vfrDrawArea.o: vfrEvSCDrag.h
+vfrDrawArea.o: vfrScreen.h vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h
+vfrDrawArea.o: vfrDatamap.h vfrTexture.h vfrImage.h vfrCamera.h vfrScene.h
+vfrDrawArea.o: vfrGroup.h vfrLight.h vfrFrustum.h vfrDispatch.h vfrEvKeyIn.h
+vfrDrawArea.o: vfrEvent.h vfrEvClick.h vfrEvDrag.h vfrEvSClick.h vfrEvSDrag.h
+vfrDrawArea.o: vfrEvCClick.h vfrEvCDrag.h vfrEvSCClick.h vfrEvSCDrag.h
+vfrEvCClick.o: vfrEvent.h vfrBase.h vfrDefs.h
+vfrEvCDrag.o: vfrEvent.h vfrBase.h vfrDefs.h
+vfrEvClick.o: vfrEvent.h vfrBase.h vfrDefs.h
+vfrEvDrag.o: vfrEvent.h vfrBase.h vfrDefs.h
+vfrEvKeyIn.o: vfrEvent.h vfrBase.h vfrDefs.h
+vfrEvSCClick.o: vfrEvent.h vfrBase.h vfrDefs.h
+vfrEvSCDrag.o: vfrEvent.h vfrBase.h vfrDefs.h
+vfrEvSClick.o: vfrEvent.h vfrBase.h vfrDefs.h
+vfrEvSDrag.o: vfrEvent.h vfrBase.h vfrDefs.h
+vfrEvent.o: vfrBase.h vfrDefs.h
+vfrEvents.o: vfrEvent.h vfrBase.h vfrDefs.h vfrAction.h vfrDispatch.h
+vfrEvents.o: vfrEvKeyIn.h vfrEvClick.h vfrEvDrag.h vfrEvSClick.h vfrEvSDrag.h
+vfrEvents.o: vfrEvCClick.h vfrEvCDrag.h vfrEvSCClick.h vfrEvSCDrag.h
+vfrFrustum.o: vfrFrustum.h vfrDefs.h
+vfrFrustum.o: vfrDefs.h
+vfrGroup.o: vfrGroup.h vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h
+vfrGroup.o: vfrDatamap.h vfrTexture.h vfrImage.h
+vfrGroup.o: vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h vfrDatamap.h
+vfrGroup.o: vfrTexture.h vfrImage.h
+vfrHelveticaText.o: vfrHelveticaText.h vfrLetters.h vfrNode.h vfrBase.h
+vfrHelveticaText.o: vfrDefs.h vfrMaterial.h vfrDatamap.h vfrTexture.h
+vfrHelveticaText.o: vfrImage.h
+vfrHelveticaText.o: vfrLetters.h vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h
+vfrHelveticaText.o: vfrDatamap.h vfrTexture.h vfrImage.h
+vfrImage.o: vfrImage.h vfrBase.h vfrDefs.h
+vfrImage.o: vfrBase.h vfrDefs.h
+vfrIndexLines.o: vfrIndexLines.h vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h
+vfrIndexLines.o: vfrDatamap.h vfrTexture.h vfrImage.h
+vfrIndexLines.o: vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h vfrDatamap.h
+vfrIndexLines.o: vfrTexture.h vfrImage.h
+vfrIndexPolygons.o: vfrIndexPolygons.h vfrNode.h vfrBase.h vfrDefs.h
+vfrIndexPolygons.o: vfrMaterial.h vfrDatamap.h vfrTexture.h vfrImage.h
+vfrIndexPolygons.o: vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h vfrDatamap.h
+vfrIndexPolygons.o: vfrTexture.h vfrImage.h
+vfrLetters.o: vfrLetters.h vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h
+vfrLetters.o: vfrDatamap.h vfrTexture.h vfrImage.h
+vfrLetters.o: vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h vfrDatamap.h
+vfrLetters.o: vfrTexture.h vfrImage.h
+vfrLight.o: vfrLight.h vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h
+vfrLight.o: vfrDatamap.h vfrTexture.h vfrImage.h
+vfrLight.o: vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h vfrDatamap.h
+vfrLight.o: vfrTexture.h vfrImage.h
+vfrLineStrip.o: vfrLineStrip.h vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h
+vfrLineStrip.o: vfrDatamap.h vfrTexture.h vfrImage.h
+vfrLineStrip.o: vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h vfrDatamap.h
+vfrLineStrip.o: vfrTexture.h vfrImage.h
+vfrLineText.o: vfrLineText.h vfrLetters.h vfrNode.h vfrBase.h vfrDefs.h
+vfrLineText.o: vfrMaterial.h vfrDatamap.h vfrTexture.h vfrImage.h
+vfrLineText.o: vfrLetters.h vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h
+vfrLineText.o: vfrDatamap.h vfrTexture.h vfrImage.h
+vfrLines.o: vfrLines.h vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h
+vfrLines.o: vfrDatamap.h vfrTexture.h vfrImage.h
+vfrLines.o: vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h vfrDatamap.h
+vfrLines.o: vfrTexture.h vfrImage.h
+vfrMaterial.o: vfrMaterial.h vfrBase.h vfrDefs.h vfrNode.h vfrDatamap.h
+vfrMaterial.o: vfrTexture.h vfrImage.h
+vfrMaterial.o: vfrBase.h vfrDefs.h
+vfrMesh2D.o: vfrMesh2D.h vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h
+vfrMesh2D.o: vfrDatamap.h vfrTexture.h vfrImage.h
+vfrMesh2D.o: vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h vfrDatamap.h
+vfrMesh2D.o: vfrTexture.h vfrImage.h
+vfrNode.o: vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h vfrDatamap.h
+vfrNode.o: vfrTexture.h vfrImage.h
+vfrNode.o: vfrBase.h vfrDefs.h vfrMaterial.h vfrDatamap.h vfrTexture.h
+vfrNode.o: vfrImage.h
+vfrPrimSet.o: vfrPrimSet.h vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h
+vfrPrimSet.o: vfrDatamap.h vfrTexture.h vfrImage.h
+vfrPrimSet.o: vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h vfrDatamap.h
+vfrPrimSet.o: vfrTexture.h vfrImage.h
+vfrScene.o: vfrScene.h vfrGroup.h vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h
+vfrScene.o: vfrDatamap.h vfrTexture.h vfrImage.h vfrLight.h
+vfrScene.o: vfrGroup.h vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h
+vfrScene.o: vfrDatamap.h vfrTexture.h vfrImage.h vfrLight.h
+vfrScreen.o: vfrScreen.h vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h
+vfrScreen.o: vfrDatamap.h vfrTexture.h vfrImage.h vfrCamera.h vfrScene.h
+vfrScreen.o: vfrGroup.h vfrLight.h vfrFrustum.h vfrDrawArea.h vfrDispatch.h
+vfrScreen.o: vfrEvKeyIn.h vfrEvent.h vfrEvClick.h vfrEvDrag.h vfrEvSClick.h
+vfrScreen.o: vfrEvSDrag.h vfrEvCClick.h vfrEvCDrag.h vfrEvSCClick.h
+vfrScreen.o: vfrEvSCDrag.h
+vfrScreen.o: vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h vfrDatamap.h
+vfrScreen.o: vfrTexture.h vfrImage.h
+vfrTexture.o: vfrTexture.h vfrBase.h vfrDefs.h vfrImage.h vfrNode.h
+vfrTexture.o: vfrMaterial.h vfrDatamap.h
+vfrTexture.o: vfrBase.h vfrDefs.h vfrImage.h
+vfrTimesRomanText.o: vfrTimesRomanText.h vfrLetters.h vfrNode.h vfrBase.h
+vfrTimesRomanText.o: vfrDefs.h vfrMaterial.h vfrDatamap.h vfrTexture.h
+vfrTimesRomanText.o: vfrImage.h
+vfrTimesRomanText.o: vfrLetters.h vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h
+vfrTimesRomanText.o: vfrDatamap.h vfrTexture.h vfrImage.h
+vfrTriangles.o: vfrTriangles.h vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h
+vfrTriangles.o: vfrDatamap.h vfrTexture.h vfrImage.h
+vfrTriangles.o: vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h vfrDatamap.h
+vfrTriangles.o: vfrTexture.h vfrImage.h
+vfrVectors.o: vfrVectors.h vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h
+vfrVectors.o: vfrDatamap.h vfrTexture.h vfrImage.h
+vfrVectors.o: vfrNode.h vfrBase.h vfrDefs.h vfrMaterial.h vfrDatamap.h
+vfrVectors.o: vfrTexture.h vfrImage.h

@@ -1,0 +1,138 @@
+<title>vfr - class vfrDrawAreaSDL</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrDrawAreaSDL</h2>
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li><a href="vfrDrawArea.html">vfrDrawArea</a>
+<ul>
+<li>vfrDrawAreaSDL
+</ul>
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrDrawAreaSDL.h"
+</dl>
+<p>
+<h4>Definitions</h4>
+<dl>
+<dt><a name="VFR_MAX_DRAWAREA">VFR_MAX_DRAWAREA</a>
+<dd>vfrDrawAreaSDLクラスのインスタンス可能な個数( = 1)
+<p>
+<dt><a name="VFR_SDL_RESIZABLE">VFR_SDL_RESIZABLE</a>
+<dd>vfrDrawAreaSDLウインドウのリサイズ可能フラグビット( = 1)
+<p>
+<dt><a name="VFR_SDL_FULLSCREEN">VFR_SDL_FULLSCREEN</a>
+<dd>vfrDrawAreaSDLウインドウのフルスクリーンフラグビット( = 2)
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+
+<dl>
+<dt>virtual ~vfrDrawAreaSDL()
+<dd>vfrDrawAreaSDLインスタンスを破壊する
+</dl>
+
+<hr>
+
+<h3>Public Methods / Variables</h3>
+
+<dl>
+<dt>void    <a name="redraw">redraw</a>()
+<dd>再描画を行う
+<p>
+<dt>void    <a name="notice">notice</a>()
+<dd>描画内容の変更通知を行う
+<p>
+<dt>void    <a name="chkNotice">chkNotice</a>()
+<dd>描画内容の変更検査を要求する
+<p>
+<dt>void    <a name="rumor">rumor</a>(<a href="vfrScreen.html">vfrScreen</a>* s)
+<dd><a href="vfrScreen.html">スクリーン</a>の破壊通知を受け付ける
+<dd> s	破壊されるスクリーン
+<p>
+<dt>void    <a name="clearDispList">clearDispList</a>()
+<dd>内部ディスプレイリストを全て無効にする
+<p>
+<dt>void  <a name="drawImmediate">drawImmediate</a>()
+<dd>イミディアトモードで描画を行う
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="initialize">initialize</a>(const char* title <i>= NULL</i>, const unsigned int W <i>=640</i>, const unsigned int H <i>=480</i>, const <a href="vfrDefs.html#Bool">Bool</a> dbl <i>=TRUE</i>, const int mode =0)
+<dd>初期化処理を行う
+<dd> title    ウインドウタイトル文字列
+<dd> W        ウインドウの幅
+<dd> H        ウインドウの高さ
+<dd> dbl      ダブルバッファ使用フラグ
+<dd> mode     ウインドウモード。<a href="#VFR_SDL_RESIZABLE">VFR_SDL_RESIZABLE</a>, <a href="#VFR_SDL_FULLSCREEN">VFR_SDL_FULLSCREEN</a>の組合せ('|'で結合)で指定する。
+<p>
+<dt><a href="vfrDefs.html#Point2">Point2</a>  <a name="getSize">getSize</a>()
+<dd>描画領域のサイズ(<i>pixels</i>)を返す
+<p>
+<dt>void	<a name="drawRubberBox">drawRubberBox</a>(const <a href="vfrDefs.html#Point2">Point2</a> p0, const <a href="vfrDefs.html#Point2">Point2</a> p1)
+<dd>描画領域内にラバーボックスを描く
+<dd> p0		ラバーボックスの始点座標
+<dd> p1		ラバーボックスの終点座標
+<p>
+<dt>const SDL_VideoInfo* <a name="GetSDLVideoInfo">GetSDLVideoInfo</a>()
+<dd>SDLのビデオインフォメーション構造体を返す
+<p>
+<dt>SDL_Surface* <a name="GetSDLSurface">GetSDLSurface</a>()
+<dd>SDLの描画サーフィスを返す
+<p>
+<dt><a href="vfrDefs.html#Bool">Bool</a> <a name="ProcessEvent">ProcessEvent</a>()
+<dd>SDLイベントの処理を行う
+<p>
+<dt>static <a href="vfrEvent.html#VFRkeyCode">VFRkeyCode</a> <a name="convKey_SDLtoVFR">convKey_SDLtoVFR</a>(SDLKey kc)
+<dd> SDLのキーコードを、Vecoeキーコードに変換する(スタティックメソッド)
+<dd> kc   SDLキーコード
+<p>
+<dt>static <a href="vfrDefs.html#Bool">Bool</a> <a name="SetFullScreen">SetFullScreen</a>(<a href="vfrDefs.html#Bool">Bool</a> full)
+<dd>フルスクリーンモードを設定する(スタティックメソッド)
+<dd> full    フルスクリーンモード(TRUE = フルスクリーン)
+<dd> * このメソッドはLinux環境でのみ有効である。
+<p>
+<dt>vfrDrawAreaSDL* <a name="GetInstance">GetInstance</a>()
+<dd>vfrDrawAreaSDLクラスの(唯一の)インスタンスの取得を行う
+<p>
+</dl>
+
+<hr>
+<h3>Description</h3>
+
+vfrDrawAreaSDLクラスは、グラフィックスの描画領域機能をSDLを用いて
+実装したクラスである。
+<p>
+SDL環境ではアプリケーションから
+vfrDrawAreaSDLインスタンスを作成し、ウインドウ／描画領域として使用する。
+
+<p>
+<hr>
+<h3>Instance</h3>
+
+vfrDrawAreaSDLクラスのインスタンスは、一つしか作成することはできない。
+vfrDrawAreaSDLインスタンスの取得は、<a href="#GetInstance">GetInstance()</a>
+メソッドを用いて行う。
+
+
+<hr width="100%" noshade>
+<table width="100%">
+<tr>
+<td align="right"><font size="1">Copyright(c) 2005 RIKEN
+</font></td>
+</tr>
+</table>
+</body>

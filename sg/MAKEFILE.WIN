@@ -1,0 +1,66 @@
+#
+# MAKEFILE for vfr scene graph library
+#
+
+CFLAGS = /I../util /W3 /wo4244 /EHsc /D_WINDOWS /DWINDOWS /O1 /TP /MD \
+ /DCRTAPI1=_cdecl /DCRTAPI2=_cdecl
+
+LDLIBS = glu32.lib opengl32.lib
+
+OBJS =  \
+	vfrAction.obj \
+	vfrArrow.obj \
+	vfrBall.obj \
+	vfrBase.obj \
+	vfrCamera.obj \
+	vfrCamera2D.obj \
+	vfrCamera3D.obj \
+	vfrCone.obj \
+	vfrCube.obj \
+	vfrCylinder.obj \
+	vfrDatamap.obj \
+	vfrDefaultActions.obj \
+	vfrDispatch.obj \
+	vfrDrawArea.obj \
+	vfrEvents.obj \
+	vfrFrustum.obj \
+	vfrGroup.obj \
+	vfrHelveticaText.obj \
+	vfrImage.obj \
+	vfrIndexLines.obj \
+	vfrIndexPolygons.obj \
+	vfrLetters.obj \
+	vfrLight.obj \
+	vfrLineStrip.obj \
+	vfrLineText.obj \
+	vfrLines.obj \
+	vfrMaterial.obj \
+	vfrMesh2D.obj \
+	vfrNode.obj \
+	vfrPrimSet.obj \
+	vfrScene.obj \
+	vfrScreen.obj \
+	vfrTexture.obj \
+	vfrTimesRomanText.obj \
+	vfrTriangles.obj \
+	vfrVectors.obj \
+
+TARGET = vfr.lib
+
+CXX = cl -nologo -c
+AR = lib /NOLOGO
+
+.SUFFIXES: .cpp .obj
+
+.cpp.obj:
+	$(CXX) $(CFLAGS) $<
+
+
+$(TARGET) : $(OBJS)
+	$(AR) -out:$@ $** 
+
+clean : 
+	-@erase *.obj vc*.pdb
+
+distclean : clean
+	-@erase $(TARGET)

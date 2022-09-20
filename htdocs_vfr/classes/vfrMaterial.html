@@ -1,0 +1,329 @@
+<title>class vfrMaterial</title>
+<body bgcolor="ececec">
+<table>
+<tr>
+<td><font size="6" color="000040"><b>vfr</b></font> - <i><font size="4" color="aa6c00">Volflex rendering API</font></i> -</td>
+</tr>
+</table>
+<hr width="100%" noshade>
+
+<h2>class vfrMaterial</h2>
+
+<h3>Class Hierarchy</h3>
+
+<ul>
+<li>vfrMaterial
+</ul>
+
+<hr>
+
+<h3>Header files</h3>
+
+<dl>
+<dt>#include "vfrMaterial.h"
+</dl>
+
+<hr>
+
+<h3><a name="constructor">Constructors / Destructors</a></h3>
+
+<dl>
+<dt>vfrMaterial()
+<dd>vfrMaterialオブジェクトを生成する
+<p>
+<dt>vfrMaterial(const <a href="vfrMaterial.html">vfrMaterial</a> &)
+<dd>コピーコンストラクタ
+<p>
+<dt>virtual ~vfrMaterial()
+<dd>vfrMaterialオブジェクトを破壊する
+</dl>
+
+<hr>
+
+<h3>Public Methods / Variables</h3>
+
+<dl>
+<dt>void    <a name="reset">reset</a>()
+<dd>全ての属性を初期状態に戻す
+<blockquote><a name="default">属性の初期値(デフォルト値)</a>:
+<br><table border="1">
+<tr><td><i>Specular</i></td><td>(0.0f, 0.0f, 0.0f, 1.0f)</td></tr>
+<tr><td><i>Ambient</i></td><td>(0.2f, 0.2f, 0.2f, 1.0f)</td></tr>
+<tr><td><i>Emission</i></td><td>(0.0f, 0.0f, 0.0f, 1.0f)</td></tr>
+<tr><td><i>Shininess</i></td><td> 5.0</td></tr>
+<tr><td><i>Line Stipple</i></td><td><i>ST_SOLID</i></td></tr>
+<tr><td><i>Line Width</i></td><td> 1.0</td></tr>
+<tr><td><i>Point Size</i></td><td> 1.0</td></tr>
+<tr><td><i>Render Mode</i></td><td><i>RT_SMOOTH</i></td></tr>
+<tr><td><i>Face Mode</i></td><td><i>PF_BOTH</i></td></tr>
+<tr><td><i>Aux. Line</i></td><td><i>FALSE</i></td></tr>
+<tr><td><i>Aux. Point</i></td><td><i>FALSE</i></td></tr>
+</table></blockquote>
+<p>
+<dt>void    <a name="equal">operator=</a>(const vfrMaterial& M)
+<dd>代入オペレータ
+<p>
+<dt>void    <a name="apply">apply</a>() const
+<dd>レンダリング処理の中で、マテリアル属性を有効にする
+<p>
+<dt>void    <a name="unApply">unApply</a>() const
+<dd>レンダリング処理の中で、マテリアル属性を無効にする
+<p>
+<dt>void    <a name="setLineStipple">setLineStipple</a>(const <a href="vfrDefs.html#StippleType">StippleType</a> st)
+<dd>線種属性を設定する
+<dd> st	線種属性
+<p>
+<dt><a href="vfrDefs.html#StippleType">StippleType</a> <a name="getLineStipple">getLineStipple</a>() const
+<dd>設定されている線種属性を返す
+<p>
+<dt>void        <a name="setLineWidth">setLineWidth</a>(const float lw)
+<dd>線幅属性を設定する
+<dd> lw	線幅属性(lw &gt 0.1)
+<p>
+<dt>GLfloat     <a name="getLineWidth">getLineWidth</a>() const
+<dd>設定されている線幅属性を返す
+<p>
+<dt>void        <a name="setPointSize">setPointSize</a>(const float ps)
+<dd>ポイントサイズ属性を設定する。
+<dd><a href="#setPointSymbol">ポイントシンボル属性</a>が<i>SYM_NORMAL</i>の時のみ有効である。
+<dd> ps	ポイントサイズ属性(ps &gt 0.1)
+<p>
+<dt>GLfloat     <a name="getPointSize">getPointSize</a>() const
+<dd>設定されているポイントサイズ属性を返す
+<p>
+<dt>void        <a name="setPointSymbol">setPointSymbol</a>(const <a href="vfrDefs.html#SymbolType">SymbolType</a> ps)
+<dd>ポイントシンボル属性を設定する
+<dd> ps	ポイントシンボル属性
+<p>
+<dt><a href="vfrDefs.html#SymbolType">SymbolType</a>     <a name="getPointSize">getPointSize</a>() const
+<dd>設定されているポイントシンボル属性を返す
+<p>
+<dt>void        <a name="setRenderMode">setRenderMode</a>(const <a href="vfrDefs.html#RenderType">RenderType</a> rm)
+<dd>レンダリングモード属性を設定する
+<dd> rm	レンダリングモード
+<p>
+<dt><a href="vfrDefs.html#RenderType">RenderType</a>  <a name="getRenderMode">getRenderMode</a>() const
+<dd>設定されているレンダリングモード属性を返す
+<p>
+<dt>void        <a name="setFaceMode">setFaceMode</a>(const <a href="vfrDefs.html#PolyFaceType">PolyFaceType</a> fm)
+<dd>ポリゴン表示面属性を設定する
+<dd> fm	ポリゴン表示面属性
+<p>
+<dt>GLenum	<a name="getFaceMode">getFaceMode</a>() const
+<dd>ポリゴン表示面属性を返す
+<a name="ReflectionFunc"><p></a>
+<dt>void        <a name="setSpecular">setSpecular</a>(const <a href="vfrDefs.html#vector4">vector4</a> spc)
+<dd>鏡面反射係数を設定する
+<dd> spc	鏡面反射係数(R, G, B, A)
+<p>
+<dt>void        setSpecular(const float r, const float g, const float b, const float a)
+<dd>鏡面反射係数を設定する
+<dd> r		鏡面反射係数(R)
+<dd> g		鏡面反射係数(G)
+<dd> b		鏡面反射係数(B)
+<dd> a		鏡面反射係数(A)
+<p>
+<dt>void	<a name="getSpecular">getSpecular</a>(<a href="vfrDefs.html#vector4">vector4</a> &spc) const
+<dd>鏡面反射係数を取得する
+<dd> spc	鏡面反射係数格納領域
+<p>
+<dt>void        <a name="setAmbient">setAmbient</a>(const <a href="vfrDefs.html#vector4">vector4</a> amb)
+<dd>環境光反射係数を設定する
+<dd> amb	環境光反射係数(R, G, B, A)
+<p>
+<dt>void        setAmbient(const float r, const float g, const float b, const float a)
+<dd>環境光反射係数を設定する
+<dd> r		環境光反射係数(R)
+<dd> g		環境光反射係数(G)
+<dd> b		環境光反射係数(B)
+<dd> a		環境光反射係数(A)
+<p>
+<dt>void        <a name="getAmbient">getAmbient</a>(<a href="vfrDefs.html#vector4">vector4</a> &amb) const
+<dd>環境光反射係数を取得する
+<dd> amb        環境光反射係数格納領域
+<p>
+<dt>void        <a name="setShininess">setShininess</a>(const <a href="vfrDefs.html#vector4">vector4</a> s)
+<dd>鏡面反射指数を設定する
+<dd> s		鏡面反射指数(s[0]のみを参照)
+<p>
+<dt>void        setShininess(const float s)
+<dd>鏡面反射指数を設定する
+<dd> s		鏡面反射指数
+<p>
+<dt>float        <a name="getShininess">getShininess</a>() const
+<dd>鏡面反射指数を返す
+<p>
+<dt>void        <a name="setEmission">setEmission</a>(const <a href="vfrDefs.html#vector4">vector4</a> emi)
+<dd>放射光色を設定する
+<dd> emi	放射光色(R, G, B, A)
+<p>
+<dt>void        setEmission(const float r, const float g, const float b, const float a)
+<dd>放射光色を設定する
+<dd> r		放射光色(R)
+<dd> g		放射光色(G)
+<dd> b		放射光色(B)
+<dd> a		放射光色(A)
+<p>
+<dt>void        <a name="getEmission">getEmission</a>(<a href="vfrDefs.html#vector4">vector4</a> &emi) const
+<dd>放射光色を取得する
+<dd> emi        放射光色格納領域
+<p>
+<dt>void        <a name="setAuxPointColor">setAuxPointColor</a>(const Bool mode, const vector4 apc)
+<dd>ポイント代替色属性を設定する
+<dd> mode	ポイント代替色参照モード(<i>TRUE</i> : <a href="#AuxColor">代替色参照</a>)
+<dd> apc	ポイント代替色(R, G, B, A)
+<p>
+<dt>void        setAuxPointColor(const Bool mode, const float r, const float g, const float b)
+<dd>ポイント代替色属性を設定する
+<dd> mode	ポイント代替色参照モード(<i>TRUE</i> : <a href="#AuxColor">代替色参照</a>)
+<dd> r		ポイント代替色(R)
+<dd> g		ポイント代替色(G)
+<dd> b		ポイント代替色(B)
+<p>
+<dt>Bool        useAuxPointColor(vector4 &apc)
+<dd>ポイント代替色属性を返す(<i>TRUE</i> : <a href="#AuxColor">代替色参照</a>)
+<dd> apc	ポイント代替色(R, G, B, A)格納領域
+ <br> (戻り値が<i>TRUE</i>の時のみ値が格納される)
+<p>
+<dt>void        <a name="setAuxLineColor">setAuxLineColor</a>(const Bool mode, const vector4 apc)
+<dd>ライン代替色属性を設定する
+<dd> mode	ライン代替色参照モード(<i>TRUE</i> : <a href="#AuxColor">代替色参照</a>)
+<dd> apc	ライン代替色(R, G, B, A)
+<p>
+<dt>void        setAuxLineColor(const Bool mode, const float r, const float g, const float b)
+<dd>ライン代替色属性を設定する
+<dd> mode	ライン代替色参照モード(<i>TRUE</i> : <a href="#AuxColor">代替色参照</a>)
+<dd> r		ライン代替色(R)
+<dd> g		ライン代替色(G)
+<dd> b		ライン代替色(B)
+<p>
+<dt>Bool        useAuxLineColor(vector4 &apc)
+<dd>ライン代替色属性を返す(<i>TRUE</i> : <a href="#AuxColor">代替色参照</a>)
+<dd> apc	ライン代替色(R, G, B, A)格納領域
+ <br> (戻り値が<i>TRUE</i>の時のみ値が格納される)
+<p>
+<dt>void        setParent(class <a href="vfrNode.html">vfrNode</a> *po)
+<dd>親オブジェクトを設定する
+<dd> po		親オブジェクトのポインタ
+<p>
+<dt>static <a href="vfrMaterial.html">vfrMaterial</a>   *getCurMaterial()
+<dd>マテリアルスタックのトップ(カレントマテリアル)を返す(スタティックメソッド)
+<p>
+<dt>static Bool         pushMaterialStack(<a href="vfrMaterial.html">vfrMaterial</a> *m)
+<dd>マテリアルスタックにマテリアルをプッシュする(スタティックメソッド)
+<br>プッシュに成功すれば<i>TRUE</i>を、失敗すれば<i>FALSE</i>を返す
+<dd> m		プッシュするマテリアル
+<p>
+<dt>static void         popMaterialStack()
+<dd>マテリアルスタックからカレントマテリアルをポップする(スタティックメソッド)
+</dl>
+
+<hr>
+<h3>Description</h3>
+
+vfrMaterialクラスは、グラフィックスプリミティブ(<a href="vfrNode.html">vfrNode</a>の派生クラス)の
+表面属性を定義するためのクラスである。
+<p>
+vfrMaterialクラスで定義する属性は、以下のものである。
+<ul>
+<li><a href="#setRenderMode">レンダリングモード</a>
+<br><a href="vfrDefs.html#RenderType">RenderType</a>型で
+シェーディング、ワイヤーフレーム、ポイントレンダリング、ノーライティングの
+いずれかを設定する。
+<br>(デフォルト : <i>RT_SMOOTH</i>)
+<br>これらのモードは、<a href="#setRenderMode"</a>setRenderMode()</a>において、
+以下のように重複指定が可能である
+<center><tt>setRenderMode(RT_SMOOTH | RT_WIRE);</tt></center>
+<p>
+<li><a href="#setLineStipple">ラインタイプ</a>
+<br>レンダリングモードが<i>RT_WIRE</i>の場合の線種を
+<a href="vfrDefs.html#StippleType">StippleType</a>型で設定する。
+<br>(デフォルト : <i>ST_SOLID</i>)
+<p>
+<li><a href="#setLineWidth">ライン幅</a>
+<br>レンダリングモードが<i>RT_WIRE</i>の場合のラインの幅を設定する。
+単位は画面上のPixelであり、拡大／縮小などの操作によって影響を受けることはない。
+<br>(デフォルト : <i>1.0</i>)
+<p>
+<li><a href="#setPointSize">ポイントサイズ</a>
+<br>レンダリングモードが<i>RT_POINT</i>の場合の点の大きさを設定する。
+単位は画面上のPixelであり、拡大／縮小などの操作によって影響を受けることはない。
+<br>(デフォルト : <i>1.0</i>)
+<p>
+<li><a href="#setFaceMode">ポリゴン表示面</a>
+<br>レンダリングモードが<i>RT_SMOOTH, RT_FLAT, RT_NOLIGHT</i>のいづれかの場合の
+描画する面の設定を行うもので、間接的に面のカリング(<i>Culling</i>)の設定を行うものである。
+<br>設定は<a href="vfrDefs.html#PolyFaceType">PolyFaceType</a>型で指定し、
+<i>PF_FRONT</i>または<i>PF_BACK</i>の場合のみカリングが実行される。
+<br>(デフォルト : <i>PF_BOTH</i>)
+<p>
+<li><a href="#ReflectionFunc">反射係数</a>
+<br>レンダリングモードが<i>RT_SMOOTH, RT_FLAT</i>の場合に、
+<a href="vfrLight.html">ライティングオブジェクト</a>で設定される光源の
+光学的影響をどれだけ受けるかの属性を設定する。
+<br>設定する項目は、以下の通りである。
+<ul>
+<li><a href="#setSpecular">鏡面反射係数</a>(デフォルト : <i>(0.0, 0.0, 0.0, 1.0)</i>)
+<li><a href="#setAmbient">環境光反射係数</a>(デフォルト : <i>(0.2, 0.2, 0.2, 1.0)</i>)
+<li><a href="#setShininess">鏡面反射指数</a>(デフォルト : <i>5.0</i>)
+<li><a href="#setEmission">放射光色</a>(デフォルト : <i>(0.0, 0.0, 0.0, 1.0)</i>)
+</ul>
+鏡面反射指数を除くいずれも、<i>Red, Green, Blue, Alpha</i>の各成分を
+[0.0〜1.0]の範囲で指定する。
+<br>尚、拡散反射係数には<a href="vfrNode.html#alcColors">オブジェクトの色</a>が用いられる。
+<a name="AuxColor"><p></a>
+<li><a href="#setAuxLineColor">ライン代替色</a>
+<br>ライン代替色は、レンダリングモードが<i>RT_WIRE</i>の場合に
+オブジェクトが持つ色データを無視し、ラインの色として用いる属性であり、
+ライン代替色参照モードが<i>TRUE</i>の時のみ有効になる。
+<br>ライン代替色は、ポリゴン面とワイヤーフレームを合成して表示する時
+(<a href="#setRenderMode">レンダリングモード</a>が"<i>RT_FLAT | RT_WIRE</i>"の場合など)に、
+ラインだけを別の色(不透明度(<i>Alpha</i>)を含む)で描画するために使用する。
+<p>
+<li><a href="#setAuxPointColor">ポイント代替色</a>
+<br>ポイント代替色は、レンダリングモードが<i>RT_POINT</i>の場合に
+オブジェクトが持つ色データを無視し、ポイントの色として用いる属性であり、
+ポイント代替色参照モードが<i>TRUE</i>の時のみ有効になる。
+<br>ポイント代替色は、ポリゴン面とポイント(頂点)を合成して表示する時
+(<a href="#setRenderMode">レンダリングモード</a>が"<i>RT_FLAT | RT_POINT</i>"の場合など)に、
+ポイントだけを別の色(不透明度(<i>Alpha</i>)を含む)で描画するために使用する。
+</ul>
+
+<hr>
+
+<h4><a name="MaterialStack">Material Stack</a></h4>
+
+vfrMaterialクラスのインスタンスは、<a href="vfrNode.html">vfrNode</a>の
+メンバーとして登録され、シーンのレンダリング時にシーンツリーの構成に応じて
+スタックされ、そのトップのマテリアルがカレントマテリアルとして有効になる。
+<p>
+<a href="material_ST.gif"><i>Fig.1</i></a>のシーンツリーにおいては
+Scene, Object1, Branch1のみがマテリアルメンバーを持っている。
+この場合、各オブジェクトをレンダリングする際のマテリアルスタックは
+以下のようになる(右端がカレントマテリアル)。
+<blockquote>
+<dl>
+<dt><i>Object0</i><dd><b>Material0</b>
+<dt><i>Object1</i><dd>Material0 : <b>Material1</b>
+<dt><i>Object2</i><dd>Material0 : <b>Material2</b>
+<dt><i>Object3</i><dd><b>Material0</b>
+</dl>
+</blockquote>
+<a href="material_ST.gif"><i>Fig.1</i></a>において、Material0の<a href="#setRenderMode">レンダリングモード</a>が
+<i>RT_WIRE</i>(ワイヤーフレーム)で、Material1, Material2のレンダリングモードが
+<i>RT_SMOOTH</i>(スムースシェーディング)である場合、
+Object0とObject3はワイヤーフレームで、Object1とObject2はスムースシェーディングで
+レンダリングされる。
+<p>
+各オブジェクトのマテリアルを明示的に設定したい場合は、
+それぞれのオブジェクトに対し、<a href="vfrNode.html#alcMaterial">alcMaterial()</a>メソッドで
+vfrMaterialインスタンスを確保する必要がある。
+
+<hr noshade>
+<table width="100%">
+<tr>
+<td align="right"><font size="1">Copyright(c) 2005 RIKEN
+</font></td>
+</tr>
+</table>
+</body>

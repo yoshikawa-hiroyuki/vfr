@@ -28,9 +28,5 @@
 	<string>VERSION, (c) COPYRIGHT</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright COPYRIGHT</string>
-	<key>LSRequiresCarbon</key>
-        <true/>
-	<key>CSResourcesFileMapped</key>
-	<true/>
 </dict>
 </plist>

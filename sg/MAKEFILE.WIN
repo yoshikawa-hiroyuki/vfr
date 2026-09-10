@@ -2,8 +2,10 @@
 # MAKEFILE for vfr scene graph library
 #
 
-CFLAGS = /I../util /W3 /wo4244 /EHsc /D_WINDOWS /DWINDOWS /O1 /TP /MD \
- /DCRTAPI1=_cdecl /DCRTAPI2=_cdecl
+CFLAGS = /I../util /W3 /wo4244 /EHsc /D_WINDOWS /DWINDOWS /DWIN32 /O2 /TP /MD \
+	 /D_CRT_SECURE_NO_DEPRECATE=1 /D_CRT_NON_CONFORMING_SWPRINTFS=1 \
+	 /D_SCL_SECURE_NO_WARNINGS=1  /D__NO_VC_CRTDBG__ /D__WXMSW__ \
+	 /DNDEBUG /D_UNICODE
 
 LDLIBS = glu32.lib opengl32.lib
 
@@ -49,6 +51,7 @@ TARGET = vfr.lib
 
 CXX = cl -nologo -c
 AR = lib /NOLOGO
+INSTALL = copy
 
 .SUFFIXES: .cpp .obj
 
@@ -58,6 +61,10 @@ AR = lib /NOLOGO
 
 $(TARGET) : $(OBJS)
 	$(AR) -out:$@ $** 
+
+install : $(TARGET)
+	if not exist "..\dist\lib" mkdir "..\dist\lib"
+	$(INSTALL) $(TARGET) ..\dist\lib\
 
 clean : 
 	-@erase *.obj vc*.pdb

@@ -2,9 +2,11 @@
 # MAKEFILE for vfru library
 #
 
-CFLAGS = /D_WINDOWS /DWINDOWS /W3 /GR \
- /O1 /DNDEBUG /FD /EHsc /MD \
- /I../sg /I../util
+CFLAGS = /W3 /wo4244 /EHsc /D_WINDOWS /DWINDOWS /DWIN32 /O2 /TP /MD \
+         /D_CRT_SECURE_NO_DEPRECATE=1 /D_CRT_NON_CONFORMING_SWPRINTFS=1 \
+         /D_SCL_SECURE_NO_WARNINGS=1  /D__NO_VC_CRTDBG__ /D__WXMSW__ \
+         /DNDEBUG /D_UNICODE \
+         /I../sg /I../util
 
 OBJS = vfruStl.obj vfruWfObj.obj
 TARGET = vfru.lib
@@ -12,6 +14,7 @@ TARGET = vfru.lib
 CXX = cl -nologo -c
 AR = lib /NOLOGO
 LINK = link
+INSTALL = copy
 
 .SUFFIXES: .cpp .obj
 
@@ -19,9 +22,12 @@ LINK = link
 	$(CXX) $(CFLAGS) $<
 
 
-vfru.lib : $(OBJS)
+$(TARGET) : $(OBJS)
 	$(AR) -out:$@ $** 
 
+install : $(TARGET)
+	if not exist "..\dist\lib" mkdir "..\dist\lib"
+	$(INSTALL) $(TARGET) ..\dist\lib\
 
 clean : 
 	-@erase *.obj

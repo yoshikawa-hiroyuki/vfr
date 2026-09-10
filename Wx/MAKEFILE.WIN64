@@ -2,11 +2,14 @@
 # MAKEFILE for vfrWx library
 #
 
-WXDIR = c:/wxWidgets-3.0.4
+WXDIR = $(VISIO_WX_TOP)
 
-CFLAGS = /D_WINDOWS /DWINDOWS /W3 /GR /MD \
- /O1 /DNDEBUG /FD /EHsc \
- /I../sg /I../util /I$(WXDIR)/include /I$(WXDIR)/lib/vc_x64_lib/mswu
+CFLAGS = /W3 /wo4244 /EHsc /D_WINDOWS /DWINDOWS /DWIN32 /O2 /TP /MD \
+         /D_CRT_SECURE_NO_DEPRECATE=1 /D_CRT_NON_CONFORMING_SWPRINTFS=1 \
+         /D_SCL_SECURE_NO_WARNINGS=1  /D__NO_VC_CRTDBG__ /D__WXMSW__ \
+         /DNDEBUG /D_UNICODE \
+         /I../sg /I../util \
+         /I$(WXDIR)/include /I$(WXDIR)/lib/vc_x64_lib/mswu
 
 
 OBJS = vfrDrawAreaWx.obj vfrImageReaderWx.obj
@@ -19,6 +22,7 @@ LINK = link
 LDFLAGS = /OPT:REF /NOLOGO /INCREMENTAL:NO \
  /SUBSYSTEM:WINDOWS /MACHINE:X64 \
  /NODEFAULTLIB:LIBC.lib /FORCE:MULTIPLE
+INSTALL = -robocopy
 
 .SUFFIXES: .cpp .obj .rc .res
 
@@ -32,6 +36,10 @@ all : $(TARGET)
 
 vfrWx.lib : $(OBJS)
 	$(AR) -out:$@ $** 
+
+install : $(TARGET)
+	if not exist "..\dist\lib" mkdir "..\dist\lib"
+	$(INSTALL) . ..\dist\lib $(TARGET)
 
 clean : 
 	-@erase *.obj
